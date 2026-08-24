@@ -1,0 +1,25 @@
+[project]
+name = "sensifake"
+version = "0.1.0"
+description = "Content-sensitivity-aware deepfake detection research project"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "datasets",
+    "pillow",
+    "pyarrow==25.0.1",
+    "tqdm",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100

@@ -1,0 +1,41 @@
+version = 1
+provider = "huggingface"
+
+[dataset]
+id = "ComplexDataLab/OpenFake"
+revision = "v1.0"
+split = "train"
+image_field = "image"
+label_field = "label"
+source_id_field = "id"
+metadata_fields = ["prompt", "model"]
+accepted_labels = ["real", "fake"]
+
+[collection]
+target = 1000
+seed = 42
+shuffle = false
+shuffle_buffer = 0
+checkpoint_interval = 10
+max_runtime_minutes = 720
+shutdown_safety_buffer_seconds = 300
+resume = true
+
+[collection.quotas]
+real = 500
+fake = 500
+
+[retry]
+count = 4
+initial_backoff_seconds = 2.0
+maximum_backoff_seconds = 30.0
+
+[kaggle]
+enabled = false
+sync_every = 25
+dataset_id = "k4ru4kai/sensifake-openfake-pilot"
+title = "SensiFake OpenFake Pilot"
+license_name = "other"
+license_description = "Derived from ComplexDataLab/OpenFake; the source dataset license and terms continue to apply."
+private = true
+subprocess_timeout_seconds = 300

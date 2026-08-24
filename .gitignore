@@ -216,3 +216,35 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SensiFake local data and generated collection state
+/data/
+**/manifest.jsonl
+**/errors.jsonl
+**/checkpoint.json
+**/summary.json
+**/dataset-metadata.json
+/outputs/
+/artifacts/
+
+# Local environments and credentials
+.venv/
+.env*
+.kaggle/
+**/kaggle.json
+*.token
+*.tokens
+.token
+.tokens
+credentials*.json
+token*.json
+*.stdout
+*.stderr
+
+# Hugging Face and tool caches
+.huggingface/
+**/.cache/huggingface/
+
+# Local agent state
+/.agents/
+/.codex/
