@@ -73,8 +73,11 @@ class OneRecordSource:
 
 
 def test_huggingface_source_close_releases_owned_resources() -> None:
-    config = stream_collect.load_config(Path("configs/openfake.toml"))
-    source = stream_collect.HuggingFaceStreamingSource(config.dataset, config.collection)
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
+    adapter = stream_collect.create_adapter(config.adapter_name, config.adapter_options)
+    source = stream_collect.HuggingFaceStreamingSource(
+        config.dataset, config.collection, adapter
+    )
     iterator = ClosableIterator(source)
     source.iterator = iterator
     source.dataset = object()
@@ -91,8 +94,11 @@ def test_huggingface_source_close_releases_owned_resources() -> None:
 
 
 def test_huggingface_source_requests_single_record_batches(monkeypatch: Any) -> None:
-    config = stream_collect.load_config(Path("configs/openfake.toml"))
-    source = stream_collect.HuggingFaceStreamingSource(config.dataset, config.collection)
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
+    adapter = stream_collect.create_adapter(config.adapter_name, config.adapter_options)
+    source = stream_collect.HuggingFaceStreamingSource(
+        config.dataset, config.collection, adapter
+    )
     calls: list[dict[str, Any]] = []
 
     def load_dataset(dataset_id: str, **kwargs: Any) -> EmptyDataset:
@@ -113,10 +119,10 @@ def test_huggingface_source_requests_single_record_batches(monkeypatch: Any) -> 
 
 
 def test_target_reached_closes_streaming_source(monkeypatch: Any, tmp_path: Path) -> None:
-    config = stream_collect.load_config(Path("configs/openfake.toml"))
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
     config = replace(config, collection=replace(config.collection, target=1))
     source = OneRecordSource()
-    monkeypatch.setattr(stream_collect, "create_source", lambda _: source)
+    monkeypatch.setattr(stream_collect, "create_source", lambda *_: source)
 
     exit_reason, counters = stream_collect.collect(
         config,

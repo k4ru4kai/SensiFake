@@ -1,0 +1,7 @@
+table,category,count
+sensitivity,high,3
+sensitivity,low,18
+sensitivity,medium,9
+confidence,high,18
+confidence,low,4
+confidence,medium,8

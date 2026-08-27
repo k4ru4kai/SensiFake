@@ -22,14 +22,15 @@ class RecordingDataset:
 
 def make_source(*, shuffle: bool, shuffle_buffer: int, seed: int = 42) -> Any:
     """Build a source without opening or importing a live dataset."""
-    config = stream_collect.load_config(Path("configs/openfake.toml"))
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
+    adapter = stream_collect.create_adapter(config.adapter_name, config.adapter_options)
     collection = replace(
         config.collection,
         shuffle=shuffle,
         shuffle_buffer=shuffle_buffer,
         seed=seed,
     )
-    return stream_collect.HuggingFaceStreamingSource(config.dataset, collection)
+    return stream_collect.HuggingFaceStreamingSource(config.dataset, collection, adapter)
 
 
 def test_zero_shuffle_buffer_bypasses_dataset_shuffle() -> None:
@@ -55,7 +56,7 @@ def test_positive_shuffle_buffer_uses_configured_size_and_seed() -> None:
 
 
 def test_negative_shuffle_buffer_is_rejected() -> None:
-    config = stream_collect.load_config(Path("configs/openfake.toml"))
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
     invalid = replace(
         config,
         collection=replace(config.collection, shuffle_buffer=-1),
@@ -66,7 +67,7 @@ def test_negative_shuffle_buffer_is_rejected() -> None:
 
 
 def test_definitive_config_is_balanced_and_does_not_shuffle_source() -> None:
-    config = stream_collect.load_config(Path("configs/openfake_600.toml"))
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
 
     assert config.collection.target == 600
     assert config.collection.quotas == {"real": 300, "fake": 300}

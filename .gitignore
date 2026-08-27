@@ -218,7 +218,17 @@ __marimo__/
 .streamlit/secrets.toml
 
 # SensiFake local data and generated collection state
-/data/
+/annotations/*
+!/annotations/sid-set/
+/annotations/sid-set/*
+!/annotations/sid-set/README.md
+/data/*
+!/data/README.md
+!/data/datasets/
+/data/datasets/*
+!/data/datasets/sid-set/
+/data/datasets/sid-set/*
+!/data/datasets/sid-set/README.md
 **/manifest.jsonl
 **/errors.jsonl
 **/checkpoint.json

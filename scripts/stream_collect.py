@@ -25,6 +25,21 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
 
+try:
+    from .source_adapters import (
+        AdapterConfigurationError,
+        MissingSourceFieldError,
+        SourceAdapter,
+        create_adapter,
+    )
+except ImportError:  # Direct execution: python scripts/stream_collect.py
+    from source_adapters import (  # type: ignore[no-redef]
+        AdapterConfigurationError,
+        MissingSourceFieldError,
+        SourceAdapter,
+        create_adapter,
+    )
+
 LOGGER = logging.getLogger("sensifake.collect")
 CHECKPOINT_VERSION = 1
 MANIFEST_NAME = "manifest.jsonl"
@@ -101,6 +116,10 @@ class SourceUnavailable(RuntimeError):
     """Raised after the bounded source retry budget is exhausted."""
 
 
+class RemoteVerificationError(RuntimeError):
+    """Raised when a Kaggle publication cannot be proved correct and private."""
+
+
 # 2. Configuration models and parsing
 
 
@@ -109,10 +128,8 @@ class DatasetConfig:
     dataset_id: str
     revision: str
     split: str
-    image_field: str
-    label_field: str
-    source_id_field: str | None
-    metadata_fields: tuple[str, ...]
+    config_name: str | None
+    streaming: bool
     accepted_labels: tuple[str, ...]
 
 
@@ -151,6 +168,8 @@ class KaggleConfig:
 @dataclass(frozen=True)
 class AppConfig:
     provider: str
+    adapter_name: str
+    adapter_options: dict[str, Any]
     dataset: DatasetConfig
     collection: CollectionConfig
     retry: RetryConfig
@@ -160,13 +179,13 @@ class AppConfig:
         """Hash fields that determine source identity and iteration order."""
         critical = {
             "provider": self.provider,
+            "adapter": self.adapter_name,
+            "adapter_options": self.adapter_options,
             "dataset_id": self.dataset.dataset_id,
             "revision": self.dataset.revision,
             "split": self.dataset.split,
-            "image_field": self.dataset.image_field,
-            "label_field": self.dataset.label_field,
-            "source_id_field": self.dataset.source_id_field,
-            "metadata_fields": self.dataset.metadata_fields,
+            "config_name": self.dataset.config_name,
+            "streaming": self.dataset.streaming,
             "accepted_labels": self.dataset.accepted_labels,
             "seed": self.collection.seed,
             "shuffle": self.collection.shuffle,
@@ -234,12 +253,12 @@ def load_config(path: Path) -> AppConfig:
     if raw.get("version") != 1:
         raise ConfigurationError("configuration version must be 1")
     dataset_raw = _table(raw, "dataset")
+    adapter_raw = _table(raw, "adapter")
     collection_raw = _table(raw, "collection")
     quotas_raw = _table(collection_raw, "quotas")
     retry_raw = _table(raw, "retry")
     kaggle_raw = _table(raw, "kaggle")
 
-    source_id = _text(dataset_raw, "source_id_field", allow_empty=True) or None
     accepted = tuple(label.casefold() for label in _string_tuple(dataset_raw, "accepted_labels"))
     if len(set(accepted)) != len(accepted):
         raise ConfigurationError("accepted_labels must be unique ignoring case")
@@ -251,16 +270,22 @@ def load_config(path: Path) -> AppConfig:
             raise ConfigurationError("every label quota must be a non-negative integer")
         quotas[normalized] = value
 
+    adapter_name = _text(adapter_raw, "name").casefold()
+    adapter_options = {
+        str(key): _json_compatible(value)
+        for key, value in adapter_raw.items()
+        if key != "name"
+    }
     config = AppConfig(
         provider=_text(raw, "provider").casefold(),
+        adapter_name=adapter_name,
+        adapter_options=adapter_options,
         dataset=DatasetConfig(
             dataset_id=_text(dataset_raw, "id"),
             revision=_text(dataset_raw, "revision"),
             split=_text(dataset_raw, "split"),
-            image_field=_text(dataset_raw, "image_field"),
-            label_field=_text(dataset_raw, "label_field"),
-            source_id_field=source_id,
-            metadata_fields=_string_tuple(dataset_raw, "metadata_fields"),
+            config_name=_text(dataset_raw, "config", allow_empty=True) or None,
+            streaming=_boolean(dataset_raw, "streaming"),
             accepted_labels=accepted,
         ),
         collection=CollectionConfig(
@@ -302,11 +327,15 @@ def validate_config(config: AppConfig) -> None:
     """Validate relationships between otherwise well-typed settings."""
     if config.provider != "huggingface":
         raise ConfigurationError(f"unsupported provider: {config.provider}")
+    if not config.dataset.streaming:
+        raise ConfigurationError("the shared collector requires dataset.streaming = true")
+    try:
+        create_adapter(config.adapter_name, config.adapter_options)
+    except AdapterConfigurationError as exc:
+        raise ConfigurationError(str(exc)) from exc
     if config.collection.shuffle_buffer < 0:
         raise ConfigurationError("shuffle_buffer must be >= 0")
     accepted = set(config.dataset.accepted_labels)
-    if set(config.dataset.metadata_fields) & MANIFEST_RESERVED_FIELDS:
-        raise ConfigurationError("metadata fields collide with reserved manifest fields")
     if set(config.collection.quotas) != accepted:
         raise ConfigurationError("quotas must contain exactly the accepted labels")
     if sum(config.collection.quotas.values()) < config.collection.target:
@@ -421,11 +450,7 @@ def _contains_sensitive_state(value: Any, key_hint: str = "") -> bool:
             f"{marker}=" in lowered for marker in SECRET_MARKERS
         ):
             return True
-        if (
-            value.startswith("~/")
-            or os.path.isabs(value)
-            or WINDOWS_ABSOLUTE_PATTERN.match(value)
-        ):
+        if value.startswith("~/") or os.path.isabs(value) or WINDOWS_ABSOLUTE_PATTERN.match(value):
             return True
     return False
 
@@ -451,9 +476,7 @@ def safe_scalar(value: Any, *, maximum_length: int = 16_384) -> Any:
         return value
     text = str(value)
     lowered = text.casefold()
-    if HF_TOKEN_PATTERN.search(text) or any(
-        f"{marker}=" in lowered for marker in SECRET_MARKERS
-    ):
+    if HF_TOKEN_PATTERN.search(text) or any(f"{marker}=" in lowered for marker in SECRET_MARKERS):
         return "[redacted-secret]"
     if text.startswith("~/") or os.path.isabs(text) or WINDOWS_ABSOLUTE_PATTERN.match(text):
         return "[redacted-local-path]"
@@ -492,9 +515,15 @@ class StreamingSource(Protocol):
 class HuggingFaceStreamingSource:
     """Hugging Face Datasets streaming provider."""
 
-    def __init__(self, dataset: DatasetConfig, collection: CollectionConfig) -> None:
+    def __init__(
+        self,
+        dataset: DatasetConfig,
+        collection: CollectionConfig,
+        adapter: SourceAdapter,
+    ) -> None:
         self.dataset_config = dataset
         self.collection_config = collection
+        self.adapter = adapter
         self.dataset: Any = None
         self.iterator: Iterator[Mapping[str, Any]] | None = None
         self.label_feature: Any = None
@@ -517,23 +546,26 @@ class HuggingFaceStreamingSource:
         from datasets import load_dataset
         from pyarrow.dataset import ParquetFragmentScanOptions
 
+        load_kwargs: dict[str, Any] = {
+            "revision": self.dataset_config.revision,
+            "split": self.dataset_config.split,
+            "streaming": self.dataset_config.streaming,
+            "batch_size": HF_STREAMING_BATCH_SIZE,
+            "fragment_scan_options": ParquetFragmentScanOptions(pre_buffer=False),
+        }
+        if self.dataset_config.config_name is not None:
+            load_kwargs["name"] = self.dataset_config.config_name
         dataset = load_dataset(
             self.dataset_config.dataset_id,
-            revision=self.dataset_config.revision,
-            split=self.dataset_config.split,
-            streaming=True,
+            **load_kwargs,
             # Datasets otherwise uses the whole first parquet row group. A
             # one-record batch prevents an early stop from leaving Arrow I/O
             # callbacks active against the generator's Python-backed file.
-            batch_size=HF_STREAMING_BATCH_SIZE,
-            fragment_scan_options=ParquetFragmentScanOptions(pre_buffer=False),
         )
 
         features = getattr(dataset, "features", None)
         image_feature = (
-            features.get(self.dataset_config.image_field)
-            if isinstance(features, Mapping)
-            else None
+            features.get(self.adapter.image_field) if isinstance(features, Mapping) else None
         )
         if isinstance(image_feature, DatasetImage):
             cast_column = getattr(dataset, "cast_column", None)
@@ -543,7 +575,7 @@ class HuggingFaceStreamingSource:
                 )
             try:
                 dataset = cast_column(
-                    self.dataset_config.image_field,
+                    self.adapter.image_field,
                     DatasetImage(decode=False),
                 )
             except Exception as exc:
@@ -552,13 +584,14 @@ class HuggingFaceStreamingSource:
                 ) from exc
             cast_features = getattr(dataset, "features", None)
             cast_feature = (
-                cast_features.get(self.dataset_config.image_field)
+                cast_features.get(self.adapter.image_field)
                 if isinstance(cast_features, Mapping)
                 else None
             )
-            if not isinstance(cast_feature, DatasetImage) or getattr(
-                cast_feature, "decode", None
-            ) is not False:
+            if (
+                not isinstance(cast_feature, DatasetImage)
+                or getattr(cast_feature, "decode", None) is not False
+            ):
                 raise SourceConfigurationError(
                     "Hugging Face image decoding disablement could not be verified"
                 )
@@ -574,9 +607,7 @@ class HuggingFaceStreamingSource:
 
         features = getattr(dataset, "features", None)
         self.label_feature = (
-            features.get(self.dataset_config.label_field)
-            if isinstance(features, Mapping)
-            else None
+            features.get(self.adapter.label_field) if isinstance(features, Mapping) else None
         )
         self.dataset = dataset
         self.iterator = iter(dataset)
@@ -615,7 +646,7 @@ class HuggingFaceStreamingSource:
         if not self.requires_original_encoded_bytes:
             return record
 
-        image_value = record.get(self.dataset_config.image_field)
+        image_value = record.get(self.adapter.image_field)
         if not isinstance(image_value, Mapping):
             return record
         encoded = image_value.get("bytes")
@@ -641,7 +672,7 @@ class HuggingFaceStreamingSource:
         normalized_image["bytes"] = bytes(content)
         normalized_image["_sensifake_byte_source"] = "provider_managed_path"
         normalized_record = dict(record)
-        normalized_record[self.dataset_config.image_field] = normalized_image
+        normalized_record[self.adapter.image_field] = normalized_image
         return normalized_record
 
     def state_dict(self) -> dict[str, Any] | None:
@@ -682,10 +713,10 @@ class HuggingFaceStreamingSource:
         return next(iter(candidates)) if len(candidates) == 1 else None
 
 
-def create_source(config: AppConfig) -> StreamingSource:
+def create_source(config: AppConfig, adapter: SourceAdapter) -> StreamingSource:
     """Create a provider implementation without coupling it to persistence."""
     if config.provider == "huggingface":
-        return HuggingFaceStreamingSource(config.dataset, config.collection)
+        return HuggingFaceStreamingSource(config.dataset, config.collection, adapter)
     raise ConfigurationError(f"unsupported provider: {config.provider}")
 
 
@@ -693,7 +724,7 @@ def open_source_with_retries(
     source: StreamingSource,
     state: Mapping[str, Any] | None,
     retry: RetryConfig,
-    errors: "ManifestStore",
+    errors: ManifestStore,
     deadline: float,
 ) -> None:
     """Open or recreate a source using bounded exponential backoff."""
@@ -901,7 +932,7 @@ class Counters:
         }
 
     @classmethod
-    def from_dict(cls, raw: Any) -> "Counters":
+    def from_dict(cls, raw: Any) -> Counters:
         if not isinstance(raw, Mapping):
             return cls()
 
@@ -947,7 +978,7 @@ class KaggleState:
         }
 
     @classmethod
-    def from_dict(cls, raw: Any) -> "KaggleState":
+    def from_dict(cls, raw: Any) -> KaggleState:
         if not isinstance(raw, Mapping):
             return cls()
         syncs = raw.get("successful_syncs", 0)
@@ -1052,14 +1083,17 @@ class ManifestStore:
             return
         temporary: Path | None = None
         try:
-            with self.path.open("r", encoding="utf-8") as source, tempfile.NamedTemporaryFile(
-                mode="w",
-                encoding="utf-8",
-                dir=self.path.parent,
-                prefix=f".{self.path.name}.",
-                suffix=".tmp",
-                delete=False,
-            ) as destination:
+            with (
+                self.path.open("r", encoding="utf-8") as source,
+                tempfile.NamedTemporaryFile(
+                    mode="w",
+                    encoding="utf-8",
+                    dir=self.path.parent,
+                    prefix=f".{self.path.name}.",
+                    suffix=".tmp",
+                    delete=False,
+                ) as destination,
+            ):
                 temporary = Path(destination.name)
                 for line in source:
                     if not line.strip():
@@ -1192,15 +1226,7 @@ def reconcile_counters(counters: Counters, manifest: ManifestStore) -> None:
     counters.synchronized = len(manifest.synchronized_hashes)
 
 
-def normalized_label(value: Any, accepted: tuple[str, ...]) -> str | None:
-    candidate = str(value).strip().casefold()
-    return candidate if candidate in accepted else None
-
-
-def source_sample_id(record: Mapping[str, Any], field_name: str | None) -> str | None:
-    if field_name is None:
-        return None
-    value = record.get(field_name)
+def source_sample_id(value: Any | None) -> str | None:
     if value is None:
         return None
     candidate = str(safe_scalar(value, maximum_length=1_024)).strip()
@@ -1211,7 +1237,7 @@ def source_sample_id(record: Mapping[str, Any], field_name: str | None) -> str |
 
 
 class KagglePublisher:
-    """Publish complete snapshots through the Kaggle CLI only when requested."""
+    """Publish and verify complete snapshots through the Kaggle CLI."""
 
     def __init__(
         self,
@@ -1222,7 +1248,10 @@ class KagglePublisher:
     ) -> None:
         self.output = output
         self.config = config
-        self.retry = retry
+        # Source reads use the configured retry policy, but remote publication is
+        # intentionally one-shot. Retrying an ambiguous create/version operation
+        # could publish more than once.
+        del retry
         self.errors = errors
 
     def _write_metadata(self) -> None:
@@ -1260,39 +1289,169 @@ class KagglePublisher:
             "zip",
         ]
 
-    def synchronize(self, state: KaggleState, deadline: float) -> bool:
-        """Return only after one successful command or bounded failures."""
-        self._write_metadata()
-        for attempt in range(self.retry.count + 1):
-            remaining = deadline - time.monotonic()
-            if remaining <= 1:
-                state.last_error = "insufficient runtime for Kaggle synchronization"
-                return False
-            timeout = max(1.0, min(self.config.subprocess_timeout_seconds, remaining))
-            try:
-                result = subprocess.run(
-                    self._command(state),
-                    check=False,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    timeout=timeout,
+    def _expected_remote_resources(self) -> set[str]:
+        """Return the exact resource names produced by the fixed zip dir mode."""
+        resources: set[str] = set()
+        for entry in self.output.iterdir():
+            if entry.name == KAGGLE_METADATA_NAME:
+                continue
+            resources.add(f"{entry.name}.zip" if entry.is_dir() else entry.name)
+        return resources
+
+    def _run_verification_command(
+        self,
+        command: list[str],
+        deadline: float,
+    ) -> subprocess.CompletedProcess[str]:
+        remaining = deadline - time.monotonic()
+        if remaining <= 1:
+            raise RemoteVerificationError("verification deadline exhausted")
+        timeout = max(1.0, min(self.config.subprocess_timeout_seconds, remaining))
+        try:
+            result = subprocess.run(
+                command,
+                check=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                text=True,
+                timeout=timeout,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise RemoteVerificationError("verification command timed out") from exc
+        except OSError as exc:
+            raise RemoteVerificationError("verification command could not execute") from exc
+        if result.returncode != 0:
+            raise RemoteVerificationError("verification command failed")
+        return result
+
+    @staticmethod
+    def _json_object(raw: str, description: str) -> Mapping[str, Any]:
+        try:
+            value = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise RemoteVerificationError(f"{description} was not valid JSON") from exc
+        if not isinstance(value, Mapping):
+            raise RemoteVerificationError(f"{description} was not a JSON object")
+        return value
+
+    @staticmethod
+    def _resource_names(raw: Any, description: str) -> set[str]:
+        if not isinstance(raw, list):
+            raise RemoteVerificationError(f"{description} was not a JSON array")
+        names: list[str] = []
+        for item in raw:
+            if not isinstance(item, Mapping) or not isinstance(item.get("name"), str):
+                raise RemoteVerificationError(f"{description} contained an invalid resource")
+            names.append(item["name"])
+        if len(names) != len(set(names)):
+            raise RemoteVerificationError(f"{description} contained duplicate resources")
+        return set(names)
+
+    def verify_remote(self, deadline: float) -> None:
+        """Fail closed unless identity, privacy, readiness, and files all agree."""
+        owner, slug = self.config.dataset_id.split("/", maxsplit=1)
+        expected_resources = self._expected_remote_resources()
+        if not expected_resources:
+            raise RemoteVerificationError("local publication has no resources")
+
+        try:
+            with tempfile.TemporaryDirectory(prefix="sensifake-kaggle-metadata-") as directory:
+                metadata_directory = Path(directory)
+                self._run_verification_command(
+                    [
+                        "kaggle",
+                        "datasets",
+                        "metadata",
+                        self.config.dataset_id,
+                        "--path",
+                        str(metadata_directory),
+                    ],
+                    deadline,
                 )
-                succeeded = result.returncode == 0
-                error_type = f"exit_{result.returncode}"
-            except subprocess.TimeoutExpired:
-                succeeded = False
-                error_type = "timeout"
-            except OSError:
-                succeeded = False
-                error_type = "execution_error"
+                metadata_path = metadata_directory / KAGGLE_METADATA_NAME
+                try:
+                    with metadata_path.open("r", encoding="utf-8") as handle:
+                        metadata = json.load(handle)
+                except (OSError, json.JSONDecodeError) as exc:
+                    raise RemoteVerificationError("remote metadata could not be read") from exc
+        except OSError as exc:
+            raise RemoteVerificationError("temporary metadata directory could not be used") from exc
 
-            if succeeded:
-                state.created = True
-                state.successful_syncs += 1
-                state.last_successful_sync = utc_now()
-                state.last_error = None
-                return True
+        if not isinstance(metadata, Mapping):
+            raise RemoteVerificationError("remote metadata was not a JSON object")
+        if metadata.get("ownerUser") != owner or metadata.get("datasetSlug") != slug:
+            raise RemoteVerificationError("remote dataset identity did not match")
+        if metadata.get("isPrivate") is not True:
+            raise RemoteVerificationError("remote dataset was not private")
+        metadata_resources = self._resource_names(metadata.get("data"), "remote metadata")
+        if metadata_resources != expected_resources:
+            raise RemoteVerificationError("remote metadata resources did not match")
 
+        files_result = self._run_verification_command(
+            [
+                "kaggle",
+                "datasets",
+                "files",
+                self.config.dataset_id,
+                "--format",
+                "json",
+                "--page-size",
+                "200",
+            ],
+            deadline,
+        )
+        try:
+            files = json.loads(files_result.stdout)
+        except json.JSONDecodeError as exc:
+            raise RemoteVerificationError("remote file listing was not valid JSON") from exc
+        listed_resources = self._resource_names(files, "remote file listing")
+        if listed_resources != expected_resources:
+            raise RemoteVerificationError("remote file listing did not match")
+
+        status_result = self._run_verification_command(
+            [
+                "kaggle",
+                "datasets",
+                "status",
+                self.config.dataset_id,
+                "--format",
+                "json",
+            ],
+            deadline,
+        )
+        status = self._json_object(status_result.stdout, "remote status")
+        version = status.get("current_version_number")
+        if status.get("status") != "ready":
+            raise RemoteVerificationError("remote dataset version was not ready")
+        if isinstance(version, bool) or not isinstance(version, int) or version < 1:
+            raise RemoteVerificationError("remote dataset version was invalid")
+
+    def synchronize(self, state: KaggleState, deadline: float) -> bool:
+        """Return true only after one upload and fail-closed remote verification."""
+        self._write_metadata()
+        remaining = deadline - time.monotonic()
+        if remaining <= 1:
+            state.last_error = "insufficient runtime for Kaggle synchronization"
+            return False
+        timeout = max(1.0, min(self.config.subprocess_timeout_seconds, remaining))
+        try:
+            result = subprocess.run(
+                self._command(state),
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=timeout,
+            )
+            succeeded = result.returncode == 0
+            error_type = f"exit_{result.returncode}"
+        except subprocess.TimeoutExpired:
+            succeeded = False
+            error_type = "timeout"
+        except OSError:
+            succeeded = False
+            error_type = "execution_error"
+
+        if not succeeded:
             state.last_error = f"Kaggle synchronization failed ({error_type})"
             self.errors.append_error(
                 category="kaggle_sync",
@@ -1300,16 +1459,26 @@ class KagglePublisher:
                 stream_position=None,
                 message="Kaggle CLI synchronization failed; command output was not retained",
             )
-            if attempt >= self.retry.count:
-                return False
-            delay = min(
-                self.retry.initial_backoff_seconds * (2**attempt),
-                self.retry.maximum_backoff_seconds,
+            return False
+
+        try:
+            self.verify_remote(deadline)
+        except RemoteVerificationError as exc:
+            error_type = type(exc).__name__
+            state.last_error = "Kaggle remote verification failed"
+            self.errors.append_error(
+                category="kaggle_remote_verification",
+                error_type=error_type,
+                stream_position=None,
+                message=str(exc),
             )
-            LOGGER.warning("Kaggle synchronization failed; retrying in %.1f seconds", delay)
-            if not sleep_with_deadline(delay, deadline):
-                return False
-        return False
+            return False
+
+        state.created = True
+        state.successful_syncs += 1
+        state.last_successful_sync = utc_now()
+        state.last_error = None
+        return True
 
 
 # 8. Collection loop
@@ -1364,7 +1533,7 @@ def _collection_complete(config: AppConfig, counters: Counters) -> str | None:
 def _source_state(source: StreamingSource) -> dict[str, Any] | None:
     try:
         return safe_source_state(source.state_dict())
-    except Exception:
+    except Exception:  # noqa: BLE001 -- provider state hooks are third-party boundaries
         LOGGER.warning("Provider checkpoint state could not be captured")
         return None
 
@@ -1374,49 +1543,48 @@ def _process_record(
     record: Mapping[str, Any],
     stream_position: int,
     source: StreamingSource,
+    adapter: SourceAdapter,
     config: AppConfig,
     output: Path,
     manifest: ManifestStore,
     counters: Counters,
 ) -> None:
     dataset = config.dataset
-    if record.get(dataset.image_field) is None:
+    try:
+        example = adapter.normalize(record, decode_label=source.decode_label)
+    except MissingSourceFieldError as exc:
         counters.skipped += 1
         manifest.append_error(
-            category="missing_image",
+            category=(
+                "missing_image" if exc.field_name == adapter.image_field else "missing_label"
+            ),
             error_type="MissingField",
             stream_position=stream_position,
-            message="required image field is absent",
-        )
-        return
-    if record.get(dataset.label_field) is None:
-        counters.skipped += 1
-        manifest.append_error(
-            category="missing_label",
-            error_type="MissingField",
-            stream_position=stream_position,
-            message="required label field is absent",
+            message=f"required {exc.field_name} field is absent",
         )
         return
 
-    original_label = safe_scalar(record[dataset.label_field], maximum_length=1_024)
-    decoded_label = source.decode_label(record[dataset.label_field])
-    label = normalized_label(decoded_label, dataset.accepted_labels)
+    original_label = safe_scalar(example.original_label, maximum_length=1_024)
+    label = example.normalized_label
     if label is None:
         counters.skipped += 1
         return
+    if label not in dataset.accepted_labels:
+        raise SourceConfigurationError(
+            f"adapter {adapter.name} produced an unsupported canonical label: {label}"
+        )
     if counters.accepted_by_label[label] >= config.collection.quotas[label]:
         counters.skipped += 1
         return
 
-    sample_id = source_sample_id(record, dataset.source_id_field)
+    sample_id = source_sample_id(example.source_id)
     if sample_id is not None and sample_id in manifest.known_sample_ids:
         counters.duplicates += 1
         return
 
     try:
         image = validate_image(
-            record[dataset.image_field],
+            example.image,
             allow_reencoding=not source.requires_original_encoded_bytes,
         )
     except ImageValidationError as exc:
@@ -1435,9 +1603,10 @@ def _process_record(
         return
 
     relative_path = persist_image(output, label, image)
+    if set(example.metadata) & MANIFEST_RESERVED_FIELDS:
+        raise SourceConfigurationError("adapter metadata fields collide with manifest fields")
     metadata = {
-        field_name: safe_scalar(record.get(field_name))
-        for field_name in dataset.metadata_fields
+        field_name: safe_scalar(value) for field_name, value in example.metadata.items()
     }
     manifest_record: dict[str, Any] = {
         "sample_id": sample_id,
@@ -1502,7 +1671,11 @@ def collect(
     if checkpoint_state is not None and not isinstance(checkpoint_state, Mapping):
         raise ResumeError("checkpoint source state is invalid")
 
-    source = create_source(config)
+    try:
+        adapter = create_adapter(config.adapter_name, config.adapter_options)
+    except AdapterConfigurationError as exc:
+        raise ConfigurationError(str(exc)) from exc
+    source = create_source(config, adapter)
     try:
         open_source_with_retries(source, checkpoint_state, config.retry, manifest, deadline)
     except (SourceUnavailable, SourceConfigurationError) as exc:
@@ -1586,9 +1759,8 @@ def collect(
         complete_reason = _collection_complete(config, counters)
         if complete_reason:
             exit_reason = complete_reason
-        elif publish_kaggle and resume and manifest.unsynchronized_hashes:
-            if not synchronize():
-                exit_reason = "kaggle_sync_failed"
+        elif publish_kaggle and resume and manifest.unsynchronized_hashes and not synchronize():
+            exit_reason = "kaggle_sync_failed"
 
         source_failures = 0
         while exit_reason == "running":
@@ -1625,7 +1797,7 @@ def collect(
                 )
                 LOGGER.error("Collection stopped: %s", exit_reason)
                 break
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 -- source implementations are third-party
                 counters.errors += 1
                 manifest.append_error(
                     category="source_read",
@@ -1676,6 +1848,7 @@ def collect(
                     record=record,
                     stream_position=counters.scanned,
                     source=source,
+                    adapter=adapter,
                     config=config,
                     output=output,
                     manifest=manifest,
@@ -1693,9 +1866,7 @@ def collect(
                 LOGGER.error("Collection stopped: %s", exit_reason)
                 break
             progress.n = min(counters.accepted, config.collection.target)
-            progress.set_postfix(
-                _postfix(counters, config.dataset.accepted_labels), refresh=True
-            )
+            progress.set_postfix(_postfix(counters, config.dataset.accepted_labels), refresh=True)
 
             # Advance the resumable cursor only after all durable record effects finish.
             captured_state = _source_state(source)
@@ -1718,13 +1889,11 @@ def collect(
                 publish_kaggle
                 and manifest.unsynchronized_hashes
                 and exit_reason != "kaggle_sync_failed"
+                and not synchronize()
             ):
-                if not synchronize():
-                    exit_reason = "kaggle_sync_failed"
+                exit_reason = "kaggle_sync_failed"
             save_runtime(exit_reason)
-            progress.set_postfix(
-                _postfix(counters, config.dataset.accepted_labels), refresh=True
-            )
+            progress.set_postfix(_postfix(counters, config.dataset.accepted_labels), refresh=True)
         finally:
             try:
                 progress.close()
@@ -1744,7 +1913,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--config",
         type=Path,
-        default=Path("configs/openfake.toml"),
+        default=Path("configs/sources/openfake.toml"),
         help="TOML configuration path",
     )
     parser.add_argument(

@@ -1,21 +1,19 @@
 version = 1
 provider = "huggingface"
 
+[adapter]
+name = "openfake"
+
 [dataset]
 id = "ComplexDataLab/OpenFake"
 revision = "v1.0"
 split = "train"
-image_field = "image"
-label_field = "label"
-source_id_field = "id"
-metadata_fields = ["prompt", "model"]
+config = ""
+streaming = true
 accepted_labels = ["real", "fake"]
 
-# The Hugging Face provider enforces batch_size=1 and pre_buffer=false.
-# Selection strategy: sequential streaming selection with explicit per-label quotas.
-# Seed 42 is reserved for later deterministic splitting; source shuffling is disabled.
 [collection]
-target = 600
+target = 1000
 seed = 42
 shuffle = false
 shuffle_buffer = 0
@@ -25,8 +23,8 @@ shutdown_safety_buffer_seconds = 300
 resume = true
 
 [collection.quotas]
-real = 300
-fake = 300
+real = 500
+fake = 500
 
 [retry]
 count = 4
@@ -36,7 +34,7 @@ maximum_backoff_seconds = 30.0
 [kaggle]
 enabled = false
 sync_every = 25
-dataset_id = "k4ru4kai/sensifake-openfake-pilot"
+dataset_id = "saracristinabasco/sensifake-openfake-pilot"
 title = "SensiFake OpenFake Pilot"
 license_name = "other"
 license_description = "Derived from ComplexDataLab/OpenFake; the source dataset license and terms continue to apply."
