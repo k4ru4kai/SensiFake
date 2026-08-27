@@ -13,18 +13,18 @@ name = "sid_set"
 id = "saberzl/SID_Set"
 revision = "main"
 split = "train"
-# No named dataset configuration is currently assumed.
-config = ""
+config = "default"
 streaming = true
 accepted_labels = ["real", "fake"]
 
-# Future offline smoke-test scale only. This task does not start collection.
+# Bounded live smoke-test scale only; never a full collection configuration.
 [collection]
 target = 10
 seed = 42
 shuffle = false
 shuffle_buffer = 0
 checkpoint_interval = 5
+max_source_records = 50
 max_runtime_minutes = 30
 shutdown_safety_buffer_seconds = 60
 resume = true

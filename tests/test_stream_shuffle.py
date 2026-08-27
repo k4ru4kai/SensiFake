@@ -75,4 +75,5 @@ def test_definitive_config_is_balanced_and_does_not_shuffle_source() -> None:
     assert config.collection.shuffle is False
     assert config.collection.shuffle_buffer == 0
     assert config.collection.checkpoint_interval > 0
+    assert config.collection.max_source_records is None
     assert config.kaggle.enabled is False

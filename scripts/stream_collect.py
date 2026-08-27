@@ -137,6 +137,7 @@ class DatasetConfig:
 class CollectionConfig:
     target: int
     quotas: dict[str, int]
+    max_source_records: int | None
     seed: int
     shuffle: bool
     shuffle_buffer: int
@@ -216,6 +217,17 @@ def _integer(table: Mapping[str, Any], key: str, *, minimum: int = 0) -> int:
     return value
 
 
+def _optional_integer(
+    table: Mapping[str, Any],
+    key: str,
+    *,
+    minimum: int = 0,
+) -> int | None:
+    if key not in table:
+        return None
+    return _integer(table, key, minimum=minimum)
+
+
 def _number(table: Mapping[str, Any], key: str, *, minimum: float = 0.0) -> float:
     value = table.get(key)
     if isinstance(value, bool) or not isinstance(value, (int, float)) or value < minimum:
@@ -291,6 +303,9 @@ def load_config(path: Path) -> AppConfig:
         collection=CollectionConfig(
             target=_integer(collection_raw, "target", minimum=1),
             quotas=quotas,
+            max_source_records=_optional_integer(
+                collection_raw, "max_source_records", minimum=1
+            ),
             seed=_integer(collection_raw, "seed"),
             shuffle=_boolean(collection_raw, "shuffle"),
             shuffle_buffer=_integer(collection_raw, "shuffle_buffer", minimum=0),
@@ -492,6 +507,33 @@ def sleep_with_deadline(seconds: float, deadline: float) -> bool:
     return time.monotonic() < deadline
 
 
+def resolve_huggingface_revision(dataset_id: str, requested_revision: str) -> str:
+    """Resolve a symbolic Hub revision to an immutable commit SHA."""
+    candidate = requested_revision.strip().casefold()
+    if SHA_PATTERN.fullmatch(candidate):
+        return candidate
+
+    # Kept local so offline config and unit-test collection do not contact the Hub.
+    from huggingface_hub import HfApi
+
+    try:
+        info = HfApi().dataset_info(
+            repo_id=dataset_id,
+            revision=requested_revision,
+            files_metadata=False,
+        )
+    except Exception as exc:
+        raise SourceConfigurationError(
+            "Hugging Face revision could not be resolved to an immutable commit"
+        ) from exc
+    resolved = getattr(info, "sha", None)
+    if not isinstance(resolved, str) or not SHA_PATTERN.fullmatch(resolved.casefold()):
+        raise SourceConfigurationError(
+            "Hugging Face revision metadata did not contain a valid commit SHA"
+        )
+    return resolved.casefold()
+
+
 # 4. Streaming source abstraction
 
 
@@ -525,6 +567,7 @@ class HuggingFaceStreamingSource:
         self.collection_config = collection
         self.adapter = adapter
         self.dataset: Any = None
+        self.dataset_owners: list[Any] = []
         self.iterator: Iterator[Mapping[str, Any]] | None = None
         self.label_feature: Any = None
         self.resolved_revision: str | None = None
@@ -546,8 +589,13 @@ class HuggingFaceStreamingSource:
         from datasets import load_dataset
         from pyarrow.dataset import ParquetFragmentScanOptions
 
+        resolved_revision = resolve_huggingface_revision(
+            self.dataset_config.dataset_id,
+            self.dataset_config.revision,
+        )
+        self.resolved_revision = resolved_revision
         load_kwargs: dict[str, Any] = {
-            "revision": self.dataset_config.revision,
+            "revision": resolved_revision,
             "split": self.dataset_config.split,
             "streaming": self.dataset_config.streaming,
             "batch_size": HF_STREAMING_BATCH_SIZE,
@@ -562,12 +610,23 @@ class HuggingFaceStreamingSource:
             # one-record batch prevents an early stop from leaving Arrow I/O
             # callbacks active against the generator's Python-backed file.
         )
+        self.dataset = dataset
+        self.dataset_owners = [dataset]
 
-        features = getattr(dataset, "features", None)
-        image_feature = (
-            features.get(self.adapter.image_field) if isinstance(features, Mapping) else None
+        encoded_image_fields = getattr(
+            self.adapter,
+            "encoded_image_fields",
+            (self.adapter.image_field,),
         )
-        if isinstance(image_feature, DatasetImage):
+        for field_name in encoded_image_fields:
+            features = getattr(dataset, "features", None)
+            image_feature = (
+                features.get(field_name) if isinstance(features, Mapping) else None
+            )
+            if not isinstance(image_feature, DatasetImage):
+                if field_name == self.adapter.image_field:
+                    self.requires_original_encoded_bytes = False
+                continue
             cast_column = getattr(dataset, "cast_column", None)
             if not callable(cast_column):
                 raise SourceConfigurationError(
@@ -575,16 +634,18 @@ class HuggingFaceStreamingSource:
                 )
             try:
                 dataset = cast_column(
-                    self.adapter.image_field,
+                    field_name,
                     DatasetImage(decode=False),
                 )
             except Exception as exc:
                 raise SourceConfigurationError(
                     "Hugging Face image decoding could not be disabled"
                 ) from exc
+            self.dataset_owners.append(dataset)
+            self.dataset = dataset
             cast_features = getattr(dataset, "features", None)
             cast_feature = (
-                cast_features.get(self.adapter.image_field)
+                cast_features.get(field_name)
                 if isinstance(cast_features, Mapping)
                 else None
             )
@@ -595,7 +656,8 @@ class HuggingFaceStreamingSource:
                 raise SourceConfigurationError(
                     "Hugging Face image decoding disablement could not be verified"
                 )
-            self.requires_original_encoded_bytes = True
+            if field_name == self.adapter.image_field:
+                self.requires_original_encoded_bytes = True
 
         dataset = self._apply_streaming_shuffle(dataset)
         if state is not None:
@@ -611,13 +673,18 @@ class HuggingFaceStreamingSource:
         )
         self.dataset = dataset
         self.iterator = iter(dataset)
-        self.resolved_revision = self._discover_resolved_revision(dataset)
+        discovered_revision = self._discover_resolved_revision(dataset)
+        if discovered_revision is not None and discovered_revision != resolved_revision:
+            raise SourceConfigurationError(
+                "loaded Hugging Face dataset revision differs from resolved commit"
+            )
 
     def close(self) -> None:
         """Finalize the iterator while Python and native dependencies are alive."""
         iterator = self.iterator
         dataset = self.dataset
-        if iterator is None and dataset is None:
+        owners = self.dataset_owners
+        if iterator is None and dataset is None and not owners:
             self.label_feature = None
             return
 
@@ -627,14 +694,20 @@ class HuggingFaceStreamingSource:
                 if callable(close_iterator):
                     close_iterator()
             finally:
-                close_dataset = getattr(dataset, "close", None)
-                if callable(close_dataset):
-                    close_dataset()
+                closed: set[int] = set()
+                for owner in reversed([*owners, dataset]):
+                    if owner is None or id(owner) in closed:
+                        continue
+                    closed.add(id(owner))
+                    close_dataset = getattr(owner, "close", None)
+                    if callable(close_dataset):
+                        close_dataset()
         finally:
             # Keep the owners reachable until close has unwound the generator
             # and released its backing file; then make repeated close calls no-ops.
             self.iterator = None
             self.dataset = None
+            self.dataset_owners = []
             self.label_feature = None
 
     def next_record(self) -> Mapping[str, Any]:
@@ -737,7 +810,7 @@ def open_source_with_retries(
                 category="source_configuration",
                 error_type=type(exc).__name__,
                 stream_position=None,
-                message="source could not enforce original encoded image bytes",
+                message="source configuration or immutable revision resolution failed",
             )
             raise
         except Exception as exc:
@@ -918,6 +991,7 @@ class Counters:
     reencoded_fallbacks: int = 0
     synchronized: int = 0
     accepted_by_label: Counter[str] = field(default_factory=Counter)
+    skipped_by_reason: Counter[str] = field(default_factory=Counter)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -929,6 +1003,7 @@ class Counters:
             "reencoded_fallbacks": self.reencoded_fallbacks,
             "synchronized": self.synchronized,
             "accepted_by_label": dict(sorted(self.accepted_by_label.items())),
+            "skipped_by_reason": dict(sorted(self.skipped_by_reason.items())),
         }
 
     @classmethod
@@ -950,6 +1025,16 @@ class Counters:
                     if isinstance(value, int) and value >= 0
                 }
             )
+        skipped_raw = raw.get("skipped_by_reason", {})
+        skipped_reasons = Counter()
+        if isinstance(skipped_raw, Mapping):
+            skipped_reasons.update(
+                {
+                    str(key): value
+                    for key, value in skipped_raw.items()
+                    if isinstance(value, int) and value >= 0
+                }
+            )
         return cls(
             scanned=count("scanned"),
             accepted=count("accepted"),
@@ -959,6 +1044,7 @@ class Counters:
             reencoded_fallbacks=count("reencoded_fallbacks"),
             synchronized=count("synchronized"),
             accepted_by_label=labels,
+            skipped_by_reason=skipped_reasons,
         )
 
 
@@ -1193,6 +1279,7 @@ class RuntimeStore:
                     "split": config.dataset.split,
                 },
                 "target": config.collection.target,
+                "max_source_records": config.collection.max_source_records,
                 "quotas": config.collection.quotas,
                 "counters": counters.as_dict(),
                 "publishing_enabled": publishing_enabled,
@@ -1554,10 +1641,10 @@ def _process_record(
         example = adapter.normalize(record, decode_label=source.decode_label)
     except MissingSourceFieldError as exc:
         counters.skipped += 1
+        reason = "missing_image" if exc.field_name == adapter.image_field else "missing_label"
+        counters.skipped_by_reason[reason] += 1
         manifest.append_error(
-            category=(
-                "missing_image" if exc.field_name == adapter.image_field else "missing_label"
-            ),
+            category=reason,
             error_type="MissingField",
             stream_position=stream_position,
             message=f"required {exc.field_name} field is absent",
@@ -1568,6 +1655,7 @@ def _process_record(
     label = example.normalized_label
     if label is None:
         counters.skipped += 1
+        counters.skipped_by_reason[example.skip_reason or "unsupported_label"] += 1
         return
     if label not in dataset.accepted_labels:
         raise SourceConfigurationError(
@@ -1575,6 +1663,7 @@ def _process_record(
         )
     if counters.accepted_by_label[label] >= config.collection.quotas[label]:
         counters.skipped += 1
+        counters.skipped_by_reason[f"quota_{label}_reached"] += 1
         return
 
     sample_id = source_sample_id(example.source_id)
@@ -1774,6 +1863,12 @@ def collect(
             if time.monotonic() >= safety_deadline:
                 exit_reason = "runtime_safety_buffer"
                 break
+            if (
+                config.collection.max_source_records is not None
+                and counters.scanned >= config.collection.max_source_records
+            ):
+                exit_reason = "source_record_limit"
+                break
 
             pre_record_state = safe_resume_state
             try:
@@ -1924,6 +2019,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--max-samples", type=int, help="Override the accepted-image target")
     parser.add_argument(
+        "--quota",
+        action="append",
+        default=[],
+        metavar="LABEL=COUNT",
+        help="Override one accepted-label quota; may be repeated",
+    )
+    parser.add_argument(
+        "--max-source-records",
+        type=int,
+        help="Stop after examining this many source records",
+    )
+    parser.add_argument(
         "--max-runtime-minutes",
         type=float,
         help="Override maximum wall-clock runtime",
@@ -1952,6 +2059,29 @@ def apply_cli_overrides(config: AppConfig, args: argparse.Namespace) -> AppConfi
         if args.max_samples <= 0:
             raise ConfigurationError("--max-samples must be positive")
         collection = replace(collection, target=args.max_samples)
+    if args.quota:
+        quotas = dict(collection.quotas)
+        seen_labels: set[str] = set()
+        for raw_quota in args.quota:
+            label, separator, raw_count = raw_quota.partition("=")
+            normalized_label = label.strip().casefold()
+            if separator != "=" or normalized_label not in quotas:
+                raise ConfigurationError("--quota must use a configured LABEL=COUNT")
+            if normalized_label in seen_labels:
+                raise ConfigurationError("--quota repeats a label")
+            seen_labels.add(normalized_label)
+            try:
+                count = int(raw_count)
+            except ValueError as exc:
+                raise ConfigurationError("--quota count must be an integer") from exc
+            if count < 0:
+                raise ConfigurationError("--quota count must be non-negative")
+            quotas[normalized_label] = count
+        collection = replace(collection, quotas=quotas)
+    if args.max_source_records is not None:
+        if args.max_source_records <= 0:
+            raise ConfigurationError("--max-source-records must be positive")
+        collection = replace(collection, max_source_records=args.max_source_records)
     if args.max_runtime_minutes is not None:
         if args.max_runtime_minutes <= 0:
             raise ConfigurationError("--max-runtime-minutes must be positive")
@@ -2008,6 +2138,8 @@ def main(argv: list[str] | None = None) -> int:
                 *label_summary,
                 f"duplicates={counters.duplicates}",
                 f"errors={counters.errors}",
+                "skipped_by_reason="
+                + json.dumps(counters.skipped_by_reason, sort_keys=True, separators=(",", ":")),
                 f"reencoded_fallbacks={counters.reencoded_fallbacks}",
                 f"synchronized={counters.synchronized}",
             )

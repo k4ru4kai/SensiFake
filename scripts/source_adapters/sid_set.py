@@ -13,7 +13,7 @@ from .base import (
 )
 
 CORE_LABEL_MAPPING = {"0": "real", "1": "fake", "2": "skip"}
-NATIVE_LABEL_NAMES = {"0": "real", "1": "fake", "2": "tampered"}
+NATIVE_LABEL_NAMES = {"0": "real", "1": "full_synthetic", "2": "tampered"}
 
 
 class SidSetAdapter:
@@ -22,6 +22,7 @@ class SidSetAdapter:
     name = "sid_set"
     image_field = "image"
     label_field = "label"
+    encoded_image_fields = ("image", "mask")
 
     def __init__(self, label_mapping: Mapping[str, Any]) -> None:
         normalized = {str(key): str(value).strip().casefold() for key, value in label_mapping.items()}
@@ -60,6 +61,8 @@ class SidSetAdapter:
                 "sid_set_label": native_label,
                 "sid_set_label_name": native_name,
                 "mask_available": mask is not None,
+                "source_width": record.get("width"),
+                "source_height": record.get("height"),
             },
             auxiliary_metadata={
                 "mask": mask,

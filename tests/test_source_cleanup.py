@@ -1,6 +1,7 @@
 """Regression coverage for orderly streaming-source shutdown."""
 
 import base64
+import json
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
@@ -35,6 +36,16 @@ class EmptyDataset:
 
     def __iter__(self) -> Any:
         return iter(())
+
+
+class ClosableDatasetOwner:
+    """Dataset wrapper double used to verify reverse owner cleanup."""
+
+    def __init__(self) -> None:
+        self.close_calls = 0
+
+    def close(self) -> None:
+        self.close_calls += 1
 
 
 class OneRecordSource:
@@ -79,8 +90,11 @@ def test_huggingface_source_close_releases_owned_resources() -> None:
         config.dataset, config.collection, adapter
     )
     iterator = ClosableIterator(source)
+    first_owner = ClosableDatasetOwner()
+    final_owner = ClosableDatasetOwner()
     source.iterator = iterator
-    source.dataset = object()
+    source.dataset = final_owner
+    source.dataset_owners = [first_owner, final_owner]
     source.label_feature = object()
 
     source.close()
@@ -88,8 +102,11 @@ def test_huggingface_source_close_releases_owned_resources() -> None:
 
     assert iterator.close_calls == 1
     assert iterator.owners_present_during_close
+    assert first_owner.close_calls == 1
+    assert final_owner.close_calls == 1
     assert source.iterator is None
     assert source.dataset is None
+    assert source.dataset_owners == []
     assert source.label_feature is None
 
 
@@ -100,6 +117,13 @@ def test_huggingface_source_requests_single_record_batches(monkeypatch: Any) -> 
         config.dataset, config.collection, adapter
     )
     calls: list[dict[str, Any]] = []
+    resolved_sha = "1" * 40
+
+    monkeypatch.setattr(
+        stream_collect,
+        "resolve_huggingface_revision",
+        lambda dataset_id, revision: resolved_sha,
+    )
 
     def load_dataset(dataset_id: str, **kwargs: Any) -> EmptyDataset:
         calls.append({"dataset_id": dataset_id, **kwargs})
@@ -113,6 +137,7 @@ def test_huggingface_source_requests_single_record_batches(monkeypatch: Any) -> 
 
     assert len(calls) == 1
     assert calls[0]["streaming"] is True
+    assert calls[0]["revision"] == resolved_sha
     assert calls[0]["batch_size"] == stream_collect.HF_STREAMING_BATCH_SIZE == 1
     assert calls[0]["fragment_scan_options"] is not None
     assert calls[0]["fragment_scan_options"].pre_buffer is False
@@ -135,3 +160,6 @@ def test_target_reached_closes_streaming_source(monkeypatch: Any, tmp_path: Path
     assert exit_reason == "target_reached"
     assert counters.accepted == 1
     assert source.close_calls == 1
+    summary = json.loads((tmp_path / "summary.json").read_text(encoding="utf-8"))
+    assert summary["source"]["requested_revision"] == "v1.0"
+    assert summary["source"]["resolved_revision"] == "0" * 40
