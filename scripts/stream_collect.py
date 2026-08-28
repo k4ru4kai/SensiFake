@@ -56,6 +56,7 @@ RUNTIME_ENTRIES = {
     KAGGLE_METADATA_NAME,
 }
 SHA_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+CONTENT_HASH_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 RESOLVE_SHA_PATTERN = re.compile(r"/resolve/([0-9a-f]{40})(?:/|$)", re.IGNORECASE)
 HF_STREAMING_BATCH_SIZE = 1
 HF_TOKEN_PATTERN = re.compile(r"\bhf_[A-Za-z0-9]{16,}\b")
@@ -146,6 +147,7 @@ class CollectionConfig:
     max_runtime_minutes: float
     shutdown_safety_buffer_seconds: float
     resume: bool
+    exclusion_manifests: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -168,6 +170,36 @@ class KaggleConfig:
 
 
 @dataclass(frozen=True)
+class ExclusionManifestProvenance:
+    """Immutable identity and validated record count for an exclusion manifest."""
+
+    path: str
+    sha256: str
+    hash_count: int
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "path": self.path,
+            "sha256": self.sha256,
+            "hash_count": self.hash_count,
+        }
+
+
+@dataclass(frozen=True)
+class ExclusionSet:
+    """Validated hashes that must never be accepted into the current run."""
+
+    hashes: frozenset[str] = frozenset()
+    manifests: tuple[ExclusionManifestProvenance, ...] = ()
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "manifests": [manifest.as_dict() for manifest in self.manifests],
+            "unique_hash_count": len(self.hashes),
+        }
+
+
+@dataclass(frozen=True)
 class AppConfig:
     provider: str
     adapter_name: str
@@ -177,7 +209,7 @@ class AppConfig:
     retry: RetryConfig
     kaggle: KaggleConfig
 
-    def source_fingerprint(self) -> str:
+    def source_fingerprint(self, exclusions: ExclusionSet | None = None) -> str:
         """Hash fields that determine source identity and iteration order."""
         critical: dict[str, Any] = {
             "provider": self.provider,
@@ -195,6 +227,8 @@ class AppConfig:
         }
         if self.dataset.expected_resolved_revision is not None:
             critical["expected_resolved_revision"] = self.dataset.expected_resolved_revision
+        if exclusions is not None and exclusions.manifests:
+            critical["exclusion_manifests"] = exclusions.as_dict()
         encoded = json.dumps(critical, sort_keys=True, separators=(",", ":")).encode()
         return hashlib.sha256(encoded).hexdigest()
 
@@ -259,6 +293,12 @@ def _string_tuple(table: Mapping[str, Any], key: str) -> tuple[str, ...]:
     if len(items) != len(value) or len(set(items)) != len(items):
         raise ConfigurationError(f"{key} contains empty or duplicate entries")
     return items
+
+
+def _optional_string_tuple(table: Mapping[str, Any], key: str) -> tuple[str, ...]:
+    if key not in table:
+        return ()
+    return _string_tuple(table, key)
 
 
 def load_config(path: Path) -> AppConfig:
@@ -327,6 +367,9 @@ def load_config(path: Path) -> AppConfig:
                 collection_raw, "shutdown_safety_buffer_seconds"
             ),
             resume=_boolean(collection_raw, "resume"),
+            exclusion_manifests=_optional_string_tuple(
+                collection_raw, "exclusion_manifests"
+            ),
         ),
         retry=RetryConfig(
             count=_integer(retry_raw, "count"),
@@ -451,6 +494,121 @@ def atomic_write_bytes(path: Path, content: bytes) -> None:
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def load_exclusion_manifests(paths: tuple[str, ...]) -> ExclusionSet:
+    """Validate read-only manifests and return their content hashes and provenance."""
+    if not paths:
+        return ExclusionSet()
+
+    all_hashes: set[str] = set()
+    provenance: list[ExclusionManifestProvenance] = []
+    for configured_path in paths:
+        manifest_path = Path(configured_path)
+        if not manifest_path.is_file():
+            raise ConfigurationError(
+                f"exclusion manifest does not exist or is not a file: {configured_path}"
+            )
+        try:
+            content = manifest_path.read_bytes()
+        except OSError as exc:
+            raise ConfigurationError(
+                f"exclusion manifest could not be read: {configured_path}"
+            ) from exc
+
+        manifest_hashes: set[str] = set()
+        manifest_root = manifest_path.parent.resolve()
+        try:
+            lines = content.decode("utf-8").splitlines()
+        except UnicodeDecodeError as exc:
+            raise ConfigurationError(
+                f"exclusion manifest is not UTF-8: {configured_path}"
+            ) from exc
+        for line_number, line in enumerate(lines, start=1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} is invalid JSON: "
+                    f"{configured_path}"
+                ) from exc
+            if not isinstance(record, Mapping):
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} is not an object: "
+                    f"{configured_path}"
+                )
+            content_hash = record.get("content_hash")
+            if not isinstance(content_hash, str) or not CONTENT_HASH_PATTERN.fullmatch(
+                content_hash
+            ):
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} has an invalid content_hash: "
+                    f"{configured_path}"
+                )
+            if content_hash in manifest_hashes:
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} repeats a content hash: "
+                    f"{configured_path}"
+                )
+            relative_path = record.get("relative_image_path")
+            if not isinstance(relative_path, str) or not relative_path.strip():
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} lacks relative_image_path: "
+                    f"{configured_path}"
+                )
+            relative_image = Path(relative_path)
+            if relative_image.is_absolute() or WINDOWS_ABSOLUTE_PATTERN.match(relative_path):
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} uses an absolute image path: "
+                    f"{configured_path}"
+                )
+            try:
+                image_path = (manifest_root / relative_image).resolve(strict=True)
+            except OSError as exc:
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} references a missing image: "
+                    f"{configured_path}"
+                ) from exc
+            if not image_path.is_relative_to(manifest_root) or not image_path.is_file():
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} references an unsafe image path: "
+                    f"{configured_path}"
+                )
+            try:
+                actual_hash = _sha256_file(image_path)
+            except OSError as exc:
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} image could not be read: "
+                    f"{configured_path}"
+                ) from exc
+            if actual_hash != content_hash:
+                raise ConfigurationError(
+                    f"exclusion manifest row {line_number} image hash does not match: "
+                    f"{configured_path}"
+                )
+            manifest_hashes.add(content_hash)
+
+        if not manifest_hashes:
+            raise ConfigurationError(f"exclusion manifest is empty: {configured_path}")
+        all_hashes.update(manifest_hashes)
+        provenance.append(
+            ExclusionManifestProvenance(
+                path=configured_path,
+                sha256=hashlib.sha256(content).hexdigest(),
+                hash_count=len(manifest_hashes),
+            )
+        )
+    return ExclusionSet(frozenset(all_hashes), tuple(provenance))
 
 
 def _json_compatible(value: Any) -> Any:
@@ -1011,24 +1169,28 @@ class Counters:
     scanned: int = 0
     accepted: int = 0
     skipped: int = 0
+    excluded: int = 0
     duplicates: int = 0
     errors: int = 0
     reencoded_fallbacks: int = 0
     synchronized: int = 0
     accepted_by_label: Counter[str] = field(default_factory=Counter)
     skipped_by_reason: Counter[str] = field(default_factory=Counter)
+    excluded_by_reason: Counter[str] = field(default_factory=Counter)
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "scanned": self.scanned,
             "accepted": self.accepted,
             "skipped": self.skipped,
+            "excluded": self.excluded,
             "duplicates": self.duplicates,
             "errors": self.errors,
             "reencoded_fallbacks": self.reencoded_fallbacks,
             "synchronized": self.synchronized,
             "accepted_by_label": dict(sorted(self.accepted_by_label.items())),
             "skipped_by_reason": dict(sorted(self.skipped_by_reason.items())),
+            "excluded_by_reason": dict(sorted(self.excluded_by_reason.items())),
         }
 
     @classmethod
@@ -1060,16 +1222,28 @@ class Counters:
                     if isinstance(value, int) and value >= 0
                 }
             )
+        excluded_raw = raw.get("excluded_by_reason", {})
+        excluded_reasons = Counter()
+        if isinstance(excluded_raw, Mapping):
+            excluded_reasons.update(
+                {
+                    str(key): value
+                    for key, value in excluded_raw.items()
+                    if isinstance(value, int) and value >= 0
+                }
+            )
         return cls(
             scanned=count("scanned"),
             accepted=count("accepted"),
             skipped=count("skipped"),
+            excluded=count("excluded"),
             duplicates=count("duplicates"),
             errors=count("errors"),
             reencoded_fallbacks=count("reencoded_fallbacks"),
             synchronized=count("synchronized"),
             accepted_by_label=labels,
             skipped_by_reason=skipped_reasons,
+            excluded_by_reason=excluded_reasons,
         )
 
 
@@ -1235,10 +1409,17 @@ class ManifestStore:
 class RuntimeStore:
     """Own atomic checkpoint and summary persistence."""
 
-    def __init__(self, output: Path, fingerprint: str, requested_revision: str) -> None:
+    def __init__(
+        self,
+        output: Path,
+        fingerprint: str,
+        requested_revision: str,
+        exclusions: ExclusionSet | None = None,
+    ) -> None:
         self.output = output
         self.fingerprint = fingerprint
         self.requested_revision = requested_revision
+        self.exclusions = exclusions or ExclusionSet()
         self.checkpoint_path = output / CHECKPOINT_NAME
         self.summary_path = output / SUMMARY_NAME
 
@@ -1266,20 +1447,20 @@ class RuntimeStore:
         kaggle_state: KaggleState,
         resolved_revision: str | None,
     ) -> None:
-        atomic_write_json(
-            self.checkpoint_path,
-            {
-                "version": CHECKPOINT_VERSION,
-                "updated_at": utc_now(),
-                "source_fingerprint": self.fingerprint,
-                "source_state": source_state,
-                "requested_revision": self.requested_revision,
-                "resolved_revision": resolved_revision,
-                "counters": counters.as_dict(),
-                "kaggle_publishing": kaggle_state.as_dict(),
-                "last_successful_kaggle_sync": kaggle_state.last_successful_sync,
-            },
-        )
+        checkpoint: dict[str, Any] = {
+            "version": CHECKPOINT_VERSION,
+            "updated_at": utc_now(),
+            "source_fingerprint": self.fingerprint,
+            "source_state": source_state,
+            "requested_revision": self.requested_revision,
+            "resolved_revision": resolved_revision,
+            "counters": counters.as_dict(),
+            "kaggle_publishing": kaggle_state.as_dict(),
+            "last_successful_kaggle_sync": kaggle_state.last_successful_sync,
+        }
+        if self.exclusions.manifests:
+            checkpoint["exclusions"] = self.exclusions.as_dict()
+        atomic_write_json(self.checkpoint_path, checkpoint)
 
     def save_summary(
         self,
@@ -1292,27 +1473,27 @@ class RuntimeStore:
         started_at: str,
         exit_reason: str,
     ) -> None:
-        atomic_write_json(
-            self.summary_path,
-            {
-                "updated_at": utc_now(),
-                "started_at": started_at,
-                "exit_reason": exit_reason,
-                "source": {
-                    "provider": config.provider,
-                    "dataset": config.dataset.dataset_id,
-                    "requested_revision": config.dataset.revision,
-                    "resolved_revision": resolved_revision,
-                    "split": config.dataset.split,
-                },
-                "target": config.collection.target,
-                "max_source_records": config.collection.max_source_records,
-                "quotas": config.collection.quotas,
-                "counters": counters.as_dict(),
-                "publishing_enabled": publishing_enabled,
-                "kaggle": kaggle_state.as_dict(),
+        summary: dict[str, Any] = {
+            "updated_at": utc_now(),
+            "started_at": started_at,
+            "exit_reason": exit_reason,
+            "source": {
+                "provider": config.provider,
+                "dataset": config.dataset.dataset_id,
+                "requested_revision": config.dataset.revision,
+                "resolved_revision": resolved_revision,
+                "split": config.dataset.split,
             },
-        )
+            "target": config.collection.target,
+            "max_source_records": config.collection.max_source_records,
+            "quotas": config.collection.quotas,
+            "counters": counters.as_dict(),
+            "publishing_enabled": publishing_enabled,
+            "kaggle": kaggle_state.as_dict(),
+        }
+        if self.exclusions.manifests:
+            summary["exclusions"] = self.exclusions.as_dict()
+        atomic_write_json(self.summary_path, summary)
 
 
 def validate_output_directory(output: Path, resume: bool) -> None:
@@ -1624,6 +1805,7 @@ def _postfix(counters: Counters, labels: tuple[str, ...]) -> dict[str, int]:
     values.update(
         {
             "skipped": counters.skipped,
+            "excluded": counters.excluded,
             "duplicates": counters.duplicates,
             "errors": counters.errors,
             "reencoded_fallbacks": counters.reencoded_fallbacks,
@@ -1662,6 +1844,7 @@ def _process_record(
     output: Path,
     manifest: ManifestStore,
     counters: Counters,
+    exclusions: ExclusionSet | None = None,
 ) -> None:
     dataset = config.dataset
     try:
@@ -1693,11 +1876,6 @@ def _process_record(
         counters.skipped_by_reason[f"quota_{label}_reached"] += 1
         return
 
-    sample_id = source_sample_id(example.source_id)
-    if sample_id is not None and sample_id in manifest.known_sample_ids:
-        counters.duplicates += 1
-        return
-
     try:
         image = validate_image(
             example.image,
@@ -1714,6 +1892,14 @@ def _process_record(
         return
     if image.byte_source.startswith("pillow_reencoded_"):
         counters.reencoded_fallbacks += 1
+    if exclusions is not None and image.sha256 in exclusions.hashes:
+        counters.excluded += 1
+        counters.excluded_by_reason["excluded_existing_hash"] += 1
+        return
+    sample_id = source_sample_id(example.source_id)
+    if sample_id is not None and sample_id in manifest.known_sample_ids:
+        counters.duplicates += 1
+        return
     if image.sha256 in manifest.known_hashes:
         counters.duplicates += 1
         return
@@ -1761,6 +1947,7 @@ def collect(
     """Run provider-independent collection until a defined exit condition."""
     from tqdm import tqdm
 
+    exclusions = load_exclusion_manifests(config.collection.exclusion_manifests)
     validate_output_directory(output, resume)
     output.mkdir(parents=True, exist_ok=True)
     started_at = utc_now()
@@ -1771,8 +1958,9 @@ def collect(
     manifest.load()
     runtime = RuntimeStore(
         output,
-        config.source_fingerprint(),
+        config.source_fingerprint(exclusions),
         config.dataset.revision,
+        exclusions,
     )
     checkpoint = runtime.load_checkpoint() if resume else None
     counters = Counters.from_dict(checkpoint.get("counters") if checkpoint else None)
@@ -1979,6 +2167,7 @@ def collect(
                     output=output,
                     manifest=manifest,
                     counters=counters,
+                    exclusions=exclusions,
                 )
             except OriginalBytesUnavailable as exc:
                 counters.errors += 1
@@ -2168,9 +2357,12 @@ def main(argv: list[str] | None = None) -> int:
                 f"accepted={counters.accepted}",
                 *label_summary,
                 f"duplicates={counters.duplicates}",
+                f"excluded={counters.excluded}",
                 f"errors={counters.errors}",
                 "skipped_by_reason="
                 + json.dumps(counters.skipped_by_reason, sort_keys=True, separators=(",", ":")),
+                "excluded_by_reason="
+                + json.dumps(counters.excluded_by_reason, sort_keys=True, separators=(",", ":")),
                 f"reencoded_fallbacks={counters.reencoded_fallbacks}",
                 f"synchronized={counters.synchronized}",
             )

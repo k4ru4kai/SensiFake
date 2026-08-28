@@ -1,10 +1,13 @@
 """Regression coverage for orderly streaming-source shutdown."""
 
 import base64
+import io
 import json
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 from scripts import stream_collect
 
@@ -81,6 +84,23 @@ class OneRecordSource:
 
     def close(self) -> None:
         self.close_calls += 1
+
+
+class DecodedImageSource(OneRecordSource):
+    """Source double that violates the original-byte contract after opening."""
+
+    def next_record(self) -> dict[str, Any]:
+        if self.yielded:
+            raise StopIteration
+        self.yielded = True
+        decoded = Image.open(io.BytesIO(ONE_PIXEL_PNG))
+        return {
+            "id": "decoded-only",
+            "image": decoded,
+            "label": "real",
+            "prompt": "offline test prompt",
+            "model": "offline-test",
+        }
 
 
 def test_huggingface_source_close_releases_owned_resources() -> None:
@@ -166,3 +186,25 @@ def test_target_reached_closes_streaming_source(monkeypatch: Any, tmp_path: Path
     checkpoint = json.loads((tmp_path / "checkpoint.json").read_text(encoding="utf-8"))
     assert checkpoint["requested_revision"] == "v1.0"
     assert checkpoint["resolved_revision"] == "0" * 40
+
+
+def test_original_bytes_exception_still_closes_source(
+    monkeypatch: Any,
+    tmp_path: Path,
+) -> None:
+    config = stream_collect.load_config(Path("configs/sources/openfake.toml"))
+    source = DecodedImageSource()
+    monkeypatch.setattr(stream_collect, "create_source", lambda *_: source)
+
+    exit_reason, counters = stream_collect.collect(
+        config,
+        tmp_path,
+        publish_kaggle=False,
+        resume=False,
+        shutdown=stream_collect.ShutdownController(),
+    )
+
+    assert exit_reason == "original_bytes_unavailable"
+    assert counters.accepted == 0
+    assert counters.errors == 1
+    assert source.close_calls == 1

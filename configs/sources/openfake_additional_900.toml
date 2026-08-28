@@ -1,0 +1,51 @@
+version = 1
+provider = "huggingface"
+
+[adapter]
+name = "openfake"
+
+[dataset]
+id = "ComplexDataLab/OpenFake"
+revision = "v1.0"
+expected_resolved_revision = "750279a9710d3d98bbc6d0d87250312cfdf922a0"
+split = "train"
+config = ""
+streaming = true
+accepted_labels = ["real", "fake"]
+
+# The Hugging Face provider enforces batch_size=1 and pre_buffer=false.
+# Match the pilot's sequential, unshuffled selection strategy and seed while
+# excluding every content hash already accepted from OpenFake and SID-Set.
+[collection]
+target = 900
+seed = 42
+shuffle = false
+shuffle_buffer = 0
+checkpoint_interval = 20
+max_source_records = 50000
+max_runtime_minutes = 720
+shutdown_safety_buffer_seconds = 300
+resume = true
+exclusion_manifests = [
+  "data/datasets/openfake/pilot-600/manifest.jsonl",
+  "data/datasets/sid-set/candidate-1500/manifest.jsonl",
+]
+
+[collection.quotas]
+real = 450
+fake = 450
+
+[retry]
+count = 4
+initial_backoff_seconds = 2.0
+maximum_backoff_seconds = 30.0
+
+[kaggle]
+enabled = false
+sync_every = 25
+dataset_id = "saracristinabasco/sensifake-openfake-additional-900"
+title = "SensiFake OpenFake Additional 900"
+license_name = "other"
+license_description = "Derived from ComplexDataLab/OpenFake; the source dataset license and terms continue to apply."
+private = true
+subprocess_timeout_seconds = 300
