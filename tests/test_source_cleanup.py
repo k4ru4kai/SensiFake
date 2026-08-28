@@ -163,3 +163,6 @@ def test_target_reached_closes_streaming_source(monkeypatch: Any, tmp_path: Path
     summary = json.loads((tmp_path / "summary.json").read_text(encoding="utf-8"))
     assert summary["source"]["requested_revision"] == "v1.0"
     assert summary["source"]["resolved_revision"] == "0" * 40
+    checkpoint = json.loads((tmp_path / "checkpoint.json").read_text(encoding="utf-8"))
+    assert checkpoint["requested_revision"] == "v1.0"
+    assert checkpoint["resolved_revision"] == "0" * 40

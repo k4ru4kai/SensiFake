@@ -127,6 +127,7 @@ class RemoteVerificationError(RuntimeError):
 class DatasetConfig:
     dataset_id: str
     revision: str
+    expected_resolved_revision: str | None
     split: str
     config_name: str | None
     streaming: bool
@@ -178,7 +179,7 @@ class AppConfig:
 
     def source_fingerprint(self) -> str:
         """Hash fields that determine source identity and iteration order."""
-        critical = {
+        critical: dict[str, Any] = {
             "provider": self.provider,
             "adapter": self.adapter_name,
             "adapter_options": self.adapter_options,
@@ -192,6 +193,8 @@ class AppConfig:
             "shuffle": self.collection.shuffle,
             "shuffle_buffer": self.collection.shuffle_buffer,
         }
+        if self.dataset.expected_resolved_revision is not None:
+            critical["expected_resolved_revision"] = self.dataset.expected_resolved_revision
         encoded = json.dumps(critical, sort_keys=True, separators=(",", ":")).encode()
         return hashlib.sha256(encoded).hexdigest()
 
@@ -208,6 +211,12 @@ def _text(table: Mapping[str, Any], key: str, *, allow_empty: bool = False) -> s
     if not isinstance(value, str) or (not allow_empty and not value.strip()):
         raise ConfigurationError(f"{key} must be a non-empty string")
     return value.strip()
+
+
+def _optional_text(table: Mapping[str, Any], key: str) -> str | None:
+    if key not in table:
+        return None
+    return _text(table, key)
 
 
 def _integer(table: Mapping[str, Any], key: str, *, minimum: int = 0) -> int:
@@ -295,6 +304,9 @@ def load_config(path: Path) -> AppConfig:
         dataset=DatasetConfig(
             dataset_id=_text(dataset_raw, "id"),
             revision=_text(dataset_raw, "revision"),
+            expected_resolved_revision=_optional_text(
+                dataset_raw, "expected_resolved_revision"
+            ),
             split=_text(dataset_raw, "split"),
             config_name=_text(dataset_raw, "config", allow_empty=True) or None,
             streaming=_boolean(dataset_raw, "streaming"),
@@ -344,6 +356,11 @@ def validate_config(config: AppConfig) -> None:
         raise ConfigurationError(f"unsupported provider: {config.provider}")
     if not config.dataset.streaming:
         raise ConfigurationError("the shared collector requires dataset.streaming = true")
+    expected_revision = config.dataset.expected_resolved_revision
+    if expected_revision is not None and not SHA_PATTERN.fullmatch(
+        expected_revision.casefold()
+    ):
+        raise ConfigurationError("expected_resolved_revision must be a 40-character SHA")
     try:
         create_adapter(config.adapter_name, config.adapter_options)
     except AdapterConfigurationError as exc:
@@ -593,6 +610,14 @@ class HuggingFaceStreamingSource:
             self.dataset_config.dataset_id,
             self.dataset_config.revision,
         )
+        expected_revision = self.dataset_config.expected_resolved_revision
+        if (
+            expected_revision is not None
+            and resolved_revision != expected_revision.casefold()
+        ):
+            raise SourceConfigurationError(
+                "resolved Hugging Face revision does not match expected commit SHA"
+            )
         self.resolved_revision = resolved_revision
         load_kwargs: dict[str, Any] = {
             "revision": resolved_revision,
@@ -1210,9 +1235,10 @@ class ManifestStore:
 class RuntimeStore:
     """Own atomic checkpoint and summary persistence."""
 
-    def __init__(self, output: Path, fingerprint: str) -> None:
+    def __init__(self, output: Path, fingerprint: str, requested_revision: str) -> None:
         self.output = output
         self.fingerprint = fingerprint
+        self.requested_revision = requested_revision
         self.checkpoint_path = output / CHECKPOINT_NAME
         self.summary_path = output / SUMMARY_NAME
 
@@ -1247,6 +1273,7 @@ class RuntimeStore:
                 "updated_at": utc_now(),
                 "source_fingerprint": self.fingerprint,
                 "source_state": source_state,
+                "requested_revision": self.requested_revision,
                 "resolved_revision": resolved_revision,
                 "counters": counters.as_dict(),
                 "kaggle_publishing": kaggle_state.as_dict(),
@@ -1742,7 +1769,11 @@ def collect(
 
     manifest = ManifestStore(output)
     manifest.load()
-    runtime = RuntimeStore(output, config.source_fingerprint())
+    runtime = RuntimeStore(
+        output,
+        config.source_fingerprint(),
+        config.dataset.revision,
+    )
     checkpoint = runtime.load_checkpoint() if resume else None
     counters = Counters.from_dict(checkpoint.get("counters") if checkpoint else None)
     kaggle_state = KaggleState.from_dict(

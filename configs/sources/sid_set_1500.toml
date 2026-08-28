@@ -1,0 +1,52 @@
+version = 1
+provider = "huggingface"
+
+[adapter]
+name = "sid_set"
+
+[adapter.label_mapping]
+"0" = "real"
+"1" = "fake"
+"2" = "skip"
+
+[dataset]
+id = "saberzl/SID_Set"
+revision = "main"
+expected_resolved_revision = "dc03ead57929879319ce30a82bfcfb8d317b10bd"
+split = "train"
+config = "default"
+streaming = true
+accepted_labels = ["real", "fake"]
+
+# The provider enforces batch_size=1 and pre_buffer=false. Cache and output
+# isolation are supplied through the production command because they are not
+# configuration-file fields.
+[collection]
+target = 1500
+seed = 42
+shuffle = false
+shuffle_buffer = 0
+checkpoint_interval = 20
+max_source_records = 50000
+max_runtime_minutes = 720
+shutdown_safety_buffer_seconds = 300
+resume = true
+
+[collection.quotas]
+real = 750
+fake = 750
+
+[retry]
+count = 4
+initial_backoff_seconds = 2.0
+maximum_backoff_seconds = 30.0
+
+[kaggle]
+enabled = false
+sync_every = 25
+dataset_id = "saracristinabasco/sensifake-sid-set-candidate-1500"
+title = "SensiFake SID-Set Candidate 1500"
+license_name = "other"
+license_description = "Derived from saberzl/SID_Set; the source dataset license and terms continue to apply."
+private = true
+subprocess_timeout_seconds = 300

@@ -71,6 +71,39 @@ def test_resolved_sha_is_used_for_stream_loading_and_recorded(
     assert source.resolved_revision == RESOLVED_SHA
 
 
+def test_expected_revision_drift_stops_before_stream_loading(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = stream_collect.load_config(Path("configs/sources/sid_set_1500.toml"))
+    adapter = stream_collect.create_adapter(config.adapter_name, config.adapter_options)
+    source = stream_collect.HuggingFaceStreamingSource(
+        config.dataset, config.collection, adapter
+    )
+    load_calls: list[dict[str, Any]] = []
+
+    monkeypatch.setattr(
+        stream_collect,
+        "resolve_huggingface_revision",
+        lambda dataset_id, revision: RESOLVED_SHA,
+    )
+
+    import datasets
+
+    monkeypatch.setattr(
+        datasets,
+        "load_dataset",
+        lambda *args, **kwargs: load_calls.append({"args": args, **kwargs}),
+    )
+
+    with pytest.raises(
+        stream_collect.SourceConfigurationError,
+        match="does not match expected commit SHA",
+    ):
+        source.open()
+
+    assert load_calls == []
+
+
 def test_revision_resolution_failure_is_explicit(monkeypatch: pytest.MonkeyPatch) -> None:
     def fail(_self: Any, **_kwargs: Any) -> Any:
         raise RuntimeError("offline")
@@ -125,3 +158,22 @@ def test_cli_can_enforce_balanced_smoke_quotas() -> None:
 
     assert config.collection.target == 2
     assert config.collection.quotas == {"real": 1, "fake": 1}
+
+
+def test_sid_set_production_config_is_balanced_and_pinned() -> None:
+    config = stream_collect.load_config(Path("configs/sources/sid_set_1500.toml"))
+
+    assert config.dataset.dataset_id == "saberzl/SID_Set"
+    assert config.dataset.revision == "main"
+    assert config.dataset.expected_resolved_revision == (
+        "dc03ead57929879319ce30a82bfcfb8d317b10bd"
+    )
+    assert config.dataset.streaming is True
+    assert config.collection.target == 1_500
+    assert config.collection.quotas == {"real": 750, "fake": 750}
+    assert config.collection.shuffle is False
+    assert config.collection.shuffle_buffer == 0
+    assert config.collection.checkpoint_interval == 20
+    assert config.collection.max_source_records == 50_000
+    assert config.collection.resume is True
+    assert config.kaggle.enabled is False
