@@ -29,6 +29,11 @@ from sensifake_annotation import (
     save_annotation,
     sensitivity_level,
 )
+from sensifake_annotation.human_train_assignment import (
+    human_train_annotation_path,
+    list_annotators,
+    load_human_train_task,
+)
 
 DEFAULT_MANIFEST = canonical_openfake_manifest()
 DEFAULT_ANNOTATIONS = openfake_development_annotations()
@@ -37,16 +42,43 @@ CALIBRATION_SIZE = 30
 DEMO_SIZE = 5
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("--mode", choices=("annotation", "presentation"), default="annotation")
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="SensiFake manual annotation sessions")
+    parser.add_argument(
+        "--mode", choices=("annotation", "presentation", "human-train"), default="annotation"
+    )
+    parser.add_argument("--annotator", help="Assigned human-training annotator ID")
+    parser.add_argument(
+        "--list-annotators",
+        action="store_true",
+        help="List available human-training task IDs without starting Streamlit",
+    )
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--annotations", type=Path, default=DEFAULT_ANNOTATIONS)
     parser.add_argument("--frozen-annotations", type=Path)
     parser.add_argument("--calibration", action="store_true")
     parser.add_argument("--demo", action="store_true")
     parser.add_argument("--annotation-round", type=int, default=1)
-    args, _ = parser.parse_known_args()
+    args = parser.parse_args(argv)
+    if args.mode == "human-train" and not args.list_annotators:
+        if not args.annotator:
+            parser.error("--mode human-train requires --annotator ANNOTATOR_ID")
+        if (
+            args.manifest != DEFAULT_MANIFEST
+            or args.annotations != DEFAULT_ANNOTATIONS
+            or args.frozen_annotations
+            or args.calibration
+            or args.demo
+            or args.annotation_round != 1
+        ):
+            parser.error(
+                "human-train uses only the assigned task and personal output; "
+                "manifest/output overrides, demo, calibration and other rounds are disabled"
+            )
+        try:
+            args.annotations = human_train_annotation_path(args.annotator)
+        except AnnotationError as exc:
+            parser.error(str(exc))
     return args
 
 
@@ -159,6 +191,7 @@ def render_annotator(
     annotation_round: int,
     demo: bool,
     review_only: bool,
+    annotator_id: str | None = None,
 ) -> None:
     round_annotations = {
         annotation.content_hash: annotation
@@ -177,7 +210,9 @@ def render_annotator(
         st.info("No images currently match the review filter.")
         return
 
-    state_key = f"current_sample_r{annotation_round}_{len(samples)}_{int(review_only)}"
+    state_key = (
+        f"{annotation_path}_current_sample_r{annotation_round}_{len(samples)}_{int(review_only)}"
+    )
     valid_hashes = {sample.content_hash for sample in queue}
     if st.session_state.get(state_key) not in valid_hashes:
         initial = resume_index(queue, annotations, annotation_round=annotation_round)
@@ -300,6 +335,11 @@ def render_annotator(
 
     if previous or save or next_image:
         try:
+            # Recheck the fixed destination at every write, including symlink protection.
+            if annotator_id is not None and annotation_path != human_train_annotation_path(
+                annotator_id
+            ):
+                raise AnnotationError("Cannot write another annotator's CSV.")
             annotation = annotation_from_values(
                 content_hash=sample.content_hash,
                 blind_id=sample.blind_id,
@@ -527,6 +567,15 @@ def render_presentation_dashboard(
 
 def main() -> None:
     args = parse_args()
+    if args.list_annotators:
+        available = list_annotators()
+        print(
+            "\n".join(available)
+            if available
+            else "No annotator task files available. "
+            "Ask the maintainer to generate human-train-v0 tasks."
+        )
+        return
     style_page()
     st.title("SensiFake · Sensitivity Annotation Lab")
     st.markdown(
@@ -542,14 +591,19 @@ def main() -> None:
         st.stop()
 
     try:
-        dataset = load_manifest(args.manifest)
-        ordered = deterministic_order(dataset.samples, seed=SEED)
-    except (ManifestError, OSError) as exc:
+        if args.mode == "human-train":
+            ordered = load_human_train_task(args.annotator)
+        else:
+            dataset = load_manifest(args.manifest)
+            ordered = deterministic_order(dataset.samples, seed=SEED)
+    except (ManifestError, AnnotationError, OSError) as exc:
         st.error(str(exc))
         st.stop()
 
     scope = ordered
-    mode_label = "Full annotation"
+    mode_label = (
+        f"Human training · {args.annotator}" if args.mode == "human-train" else "Full annotation"
+    )
     if args.calibration:
         scope = ordered[:CALIBRATION_SIZE]
         mode_label = "30-image calibration"
@@ -559,13 +613,14 @@ def main() -> None:
 
     with st.sidebar:
         st.badge(mode_label, icon=":material/visibility:", color="blue")
-        st.write(f"Seed: **{SEED}**")
+        if args.mode != "human-train":
+            st.write(f"Seed: **{SEED}**")
         st.write(f"Annotation round: **{args.annotation_round}**")
         st.write(f"Manifest samples: **{len(ordered)}**")
         if args.demo:
             st.success("Demo annotations stay in session memory and never touch the real CSV.")
         review_only = False
-        if args.mode == "annotation":
+        if args.mode in ("annotation", "human-train"):
             review_only = st.toggle("Review queue only", value=False)
             if not args.demo:
                 st.caption(f"Autosave target: {args.annotations}")
@@ -581,6 +636,13 @@ def main() -> None:
             st.caption(report_source)
         else:
             annotations = demo_annotations() if args.demo else load_annotations(args.annotations)
+            if args.mode == "human-train":
+                expected = {sample.content_hash: sample.blind_id for sample in ordered}
+                if any(
+                    a.annotation_round != 1 or expected.get(a.content_hash) != a.blind_id
+                    for a in annotations
+                ):
+                    raise AnnotationError("Personal CSV contains annotations outside your task.")
     except AnnotationError as exc:
         st.error(str(exc))
         st.stop()
@@ -601,6 +663,7 @@ def main() -> None:
                 annotation_round=args.annotation_round,
                 demo=args.demo,
                 review_only=review_only,
+                annotator_id=args.annotator if args.mode == "human-train" else None,
             )
     with quality_tab:
         render_quality_control(scope, annotations, args.annotation_round)
