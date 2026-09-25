@@ -1,4 +1,10 @@
-# SID-Set placeholder
+# SID-Set collection notes
+
+The following notes describe the initial August 2026 probe, not current collection
+status. The later collection is expected locally at `candidate-1500/`; images
+are not included in Git. See [the dataset audit](../../../docs/data_manifest.md).
+
+## Historical probe (2026-08-27)
 
 No SID-Set data has been collected. A future smoke test will use
 `configs/sources/sid_set.toml` and write first to `data/experiments/sid-set/`;

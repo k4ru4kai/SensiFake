@@ -222,6 +222,7 @@ __marimo__/
 
 # SensiFake local data and generated collection state
 /annotations/*
+!/annotations/README.md
 !/annotations/sid-set/
 /annotations/sid-set/*
 !/annotations/sid-set/README.md

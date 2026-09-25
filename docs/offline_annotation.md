@@ -1,7 +1,7 @@
 # Annotazione offline del batch RRDataset
 
 Il batch `RRDataset-Prova` è stato diviso in tre database indipendenti, con 100
-immagini diverse ciascuno. I file si trovano in
+immagini diverse ciascuno. La collocazione prevista dei file locali è
 `annotations/offline/rrdataset-prova/annotator-01.sqlite3`, `annotator-02.sqlite3`
 e `annotator-03.sqlite3`. Il file `assignment.json` nella stessa cartella serve
 solo a chi riunirà i risultati: conservarlo insieme al database principale.
@@ -17,23 +17,18 @@ sono grandi e ogni salvataggio ne genera una nuova versione completa. GitHub
 consiglia di distribuire database grandi tramite un servizio di condivisione
 file o come asset di una release.
 
-Finché il nuovo codice non è pubblicato su GitHub, consegnare anche
-`offline-app-code.zip` (presente nella stessa cartella). Contiene i file Python
-e la configurazione necessari da estrarre nella radice del clone del repository.
-Non contiene immagini né annotazioni.
-
 ## Istruzioni per chi annota
 
-1. Aggiornare il clone del repository. Se `shared_annotation_app.py` non è ancora
-   presente, estrarre `offline-app-code.zip` nella radice del clone. Installare
-   le dipendenze dalla radice del repository con `uv sync`.
+1. Aggiornare il clone e installare le dipendenze con `uv sync` mentre si è online.
+   Il codice dell’app è già incluso nel repository. I pacchetti SQLite vanno
+   ricevuti separatamente da chi prepara il batch.
 2. Salvare il proprio file `annotator-XX.sqlite3` in una cartella locale che
    resterà disponibile anche dopo il riavvio del computer. **Non** aprire lo
    stesso pacchetto contemporaneamente su due computer.
 3. Avviare l'app indicando il percorso assoluto del pacchetto:
 
    ```bash
-   uv run streamlit run shared_annotation_app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
+   uv run --offline streamlit run app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
    ```
 
 4. Nel browser inserire il proprio nome, scegliere **Annotate** e il batch
@@ -82,3 +77,10 @@ uv run python scripts/offline_annotations.py prepare \
   --batch 'NOME DEL BATCH' --parts 3 \
   --output annotations/offline/nuovo-batch
 ```
+
+## Revisione offline: limite attuale
+
+Il merge importa le annotazioni completate, ma non le revisioni. Conservare gli
+snapshot originali; non usare questo merge per consolidare correzioni offline.
+La preparazione richiede un numero di immagini uniche divisibile per il numero
+di persone e non gestisce filename duplicati per lo stesso contenuto.
