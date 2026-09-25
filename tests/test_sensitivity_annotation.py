@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from sensifake_annotation import (
+from scripts.annotation.annotation_schema import (
     ANNOTATION_FIELDS,
     AnnotationError,
     BlindedSample,

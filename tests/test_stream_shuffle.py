@@ -6,7 +6,7 @@ from typing import Any
 
 import pytest
 
-from scripts import stream_collect
+from scripts.collection import stream_collect
 
 
 class RecordingDataset:

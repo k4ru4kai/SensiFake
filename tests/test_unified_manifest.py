@@ -7,7 +7,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from scripts.build_unified_manifest import (
+from scripts.datasets.build_unified_manifest import (
     COLLECTIONS,
     FIELDS,
     RR_SELECTION,

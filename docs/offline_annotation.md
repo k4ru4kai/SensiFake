@@ -24,7 +24,7 @@ Non contiene immagini né annotazioni.
 
 ## Istruzioni per chi annota
 
-1. Aggiornare il clone del repository. Se `shared_annotation_app.py` non è ancora
+1. Aggiornare il clone del repository. Se `scripts/annotation/app.py` non è ancora
    presente, estrarre `offline-app-code.zip` nella radice del clone. Installare
    le dipendenze dalla radice del repository con `uv sync`.
 2. Salvare il proprio file `annotator-XX.sqlite3` in una cartella locale che
@@ -33,7 +33,7 @@ Non contiene immagini né annotazioni.
 3. Avviare l'app indicando il percorso assoluto del pacchetto:
 
    ```bash
-   uv run streamlit run shared_annotation_app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
+   uv run streamlit run scripts/annotation/app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
    ```
 
 4. Nel browser inserire il proprio nome, scegliere **Annotate** e il batch
@@ -45,7 +45,7 @@ Non contiene immagini né annotazioni.
    coerente del database:
 
    ```bash
-   uv run python scripts/offline_annotations.py snapshot \
+   uv run python scripts/annotation/manage_packages.py snapshot \
      --package /percorso/assoluto/annotator-XX.sqlite3 \
      --output /percorso/assoluto/annotator-XX-risultati.sqlite3
    ```
@@ -60,7 +60,7 @@ Dal repository che conserva `annotations/shared/sensifake.sqlite3` e
 `annotations/offline/rrdataset-prova/assignment.json`, eseguire:
 
 ```bash
-uv run python scripts/offline_annotations.py merge \
+uv run python scripts/annotation/manage_packages.py merge \
   --master annotations/shared/sensifake.sqlite3 \
   --assignment annotations/offline/rrdataset-prova/assignment.json \
   /percorso/annotator-01-risultati.sqlite3 \
@@ -77,7 +77,7 @@ gli snapshot ricevuti fino alla verifica finale dei conteggi.
 Per creare una nuova suddivisione da un altro batch interamente non annotato:
 
 ```bash
-uv run python scripts/offline_annotations.py prepare \
+uv run python scripts/annotation/manage_packages.py prepare \
   --master annotations/shared/sensifake.sqlite3 \
   --batch 'NOME DEL BATCH' --parts 3 \
   --output annotations/offline/nuovo-batch

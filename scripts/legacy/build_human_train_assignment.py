@@ -9,18 +9,18 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sensifake_annotation.human_train_assignment import (
+from scripts.legacy.human_train_assignment import (
     DEFAULT_OUTPUT,
     DEFAULT_TASKS,
     assignment_files,
     build_human_train_assignment,
     write_assignment_files,
 )
-from sensifake_annotation.paths import gold_silver_assignment_path
+from scripts.annotation.paths import gold_silver_assignment_path
 
 
 def main(argv: list[str] | None = None) -> int:

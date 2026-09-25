@@ -11,7 +11,7 @@ from typing import Any
 
 from PIL import Image
 
-from scripts import stream_collect
+from scripts.collection import stream_collect
 
 
 def encoded_png(color: tuple[int, int, int]) -> bytes:

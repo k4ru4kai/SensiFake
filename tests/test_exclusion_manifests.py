@@ -12,7 +12,7 @@ from typing import Any
 import pytest
 from PIL import Image
 
-from scripts import stream_collect
+from scripts.collection import stream_collect
 
 
 class OfflineSource:

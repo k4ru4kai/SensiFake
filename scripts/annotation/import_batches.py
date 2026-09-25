@@ -15,8 +15,8 @@ from pathlib import Path, PurePosixPath
 
 from PIL import Image, UnidentifiedImageError
 
-from .core import ANNOTATION_FIELDS, AnnotationError, _annotation_from_row
-from .human_train_assignment import COMPONENT_PATHS
+from .annotation_schema import ANNOTATION_FIELDS, AnnotationError, _annotation_from_row
+from scripts.legacy.human_train_assignment import COMPONENT_PATHS
 
 SNAPSHOT = "annotations/human-train-v0/SensiFake_annotations_401/sensitivity_annotations_401.csv"
 SNAPSHOT_SHA256 = "d4cf41d8df87475321f616dfa09b256513c1ee1f380bb2633a33ac693fa2170b"

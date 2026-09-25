@@ -17,22 +17,22 @@ copy provenance, so the unified manifest conservatively records them as unknown.
 
 ## Unified selection manifest
 
-Run `.venv/bin/python scripts/build_unified_manifest.py` from the repository root.
+Run `.venv/bin/python scripts/datasets/build_unified_manifest.py` from the repository root.
 It validates selected images and joins the 401 completed human annotations into
 `data/unified/selected_images.csv`, with an incremental annotation registry and
 `audit_report.json`. Original data is read-only. Repeated runs are deterministic;
 unmatched annotations and conflicts are retained and reported. This curator-only
 manifest is separate from the blinded app and does not select a golden set.
-See [DATA_MANIFEST.md](DATA_MANIFEST.md) for verified counts, RRDataset evidence,
+See [DATA_MANIFEST.md](docs/data_manifest.md) for verified counts, RRDataset evidence,
 schema, input limitations, and regeneration instructions.
 
 To prepare the balanced RRDataset batch for manual annotation, run
-`.venv/bin/python scripts/select_rrdataset_batch.py`. Import the resulting
+`.venv/bin/python scripts/datasets/select_rrdataset_batch.py`. Import the resulting
 `data/rrdataset-300-v1/annotation_batch.zip` in the shared app with role
 `rrdataset`. It contains 300 distinct hashes, 50 from each of the six local
 person/folder groups. Folder labels remain unverified hints, not authenticity
 ground truth. The selection manifest and report accompany the ZIP; reruns
-refuse to overwrite a different selection. See [DATA_MANIFEST.md](DATA_MANIFEST.md).
+refuse to overwrite a different selection. See [DATA_MANIFEST.md](docs/data_manifest.md).
 
 The pilot uses sequential streaming selection with explicit per-label quotas.
 It is balanced, but it is not a globally random sample. Hugging Face streaming
@@ -55,15 +55,21 @@ image bytes.
 
 ## Repository layout
 
+- `scripts/annotation/` contains the ZIP-based annotator, its validation and storage code.
+- `scripts/collection/` contains streaming collection and source adapters.
+- `scripts/datasets/` contains dataset audit and RRDataset selection.
+- `scripts/legacy/` retains the previous annotator and assignment scripts.
+- `docs/` contains project documentation.
+
 - `data/datasets/` contains canonical, validated pipeline inputs.
 - `data/experiments/` contains smoke, validation, production-gate, and
   monitoring runs that can be reproduced or discarded after review.
 - `data/archives/` contains immutable backups and packaged snapshots.
 - `annotations/openfake/development-v0/` contains the current OpenFake human
   development annotations.
-- `scripts/stream_collect.py` owns streaming, validation, persistence,
+- `scripts/collection/stream_collect.py` owns streaming, validation, persistence,
   deduplication, checkpoint/resume, retry/deadline handling, progress, and
-  optional Kaggle synchronization. `scripts/source_adapters/` contains only
+  optional Kaggle synchronization. `scripts/collection/source_adapters/` contains only
   native source-schema normalization.
 
 See `data/README.md` for the run-by-run classification. Only
@@ -76,7 +82,7 @@ Reproduce it into an experiment directory for validation; do not write over the
 canonical pilot:
 
 ```bash
-uv run python scripts/stream_collect.py \
+uv run python scripts/collection/stream_collect.py \
   --config configs/sources/openfake.toml \
   --output data/experiments/openfake/validation/pilot-rebuild \
   --no-resume
@@ -90,7 +96,7 @@ configuration; the final pilot intentionally does not shuffle the source.
 The SID-Set smoke collection configuration remains available for testing:
 
 ```bash
-uv run python scripts/stream_collect.py \
+uv run python scripts/collection/stream_collect.py \
   --config configs/sources/sid_set.toml \
   --output data/experiments/sid-set/smoke-10 \
   --no-resume
@@ -108,7 +114,7 @@ the explicit `--publish-kaggle` flag.
 ## Shared manual annotation
 
 For annotation on separate computers without a shared server, see
-[OFFLINE_ANNOTATION.md](OFFLINE_ANNOTATION.md). It provides disjoint local
+[OFFLINE_ANNOTATION.md](docs/offline_annotation.md). It provides disjoint local
 databases and a validated merge of completed work.
 
 Start **one shared Streamlit process** for the three annotators from the repository
@@ -117,7 +123,7 @@ root. By default, the SQLite database is saved at
 
 ```bash
 uv sync --group dev
-uv run streamlit run shared_annotation_app.py --server.address 0.0.0.0
+uv run streamlit run scripts/annotation/app.py --server.address 0.0.0.0
 ```
 
 For another location, pass `-- --storage /absolute/persistent/path/sensifake.sqlite3`
@@ -214,12 +220,12 @@ if necessary). Use single-frame images. Split larger selections into batches.
 
 ### Legacy tools and verification
 
-`annotation_app.py`, the assignment builders, and `ANNOTATION_APP.md` describe
+`scripts/legacy/annotation_app.py`, the assignment builders, and `scripts/legacy/ANNOTATION_APP.md` describe
 the older fixed-manifest/per-person CSV workflow. They remain available for
 compatibility and presentation; they do not share state with the new database.
-Use `shared_annotation_app.py` for the shared workflow. Existing annotation CSVs
+Use `scripts/annotation/app.py` for the shared workflow. Existing annotation CSVs
 and collection manifests are not rewritten or automatically synchronized.
-`DATASET_PROTOCOL.md` remains the source for experimental split roles.
+`docs/dataset_protocol.md` remains the source for experimental split roles.
 
 ```bash
 uv run pytest tests/test_shared_annotation.py tests/test_sensitivity_annotation.py

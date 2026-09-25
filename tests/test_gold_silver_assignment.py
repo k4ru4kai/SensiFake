@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from sensifake_annotation import (
+from scripts.legacy.gold_silver_assignment import (
     COMPONENT_OPENFAKE_ADDITIONAL,
     COMPONENT_OPENFAKE_PILOT,
     COMPONENT_SID_SET_CANDIDATE,
@@ -22,13 +22,15 @@ from sensifake_annotation import (
     AssignmentRecord,
     AssignmentValidationError,
     build_gold_silver_assignment,
-    gold_silver_assignment_path,
     load_assignment_csv,
     load_development_hashes,
-    openfake_development_annotations,
     source_group_for_dataset,
     validate_assignment_records,
     write_gold_silver_assignment,
+)
+from scripts.annotation.paths import (
+    gold_silver_assignment_path,
+    openfake_development_annotations,
 )
 
 CANONICAL_SPLIT_SHA256 = "7710f0347708ca604a0b90e5a7ba9531f0778fcf055c3c525e9b5ebba9793b02"
@@ -222,7 +224,7 @@ def test_cli_script_execution(tmp_path: Path) -> None:
     target_csv = tmp_path / "splits" / "gold_silver_assignment.csv"
     cmd = [
         sys.executable,
-        "scripts/build_gold_silver_assignment.py",
+        "scripts/legacy/build_gold_silver_assignment.py",
         "--output",
         str(target_csv),
         "--seed",

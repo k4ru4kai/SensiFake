@@ -8,8 +8,8 @@ from typing import Any
 
 import pytest
 
-from scripts import stream_collect
-from scripts.source_adapters import OpenFakeAdapter, SidSetAdapter
+from scripts.collection import stream_collect
+from scripts.collection.source_adapters import OpenFakeAdapter, SidSetAdapter
 
 ONE_PIXEL_PNG = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="

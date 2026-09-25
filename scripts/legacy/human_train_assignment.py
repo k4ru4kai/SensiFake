@@ -11,9 +11,9 @@ import tempfile
 from collections.abc import Sequence
 from pathlib import Path
 
-from .assignment import ASSIGNMENT_FIELDS, load_assignment_csv
-from .core import AnnotationError, BlindedSample
-from .paths import REPOSITORY_ROOT, gold_silver_assignment_path
+from .gold_silver_assignment import ASSIGNMENT_FIELDS, load_assignment_csv
+from scripts.annotation.annotation_schema import AnnotationError, BlindedSample
+from scripts.annotation.paths import REPOSITORY_ROOT, gold_silver_assignment_path
 
 DEFAULT_OUTPUT = REPOSITORY_ROOT / "annotations/splits/human_train_assignment.csv"
 DEFAULT_INPUT = gold_silver_assignment_path()
