@@ -9,10 +9,10 @@ import zipfile
 import pytest
 from PIL import Image
 
-from sensifake_annotation.batch_import import prepare_zip
-from sensifake_annotation.core import AnnotationError
-from sensifake_annotation.offline import merge_offline, prepare_offline, snapshot_offline
-from sensifake_annotation.shared_store import SharedStore
+from scripts.annotation.import_batches import prepare_zip
+from scripts.annotation.annotation_schema import AnnotationError
+from scripts.annotation.annotation_packages import merge_offline, prepare_offline, snapshot_offline
+from scripts.annotation.annotation_database import SharedStore
 
 
 def sample_archive() -> io.BytesIO:

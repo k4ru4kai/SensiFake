@@ -11,10 +11,10 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from scripts.build_human_train_assignment import main as build_main
-from sensifake_annotation import human_train_assignment as ht
-from sensifake_annotation.assignment import ASSIGNMENT_FIELDS
-from sensifake_annotation.core import AnnotationError, load_annotations
+from scripts.legacy.build_human_train_assignment import main as build_main
+from scripts.legacy import human_train_assignment as ht
+from scripts.legacy.gold_silver_assignment import ASSIGNMENT_FIELDS
+from scripts.annotation.annotation_schema import AnnotationError, load_annotations
 
 IDS = ["alice", "bob", "carol"]
 ROOT = Path(__file__).resolve().parents[1]
@@ -156,7 +156,7 @@ def test_dry_run_and_help(source, tmp_path, capsys):
     assert "unchanged" in capsys.readouterr().out
     assert build_main([*args, "--seed", "43"]) == 1
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts/build_human_train_assignment.py"), "--help"],
+        [sys.executable, str(ROOT / "scripts/legacy/build_human_train_assignment.py"), "--help"],
         capture_output=True,
         check=False,
         text=True,
@@ -221,14 +221,14 @@ def test_app_autosave_resume_and_isolation(task_repository, monkeypatch):
         partial(ht.human_train_annotation_path, repository_root=root),
     )
     monkeypatch.setattr(
-        sys, "argv", ["annotation_app.py", "--mode", "human-train", "--annotator", "alice"]
+        sys, "argv", ["scripts/legacy/annotation_app.py", "--mode", "human-train", "--annotator", "alice"]
     )
-    app = AppTest.from_file(str(ROOT / "annotation_app.py")).run()
+    app = AppTest.from_file(str(ROOT / "scripts/legacy/annotation_app.py")).run()
     assert not app.exception and not app.error
     next(button for button in app.button if button.label == "Next →").click().run()
     assert not app.exception and not app.error
     assert load_annotations(output)[0].content_hash == samples[0].content_hash
-    resumed = AppTest.from_file(str(ROOT / "annotation_app.py")).run()
+    resumed = AppTest.from_file(str(ROOT / "scripts/legacy/annotation_app.py")).run()
     assert not resumed.exception
     assert (
         next(metric for metric in resumed.metric if metric.label == "Queue position").value
@@ -239,7 +239,7 @@ def test_app_autosave_resume_and_isolation(task_repository, monkeypatch):
 
 
 def test_app_cli_rejects_overrides_and_lists_without_streamlit(monkeypatch, capsys):
-    import annotation_app
+    from scripts.legacy import annotation_app
 
     for option in (
         ["--annotations", "/tmp/other.csv"],
@@ -250,7 +250,7 @@ def test_app_cli_rejects_overrides_and_lists_without_streamlit(monkeypatch, caps
     ):
         with pytest.raises(SystemExit):
             annotation_app.parse_args(["--mode", "human-train", "--annotator", "alice", *option])
-    monkeypatch.setattr(sys, "argv", ["annotation_app.py", "--list-annotators"])
+    monkeypatch.setattr(sys, "argv", ["scripts/legacy/annotation_app.py", "--list-annotators"])
     monkeypatch.setattr(annotation_app, "list_annotators", lambda: IDS)
     monkeypatch.setattr(
         annotation_app, "style_page", lambda: pytest.fail("Streamlit must not start")

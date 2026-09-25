@@ -4,14 +4,17 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import streamlit as st
 
-from sensifake_annotation.batch_import import SNAPSHOT, prepare_legacy, prepare_zip
-from sensifake_annotation.core import AnnotationError, calculate_score, sensitivity_level
-from sensifake_annotation.paths import REPOSITORY_ROOT
-from sensifake_annotation.shared_store import RUBRIC_FIELDS, SharedStore, identity
+from scripts.annotation.import_batches import SNAPSHOT, prepare_legacy, prepare_zip
+from scripts.annotation.annotation_schema import AnnotationError, calculate_score, sensitivity_level
+from scripts.annotation.paths import REPOSITORY_ROOT
+from scripts.annotation.annotation_database import RUBRIC_FIELDS, SharedStore, identity
 
 
 def rubric_inputs(defaults: dict, key: str) -> dict:

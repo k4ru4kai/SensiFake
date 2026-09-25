@@ -14,7 +14,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from .paths import (
+from scripts.annotation.paths import (
     canonical_openfake_additional_manifest,
     canonical_openfake_pilot_manifest,
     canonical_sid_set_manifest,

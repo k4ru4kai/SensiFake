@@ -247,7 +247,7 @@ Questa è una scelta importante da ricordare:
 La logica principale è implementata in:
 
 ```text
-scripts/stream_collect.py
+scripts/collection/stream_collect.py
 ```
 
 e viene controllata tramite configurazioni TOML.

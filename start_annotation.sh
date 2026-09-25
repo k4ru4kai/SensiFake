@@ -15,6 +15,6 @@ if [[ -n "$package_path" ]]; then
     exit 1
   fi
   package_path="$(cd -- "$(dirname -- "$package_path")" && pwd)/$(basename -- "$package_path")"
-  exec uv run --offline --frozen streamlit run app.py -- --storage "$package_path"
+  exec uv run --offline --frozen streamlit run scripts/annotation/app.py -- --storage "$package_path"
 fi
-exec uv run --offline --frozen streamlit run app.py
+exec uv run --offline --frozen streamlit run scripts/annotation/app.py

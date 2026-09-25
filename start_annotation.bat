@@ -16,9 +16,9 @@ if not exist "%package_path%" (
   exit /b 1
 )
 for %%I in ("%package_path%") do set "package_path=%%~fI"
-uv run --offline --frozen streamlit run app.py -- --storage "%package_path%"
+uv run --offline --frozen streamlit run scripts/annotation/app.py -- --storage "%package_path%"
 goto done
 :master
-uv run --offline --frozen streamlit run app.py
+uv run --offline --frozen streamlit run scripts/annotation/app.py
 :done
 if errorlevel 1 pause

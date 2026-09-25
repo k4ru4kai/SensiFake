@@ -8,8 +8,8 @@ import json
 import pytest
 from PIL import Image
 
-from scripts.select_rrdataset_batch import STRATA, create_batch, select_rows
-from sensifake_annotation.batch_import import prepare_zip
+from scripts.datasets.select_rrdataset_batch import STRATA, create_batch, select_rows
+from scripts.annotation.import_batches import prepare_zip
 
 
 def pool(tmp_path):

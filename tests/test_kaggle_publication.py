@@ -8,7 +8,7 @@ from typing import Any
 
 import pytest
 
-from scripts import stream_collect
+from scripts.collection import stream_collect
 
 DATASET_ID = "saracristinabasco/sensifake-openfake-pilot"
 REMOTE_RESOURCES = {"checkpoint.json", "images.zip", "manifest.jsonl", "summary.json"}

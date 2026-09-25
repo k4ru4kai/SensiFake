@@ -12,13 +12,13 @@ Progetto di Computer Vision sulla sensibilità dei contenuti nella rilevazione d
 Dopo l’installazione, i launcher funzionano offline. In alternativa:
 
 ```bash
-uv run --offline streamlit run app.py -- --storage "/percorso/assoluto/annotator-01.sqlite3"
+uv run --offline streamlit run scripts/annotation/app.py -- --storage "/percorso/assoluto/annotator-01.sqlite3"
 ```
 
 Per importare un nuovo ZIP nel database principale:
 
 ```bash
-uv run --offline streamlit run app.py
+uv run --offline streamlit run scripts/annotation/app.py
 ```
 
 Il database principale predefinito resta `annotations/shared/sensifake.sqlite3`, per ritrovare il lavoro già esistente. Non spostare manualmente database aperti o file WAL.
@@ -27,15 +27,15 @@ Il database principale predefinito resta `annotations/shared/sensifake.sqlite3`,
 
 | Percorso | Contenuto |
 |---|---|
-| `app.py` | Annotatore attuale: batch, revisione ed esportazioni |
+| `scripts/annotation/app.py` | Annotatore attuale: batch, revisione ed esportazioni |
 | [annotations/](annotations/README.md) | Database locali, pacchetti offline, risultati e annotazioni storiche |
 | [data/](data/README.md) | Immagini, manifest, esperimenti di raccolta e archivi |
 | [docs/](docs/README.md) | Guide operative, protocollo e report |
 | [notebooks/](notebooks/README.md) | Esperimenti VLM e benchmark |
 | [scripts/](scripts/README.md) | Raccolta, selezione, manifest e comandi offline |
-| `sensifake_annotation/` | Logica Python dell’annotatore e delle assegnazioni |
+| `scripts/annotation/` | Logica Python del nuovo annotatore |
 | `configs/` | Configurazioni delle sorgenti |
-| [legacy/](legacy/README.md) | Vecchio annotatore, mantenuto funzionante |
+| [scripts/legacy/](scripts/legacy/README.md) | Vecchio annotatore, mantenuto funzionante |
 | `tests/` | Test automatici |
 
 ## Lavorare in tre
@@ -57,4 +57,6 @@ Per sviluppare: `uv sync --group dev`. Per verificare annotatore e flusso offlin
 uv run --offline pytest tests/test_shared_annotation.py tests/test_offline_annotation.py tests/test_sensitivity_annotation.py tests/test_human_train_assignment.py
 ```
 
-Alcuni test del repository richiedono collezioni locali non distribuite con Git. I vecchi comandi con `shared_annotation_app.py` e `annotation_app.py` restano disponibili tramite entry point di compatibilità.
+Alcuni test del repository richiedono collezioni locali non distribuite con Git.
+
+I comandi precedenti nella radice sono stati sostituiti dai percorsi sotto `scripts/`. I launcher sono già aggiornati; immagini, CSV e database mantengono i loro percorsi.

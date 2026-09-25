@@ -10,29 +10,31 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import pandas as pd
 import streamlit as st
 
-from sensifake_annotation import (
+from scripts.annotation.annotation_schema import (
     Annotation,
     AnnotationError,
     ManifestError,
     OverwriteConfirmationRequired,
     annotation_from_values,
     calculate_score,
-    canonical_openfake_manifest,
     deterministic_order,
     load_annotations,
     load_manifest,
-    openfake_development_annotations,
     prepare_reannotation_sample,
     resume_index,
     save_annotation,
     sensitivity_level,
 )
-from sensifake_annotation.human_train_assignment import (
+from scripts.annotation.paths import (
+    canonical_openfake_manifest,
+    openfake_development_annotations,
+)
+from scripts.legacy.human_train_assignment import (
     human_train_annotation_path,
     list_annotators,
     load_human_train_task,

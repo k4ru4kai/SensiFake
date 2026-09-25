@@ -11,4 +11,4 @@ Tutti i comandi delle guide si eseguono dalla radice del repository.
 | [Report](project_report.md) | Relazione del progetto |
 | [Piano](dataset_plan.md) | Strategia e pianificazione del dataset |
 | [Guida Lorenzo](Guida_avvio_annotatore_Lorenzo.docx) | Documento storico conservato; per il nuovo annotatore usare la guida offline |
-| [Vecchio annotatore](../legacy/ANNOTATION_APP.md) | Workflow precedente e presentazione |
+| [Vecchio annotatore](../scripts/legacy/ANNOTATION_APP.md) | Workflow precedente e presentazione |

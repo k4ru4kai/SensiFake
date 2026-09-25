@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from sensifake_annotation import (
+from scripts.annotation.paths import (
     canonical_openfake_additional_manifest,
     canonical_openfake_manifest,
     canonical_openfake_pilot_manifest,

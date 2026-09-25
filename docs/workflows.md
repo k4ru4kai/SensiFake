@@ -19,7 +19,7 @@ copy provenance, so the unified manifest conservatively records them as unknown.
 
 ## Unified selection manifest
 
-Run `.venv/bin/python scripts/build_unified_manifest.py` from the repository root.
+Run `.venv/bin/python scripts/datasets/build_unified_manifest.py` from the repository root.
 It validates selected images and joins the 401 completed human annotations into
 `data/unified/selected_images.csv`, with an incremental annotation registry and
 `audit_report.json`. Original data is read-only. Repeated runs are deterministic;
@@ -29,7 +29,7 @@ See [DATA_MANIFEST.md](data_manifest.md) for verified counts, RRDataset evidence
 schema, input limitations, and regeneration instructions.
 
 To prepare the balanced RRDataset batch for manual annotation, run
-`.venv/bin/python scripts/select_rrdataset_batch.py`. Import the resulting
+`.venv/bin/python scripts/datasets/select_rrdataset_batch.py`. Import the resulting
 `data/rrdataset-300-v1/annotation_batch.zip` in the shared app with role
 `rrdataset`. It contains 300 distinct hashes, 50 from each of the six local
 person/folder groups. Folder labels remain unverified hints, not authenticity
@@ -63,9 +63,9 @@ image bytes.
 - `data/archives/` contains immutable backups and packaged snapshots.
 - `annotations/openfake/development-v0/` contains the current OpenFake human
   development annotations.
-- `scripts/stream_collect.py` owns streaming, validation, persistence,
+- `scripts/collection/stream_collect.py` owns streaming, validation, persistence,
   deduplication, checkpoint/resume, retry/deadline handling, progress, and
-  optional Kaggle synchronization. `scripts/source_adapters/` contains only
+  optional Kaggle synchronization. `scripts/collection/source_adapters/` contains only
   native source-schema normalization.
 
 See [data/README.md](../data/README.md) for the run-by-run classification. Only
@@ -78,7 +78,7 @@ Reproduce it into an experiment directory for validation; do not write over the
 canonical pilot:
 
 ```bash
-uv run python scripts/stream_collect.py \
+uv run python scripts/collection/stream_collect.py \
   --config configs/sources/openfake.toml \
   --output data/experiments/openfake/validation/pilot-rebuild \
   --no-resume
@@ -92,7 +92,7 @@ configuration; the final pilot intentionally does not shuffle the source.
 The SID-Set smoke collection configuration remains available for testing:
 
 ```bash
-uv run python scripts/stream_collect.py \
+uv run python scripts/collection/stream_collect.py \
   --config configs/sources/sid_set.toml \
   --output data/experiments/sid-set/smoke-10 \
   --no-resume
@@ -119,7 +119,7 @@ root. By default, the SQLite database is saved at
 
 ```bash
 uv sync --group dev
-uv run streamlit run app.py --server.address 0.0.0.0
+uv run streamlit run scripts/annotation/app.py --server.address 0.0.0.0
 ```
 
 For another location, pass `-- --storage /absolute/persistent/path/sensifake.sqlite3`
@@ -216,10 +216,10 @@ if necessary). Use single-frame images. Split larger selections into batches.
 
 ### Legacy tools and verification
 
-`annotation_app.py`, the assignment builders, and `legacy/ANNOTATION_APP.md` describe
-the older fixed-manifest/per-person CSV workflow. They remain available for
-compatibility and presentation; they do not share state with the new database.
-Use `app.py` for the shared workflow. Existing annotation CSVs
+`scripts/legacy/annotation_app.py`, the assignment builders, and `scripts/legacy/ANNOTATION_APP.md` describe
+the older fixed-manifest/per-person CSV workflow. They remain available under scripts/legacy/ for
+historical reproducibility and presentation; they do not share state with the new database.
+Use `scripts/annotation/app.py` for the shared workflow. Existing annotation CSVs
 and collection manifests are not rewritten or automatically synchronized.
 `docs/dataset_protocol.md` remains the source for experimental split roles.
 

@@ -28,7 +28,7 @@ file o come asset di una release.
 3. Avviare l'app indicando il percorso assoluto del pacchetto:
 
    ```bash
-   uv run --offline streamlit run app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
+   uv run --offline streamlit run scripts/annotation/app.py -- --storage /percorso/assoluto/annotator-XX.sqlite3
    ```
 
 4. Nel browser inserire il proprio nome, scegliere **Annotate** e il batch
@@ -40,7 +40,7 @@ file o come asset di una release.
    coerente del database:
 
    ```bash
-   uv run python scripts/offline_annotations.py snapshot \
+   uv run python scripts/annotation/manage_packages.py snapshot \
      --package /percorso/assoluto/annotator-XX.sqlite3 \
      --output /percorso/assoluto/annotator-XX-risultati.sqlite3
    ```
@@ -55,7 +55,7 @@ Dal repository che conserva `annotations/shared/sensifake.sqlite3` e
 `annotations/offline/rrdataset-prova/assignment.json`, eseguire:
 
 ```bash
-uv run python scripts/offline_annotations.py merge \
+uv run python scripts/annotation/manage_packages.py merge \
   --master annotations/shared/sensifake.sqlite3 \
   --assignment annotations/offline/rrdataset-prova/assignment.json \
   /percorso/annotator-01-risultati.sqlite3 \
@@ -72,7 +72,7 @@ gli snapshot ricevuti fino alla verifica finale dei conteggi.
 Per creare una nuova suddivisione da un altro batch interamente non annotato:
 
 ```bash
-uv run python scripts/offline_annotations.py prepare \
+uv run python scripts/annotation/manage_packages.py prepare \
   --master annotations/shared/sensifake.sqlite3 \
   --batch 'NOME DEL BATCH' --parts 3 \
   --output annotations/offline/nuovo-batch

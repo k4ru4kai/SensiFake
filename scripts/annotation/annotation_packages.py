@@ -11,8 +11,8 @@ from contextlib import closing
 from dataclasses import asdict
 from pathlib import Path
 
-from .core import AnnotationError, annotation_from_values
-from .shared_store import SharedStore, identity
+from .annotation_schema import AnnotationError, annotation_from_values
+from .annotation_database import SharedStore, identity
 
 
 def read_only(path: Path) -> sqlite3.Connection:

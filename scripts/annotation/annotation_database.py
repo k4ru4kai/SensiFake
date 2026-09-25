@@ -14,7 +14,7 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from .core import AnnotationError, annotation_from_values
+from .annotation_schema import AnnotationError, annotation_from_values
 
 RUBRIC_FIELDS = (
     "public_relevance",

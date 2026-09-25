@@ -12,15 +12,15 @@ from threading import Barrier
 import pytest
 from PIL import Image
 
-from sensifake_annotation.batch_import import (
+from scripts.annotation.import_batches import (
     SNAPSHOT,
     SNAPSHOT_SHA256,
     prepare_legacy,
     prepare_zip,
 )
-from sensifake_annotation.core import AnnotationError
-from sensifake_annotation.paths import REPOSITORY_ROOT
-from sensifake_annotation.shared_store import EXPORT_FIELDS, SharedStore
+from scripts.annotation.annotation_schema import AnnotationError
+from scripts.annotation.paths import REPOSITORY_ROOT
+from scripts.annotation.annotation_database import EXPORT_FIELDS, SharedStore
 
 
 def image_bytes(color="red"):
@@ -302,8 +302,8 @@ def test_streamlit_entrypoint_requires_name_and_renders(tmp_path, monkeypatch):
     from streamlit.testing.v1 import AppTest
 
     monkeypatch.setenv("SENSIFAKE_STORAGE", str(tmp_path / "app.sqlite3"))
-    monkeypatch.setattr("sys.argv", ["shared_annotation_app.py"])
-    app = AppTest.from_file(str(REPOSITORY_ROOT / "shared_annotation_app.py")).run()
+    monkeypatch.setattr("sys.argv", ["scripts/annotation/app.py"])
+    app = AppTest.from_file(str(REPOSITORY_ROOT / "scripts/annotation/app.py")).run()
     assert not app.exception
     assert "Enter your name" in app.info[0].value
     app.text_input[0].set_value("Sara").run()
@@ -314,12 +314,12 @@ def test_streamlit_entrypoint_requires_name_and_renders(tmp_path, monkeypatch):
 def test_streamlit_starts_without_storage_configuration(tmp_path, monkeypatch):
     from streamlit.testing.v1 import AppTest
 
-    from sensifake_annotation import paths
+    from scripts.annotation import paths
 
     monkeypatch.delenv("SENSIFAKE_STORAGE", raising=False)
     monkeypatch.setattr(paths, "REPOSITORY_ROOT", tmp_path)
-    monkeypatch.setattr("sys.argv", ["shared_annotation_app.py"])
-    app = AppTest.from_file(str(REPOSITORY_ROOT / "shared_annotation_app.py")).run()
+    monkeypatch.setattr("sys.argv", ["scripts/annotation/app.py"])
+    app = AppTest.from_file(str(REPOSITORY_ROOT / "scripts/annotation/app.py")).run()
     assert not app.exception
     assert app.text_input[0].label == "Your name"
     app.text_input[0].set_value("Lorenzo").run()
@@ -335,8 +335,8 @@ def test_streamlit_annotation_and_review_flow(tmp_path, monkeypatch):
     store = SharedStore(storage)
     store.import_batches(prepare_zip(archive(), "One"))
     monkeypatch.setenv("SENSIFAKE_STORAGE", str(storage))
-    monkeypatch.setattr("sys.argv", ["shared_annotation_app.py"])
-    app = AppTest.from_file(str(REPOSITORY_ROOT / "shared_annotation_app.py")).run()
+    monkeypatch.setattr("sys.argv", ["scripts/annotation/app.py"])
+    app = AppTest.from_file(str(REPOSITORY_ROOT / "scripts/annotation/app.py")).run()
     app.text_input[0].set_value("Sara").run()
     next(b for b in app.button if b.label == "Resume or reserve an image").click().run()
     assert not app.exception

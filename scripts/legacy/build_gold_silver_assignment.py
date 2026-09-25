@@ -10,24 +10,26 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sensifake_annotation import (
+from scripts.legacy.gold_silver_assignment import (
     ROLE_GOLD_DEVELOPMENT,
     ROLE_GOLD_TEST,
     ROLE_UNASSIGNED,
     AssignmentConflictError,
     AssignmentError,
     build_gold_silver_assignment,
+    source_group_for_dataset,
+    write_gold_silver_assignment,
+)
+from scripts.annotation.paths import (
     canonical_openfake_additional_manifest,
     canonical_openfake_pilot_manifest,
     canonical_sid_set_manifest,
     gold_silver_assignment_path,
     openfake_development_annotations,
-    source_group_for_dataset,
-    write_gold_silver_assignment,
 )
 
 LOGGER = logging.getLogger("sensifake.splits")

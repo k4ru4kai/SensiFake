@@ -14,11 +14,11 @@ import zipfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sensifake_annotation.batch_import import MAX_BATCH_BYTES, validate_image
+from scripts.annotation.import_batches import MAX_BATCH_BYTES, validate_image
 
 PEOPLE = ("giovanni", "lorenzo", "sara")
 STRATA = tuple((person, label) for person in PEOPLE for label in ("real", "fake"))

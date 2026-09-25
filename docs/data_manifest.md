@@ -25,11 +25,11 @@ Non sono emersi altri hash duplicati nelle tre selezioni, né nomi RR ripetuti.
 OpenFake è diviso in `data/datasets/openfake/pilot-600/` e `additional-900/`.
 SID-Set è in `data/datasets/sid-set/candidate-1500/`. Le classi provengono dai
 campi `normalized_label` e `original_label` dei rispettivi `manifest.jsonl`.
-Gli adapter in `scripts/source_adapters/` documentano la normalizzazione:
+Gli adapter in `scripts/collection/source_adapters/` documentano la normalizzazione:
 OpenFake conserva real/fake; SID-Set usa 0=real, 1=fake e scarta 2=tampered.
 `configs/sources/openfake_additional_900.toml` esclude gli hash già raccolti;
 `configs/sources/sid_set_1500.toml` specifica le quote 750/750. Il collector è
-`scripts/stream_collect.py`. Non è stato trovato uno script della selezione RR.
+`scripts/collection/stream_collect.py`. Non è stato trovato uno script della selezione RR.
 
 OpenFake non ha conservato `sample_id`: l'ID originale resta vuoto, senza
 inventarlo a partire dal nome hash. SID-Set conserva 1.500 `sample_id`.
@@ -87,7 +87,7 @@ esplicitamente indicati.
 Dalla radice del repository:
 
 ```bash
-.venv/bin/python scripts/build_unified_manifest.py
+.venv/bin/python scripts/datasets/build_unified_manifest.py
 ```
 
 Il comando genera in `data/unified/`:
@@ -110,7 +110,7 @@ per aggiornare il manifest.
 Per aggiungere un altro export umano con lo stesso schema e `annotator_id`:
 
 ```bash
-.venv/bin/python scripts/build_unified_manifest.py --annotations /percorso/export_umano.csv
+.venv/bin/python scripts/datasets/build_unified_manifest.py --annotations /percorso/export_umano.csv
 ```
 
 `--annotations` è ripetibile; il valore predefinito è esclusivamente lo snapshot
@@ -148,7 +148,7 @@ fornito manualmente. Non è stata prodotta alcuna prova artificiale per RR.
 
 ## Cecità e prossima selezione
 
-Il comando non modifica `annotation_app.py`, `app.py` né i loro
+Il comando non modifica `scripts/legacy/annotation_app.py`, `scripts/annotation/app.py` né i loro
 input. L'app condivisa mostra soltanto pixel, ID opaco e campi della rubrica
 durante annotazione/review; questo manifest con classi e provenienza rimane
 separato ed è riservato al curatore. Non caricarlo come contenuto visibile
@@ -171,7 +171,7 @@ Test mirati:
 La selezione ripetibile è prodotta con:
 
 ```bash
-.venv/bin/python scripts/select_rrdataset_batch.py
+.venv/bin/python scripts/datasets/select_rrdataset_batch.py
 ```
 
 Il criterio è uniforme rispetto ai sei gruppi locali: 50 immagini per ogni

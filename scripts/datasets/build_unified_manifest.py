@@ -20,11 +20,11 @@ from pathlib import Path
 
 from PIL import Image
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sensifake_annotation.core import ANNOTATION_FIELDS, _annotation_from_row
+from scripts.annotation.annotation_schema import ANNOTATION_FIELDS, _annotation_from_row
 
 COLLECTIONS = (
     ("OpenFake", "openfake_pilot_600", "data/datasets/openfake/pilot-600/manifest.jsonl"),
