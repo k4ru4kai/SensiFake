@@ -223,6 +223,26 @@ __marimo__/
 # SensiFake local data and generated collection state
 /annotations/*
 !/annotations/README.md
+!/annotations/master/
+/annotations/master/*
+!/annotations/master/README.md
+!/annotations/packages/
+/annotations/packages/*
+!/annotations/packages/README.md
+!/annotations/packages/outgoing/
+/annotations/packages/outgoing/*
+!/annotations/packages/outgoing/README.md
+!/annotations/packages/returned/
+/annotations/packages/returned/*
+!/annotations/packages/returned/README.md
+!/annotations/exports/
+/annotations/exports/*
+!/annotations/exports/README.md
+!/annotations/archive/
+/annotations/archive/*
+!/annotations/archive/legacy/
+/annotations/archive/legacy/*
+!/annotations/archive/legacy/README.md
 !/annotations/sid-set/
 /annotations/sid-set/*
 !/annotations/sid-set/README.md

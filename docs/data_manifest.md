@@ -148,8 +148,8 @@ fornito manualmente. Non è stata prodotta alcuna prova artificiale per RR.
 
 ## Cecità e prossima selezione
 
-Il comando non modifica `scripts/legacy/annotation_app.py`, `scripts/annotation/app.py` né i loro
-input. L'app condivisa mostra soltanto pixel, ID opaco e campi della rubrica
+Il comando non modifica l'app di annotazione né i suoi input. L'app condivisa
+mostra soltanto pixel, ID opaco e campi della rubrica
 durante annotazione/review; questo manifest con classi e provenienza rimane
 separato ed è riservato al curatore. Non caricarlo come contenuto visibile
 nella pagina di annotazione.

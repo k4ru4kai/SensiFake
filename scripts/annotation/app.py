@@ -1,4 +1,4 @@
-"""Shared manual annotation entry point. The legacy app remains available separately."""
+"""The only supported SensiFake manual annotation application."""
 
 from __future__ import annotations
 

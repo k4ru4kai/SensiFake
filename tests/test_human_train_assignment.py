@@ -5,7 +5,6 @@ import io
 import subprocess
 import sys
 from collections import Counter
-from functools import partial
 from pathlib import Path
 
 import pytest
@@ -14,7 +13,7 @@ from PIL import Image
 from scripts.legacy.build_human_train_assignment import main as build_main
 from scripts.legacy import human_train_assignment as ht
 from scripts.legacy.gold_silver_assignment import ASSIGNMENT_FIELDS
-from scripts.annotation.annotation_schema import AnnotationError, load_annotations
+from scripts.annotation.annotation_schema import AnnotationError
 
 IDS = ["alice", "bob", "carol"]
 ROOT = Path(__file__).resolve().parents[1]
@@ -204,59 +203,6 @@ def test_blinded_tasks_and_errors(task_repository):
     output.symlink_to(root / "bob.csv")
     with pytest.raises(AnnotationError, match="symlink"):
         ht.human_train_annotation_path("alice", root)
-
-
-def test_app_autosave_resume_and_isolation(task_repository, monkeypatch):
-    from streamlit.testing.v1 import AppTest
-
-    root = task_repository
-    samples = ht.load_human_train_task("alice", root)
-    output = ht.human_train_annotation_path("alice", root)
-    monkeypatch.setattr(
-        ht, "load_human_train_task", partial(ht.load_human_train_task, repository_root=root)
-    )
-    monkeypatch.setattr(
-        ht,
-        "human_train_annotation_path",
-        partial(ht.human_train_annotation_path, repository_root=root),
-    )
-    monkeypatch.setattr(
-        sys, "argv", ["scripts/legacy/annotation_app.py", "--mode", "human-train", "--annotator", "alice"]
-    )
-    app = AppTest.from_file(str(ROOT / "scripts/legacy/annotation_app.py")).run()
-    assert not app.exception and not app.error
-    next(button for button in app.button if button.label == "Next →").click().run()
-    assert not app.exception and not app.error
-    assert load_annotations(output)[0].content_hash == samples[0].content_hash
-    resumed = AppTest.from_file(str(ROOT / "scripts/legacy/annotation_app.py")).run()
-    assert not resumed.exception
-    assert (
-        next(metric for metric in resumed.metric if metric.label == "Queue position").value
-        == "2 / 100"
-    )
-    assert not (root / "annotations/human-train-v0/bob").exists()
-    assert not (root / "annotations/openfake").exists()
-
-
-def test_app_cli_rejects_overrides_and_lists_without_streamlit(monkeypatch, capsys):
-    from scripts.legacy import annotation_app
-
-    for option in (
-        ["--annotations", "/tmp/other.csv"],
-        ["--manifest", "/tmp/other.jsonl"],
-        ["--demo"],
-        ["--calibration"],
-        ["--annotation-round", "2"],
-    ):
-        with pytest.raises(SystemExit):
-            annotation_app.parse_args(["--mode", "human-train", "--annotator", "alice", *option])
-    monkeypatch.setattr(sys, "argv", ["scripts/legacy/annotation_app.py", "--list-annotators"])
-    monkeypatch.setattr(annotation_app, "list_annotators", lambda: IDS)
-    monkeypatch.setattr(
-        annotation_app, "style_page", lambda: pytest.fail("Streamlit must not start")
-    )
-    annotation_app.main()
-    assert capsys.readouterr().out.splitlines() == IDS
 
 
 def test_production_gold_silver_stays_byte_identical():

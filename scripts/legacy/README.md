@@ -1,12 +1,8 @@
-# Vecchio annotatore
+# Utility storiche per le assegnazioni
 
-`scripts/legacy/annotation_app.py` conserva annotazione su manifest, task individuali e modalità presentazione.
-Non condivide automaticamente lo stato con il nuovo annotatore SQLite.
+Questa cartella conserva script per ricostruire assegnazioni sperimentali
+precedenti. `human_train_assignment.py` resta necessario perché il codice
+corrente di importazione usa i suoi metadati di assegnazione.
 
-Dalla radice del repository:
-
-```bash
-uv run --offline streamlit run scripts/legacy/annotation_app.py -- --mode annotation --demo
-```
-
-Le [istruzioni originali](ANNOTATION_APP.md) sono conservate; per il nuovo flusso vedere il [README principale](../../README.md).
+Questi strumenti non sono applicazioni di annotazione. Per l'unica app
+supportata, vedere la [guida annotazione](../../docs/annotation.md).

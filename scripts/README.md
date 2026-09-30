@@ -7,11 +7,12 @@ Eseguire i comandi dalla radice del repository.
 | `annotation/` | Nuovo annotatore, schema, database, import batch e pacchetti |
 | `collection/` | Raccolta in streaming e adattatori OpenFake/SID-Set |
 | `datasets/` | Audit e manifest unificato; selezione RRDataset |
-| `legacy/` | Vecchio annotatore e assegnazioni del protocollo precedente |
+| `legacy/` | Utility storiche per le assegnazioni |
+| `tools/` | Migrazioni e manutenzione amministrativa esplicite |
 
 ## Comandi principali
 
-- App: `uv run --offline streamlit run scripts/annotation/app.py`
+- Annotazione: `uv run streamlit run scripts/annotation/app.py`
 - Pacchetti: `uv run python scripts/annotation/manage_packages.py --help`
 - Raccolta: `uv run python scripts/collection/stream_collect.py --help`
 - Manifest: `uv run python scripts/datasets/build_unified_manifest.py --help`
@@ -21,4 +22,5 @@ In `annotation/`, `annotation_schema.py` conserva validatori condivisi con il ve
 
 Le assegnazioni storiche si riproducono con `scripts/legacy/build_gold_silver_assignment.py` e `scripts/legacy/build_human_train_assignment.py`. Non definiscono il nuovo golden set.
 
-Vedere [workflow](../README.md), [guida offline](../docs/offline_annotation.md) e [vecchio annotatore](legacy/README.md).
+Vedere la [guida annotazione](../docs/annotation.md), i [workflow](../docs/workflows.md),
+la [guida offline](../docs/offline_annotation.md) e le [utility storiche](legacy/README.md).
