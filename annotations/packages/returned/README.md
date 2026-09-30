@@ -1,4 +1,4 @@
-# Pacchetti restituiti
+# Snapshot restituiti
 
-Destinazione prevista per i pacchetti completati dai collaboratori, prima
-dell'unione nello stato master. Il workflow futuro non è ancora attivo.
+Copie restituite dai collaboratori, anche dopo poche revisioni. Ispezionare e
+unire tramite `scripts/tools/review_snapshots.py`; conservare il file ricevuto.

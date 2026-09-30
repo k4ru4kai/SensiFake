@@ -1,4 +1,4 @@
-# Pacchetti in uscita
+# Snapshot in uscita
 
-Destinazione prevista per i pacchetti offline generati. Il workflow futuro non
-è ancora attivo.
+Snapshot `review-<id>.sqlite3` creati dal master con `scripts/tools/review_snapshots.py create`.
+L’identità dello snapshot è interna al database, non dipende dal nome del file.

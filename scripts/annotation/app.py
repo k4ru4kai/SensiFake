@@ -11,10 +11,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import streamlit as st
 
-from scripts.annotation.import_batches import SNAPSHOT, prepare_legacy, prepare_zip
-from scripts.annotation.annotation_schema import AnnotationError, calculate_score, sensitivity_level
-from scripts.annotation.paths import REPOSITORY_ROOT
 from scripts.annotation.annotation_database import RUBRIC_FIELDS, SharedStore, identity
+from scripts.annotation.annotation_schema import AnnotationError, calculate_score, sensitivity_level
+from scripts.annotation.import_batches import SNAPSHOT, prepare_legacy, prepare_zip
+from scripts.annotation.paths import REPOSITORY_ROOT
 
 
 def rubric_inputs(defaults: dict, key: str) -> dict:
@@ -74,8 +74,12 @@ def rubric_inputs(defaults: dict, key: str) -> dict:
 
 def work_queue(store: SharedStore, name: str, batch_id: str | None, kind: str):
     person_key, _ = identity(name)
-    state_key = f"lease_{person_key}_{kind}"
-    include_reviewed = kind == "review" and st.checkbox("Include previously reviewed images")
+    state_key = f"lease_{store.path}_{person_key}_{kind}"
+    include_reviewed = (
+        kind == "review"
+        and not store.is_review_snapshot
+        and st.checkbox("Include previously reviewed images")
+    )
     if state_key not in st.session_state:
         if st.button("Resume or reserve an image", type="primary"):
             lease = store.reserve(name, batch_id, kind=kind, include_reviewed=include_reviewed)
@@ -186,7 +190,7 @@ def main():
         "--storage",
         type=Path,
         default=os.environ.get("SENSIFAKE_STORAGE")
-        or REPOSITORY_ROOT / "annotations" / "shared" / "sensifake.sqlite3",
+        or REPOSITORY_ROOT / "annotations" / "master" / "sensifake.sqlite3",
     )
     parser.add_argument("--reservation-minutes", type=int, default=15)
     args = parser.parse_args()
@@ -203,9 +207,12 @@ def main():
         help="Use the same name each time to resume drafts. Each person must use their own name.",
         key="annotator_name",
     )
-    page = st.sidebar.radio(
-        "Workspace", ("Annotate", "Review", "Progress and exports", "Import batches")
+    if store.is_review_snapshot:
+        st.caption("Offline review snapshot. Review as many images as you wish, then return this file.")
+    pages = ("Review", "Progress and exports") if store.is_review_snapshot else (
+        "Annotate", "Review", "Progress and exports", "Import batches"
     )
+    page = st.sidebar.radio("Workspace", pages)
     batches = store.batches()
     options = {
         b["batch_id"]: b["name"] for b in batches if b["is_open"] or page == "Progress and exports"

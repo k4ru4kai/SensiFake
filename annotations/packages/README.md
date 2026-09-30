@@ -1,7 +1,6 @@
-# Pacchetti offline
+# Snapshot di revisione
 
-- `outgoing/`: pacchetti generati da distribuire ad annotatori o revisori.
-- `returned/`: pacchetti completati restituiti dai collaboratori, prima
-  dell'unione nello stato master.
+- `outgoing/`: snapshot completi generati dal master, senza assegnazione permanente.
+- `returned/`: copie restituite, anche parzialmente revisionate, da validare e unire.
 
-Il workflow futuro non è ancora attivo.
+Vedere la [guida annotazione](../../docs/annotation.md).

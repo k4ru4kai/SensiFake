@@ -12,7 +12,7 @@ uv run streamlit run scripts/annotation/app.py
 ```
 
 Consulta la [guida annotazione](docs/annotation.md) per lo stato attuale e la
-struttura prevista per il workflow futuro.
+passaggio di revisione offline e le estensioni future.
 
 ## Dove trovare cosa
 

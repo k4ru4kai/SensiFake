@@ -6,3 +6,6 @@ root; they are not part of the Streamlit application.
 
 See [the annotation migration guide](../../docs/annotation.md) before running
 `migrate_annotations_to_sqlite.py` on real annotation files.
+
+`review_snapshots.py create|inspect|merge` supports asynchronous review handoffs.
+Create registers an issued snapshot in the master; merge appends validated reviews.

@@ -1,4 +1,5 @@
 # Stato master
 
-Percorso previsto per il database SQLite autorevole. La migrazione dello stato
-esistente non è ancora stata eseguita.
+Database SQLite autorevole locale: `sensifake.sqlite3`. Le copie di revisione
+si generano e si uniscono con gli strumenti descritti nella
+[guida annotazione](../../docs/annotation.md). Database e report locali non sono versionati.

@@ -109,13 +109,14 @@ the explicit `--publish-kaggle` flag.
 
 ## Shared manual annotation
 
-For annotation on separate computers without a shared server, see
+For offline review handoffs, see [the annotation guide](annotation.md).
+For the older annotation-only packages on separate computers, see
 [OFFLINE_ANNOTATION.md](offline_annotation.md). It provides disjoint local
 databases and a validated merge of completed work.
 
 Start **one shared Streamlit process** for the three annotators from the repository
 root. By default, the SQLite database is saved at
-`annotations/shared/sensifake.sqlite3` on that host:
+`annotations/master/sensifake.sqlite3` on that host:
 
 ```bash
 uv sync --group dev

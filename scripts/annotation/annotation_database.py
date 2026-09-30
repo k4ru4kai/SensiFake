@@ -144,10 +144,23 @@ class SharedStore:
         finally:
             db.close()
 
+    @staticmethod
+    def _snapshot_mode(db) -> bool:
+        return db.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='review_snapshot'"
+        ).fetchone() is not None
+
+    @property
+    def is_review_snapshot(self) -> bool:
+        with self.connection() as db:
+            return self._snapshot_mode(db)
+
     def import_batches(self, batches: list[dict]) -> dict:
         """Commit validated image bytes, memberships and optional legacy decisions together."""
         result = {"new_images": 0, "duplicate_images": 0, "entries": 0, "duplicates": []}
         with self.connection(write=True) as db:
+            if self._snapshot_mode(db):
+                raise AnnotationError("Review snapshots cannot import images or annotations.")
             for batch in batches:
                 name = batch["name"].strip()
                 if not name or len(name) > 120:
@@ -216,6 +229,8 @@ class SharedStore:
 
     def set_open(self, batch_id: str, is_open: bool) -> None:
         with self.connection(write=True) as db:
+            if self._snapshot_mode(db):
+                raise AnnotationError("Review snapshot batches cannot be changed.")
             db.execute("UPDATE batches SET is_open=? WHERE batch_id=?", (int(is_open), batch_id))
 
     def reserve(
@@ -232,6 +247,8 @@ class SharedStore:
         key, person = identity(name)
         now = time.time() if now is None else now
         with self.connection(write=True) as db:
+            if self._snapshot_mode(db) and (kind != "review" or include_reviewed):
+                raise AnnotationError("Review snapshots support pending reviews only.")
             db.execute("DELETE FROM reservations WHERE expires_at<=?", (now,))
             existing = db.execute(
                 "SELECT * FROM reservations WHERE person_key=? AND kind=?", (key, kind)
@@ -359,6 +376,11 @@ class SharedStore:
         with self.connection(write=True) as db:
             lease = self._lease(db, token, name, now)
             content_hash = lease["content_hash"]
+            if self._snapshot_mode(db) and (
+                lease["kind"] != "review"
+                or db.execute("SELECT 1 FROM reviews WHERE content_hash=?", (content_hash,)).fetchone()
+            ):
+                raise AnnotationError("Review snapshots support pending reviews only.")
             if lease["kind"] == "annotation":
                 payload = rubric(content_hash, values or {})
                 db.execute(

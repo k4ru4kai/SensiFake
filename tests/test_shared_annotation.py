@@ -12,15 +12,15 @@ from threading import Barrier
 import pytest
 from PIL import Image
 
+from scripts.annotation.annotation_database import EXPORT_FIELDS, SharedStore
+from scripts.annotation.annotation_schema import AnnotationError
 from scripts.annotation.import_batches import (
     SNAPSHOT,
     SNAPSHOT_SHA256,
     prepare_legacy,
     prepare_zip,
 )
-from scripts.annotation.annotation_schema import AnnotationError
 from scripts.annotation.paths import REPOSITORY_ROOT
-from scripts.annotation.annotation_database import EXPORT_FIELDS, SharedStore
 
 
 def image_bytes(color="red"):
@@ -325,7 +325,7 @@ def test_streamlit_starts_without_storage_configuration(tmp_path, monkeypatch):
     app.text_input[0].set_value("Lorenzo").run()
     assert not app.exception
     assert any(button.label == "Resume or reserve an image" for button in app.button)
-    assert (tmp_path / "annotations" / "shared" / "sensifake.sqlite3").is_file()
+    assert (tmp_path / "annotations" / "master" / "sensifake.sqlite3").is_file()
 
 
 def test_streamlit_annotation_and_review_flow(tmp_path, monkeypatch):
