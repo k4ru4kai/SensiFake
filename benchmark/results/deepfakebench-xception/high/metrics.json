@@ -1,0 +1,17 @@
+{
+  "count": 12,
+  "real": 7,
+  "fake": 5,
+  "accuracy": 0.6666666666666666,
+  "balanced_accuracy": 0.6,
+  "precision_fake": 1.0,
+  "recall_fake": 0.2,
+  "f1_fake": 0.3333333333333333,
+  "roc_auc": 0.8571428571428571,
+  "confusion_matrix": {
+    "tn": 7,
+    "fp": 0,
+    "fn": 4,
+    "tp": 1
+  }
+}

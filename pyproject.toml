@@ -18,6 +18,36 @@ dev = [
     "pytest",
     "ruff",
 ]
+benchmark = [
+    "albumentations",
+    "dlib",
+    "efficientnet-pytorch",
+    "einops",
+    "filterpy",
+    "fvcore",
+    "imageio",
+    "imgaug",
+    "imutils",
+    "kornia",
+    "loralib",
+    "matplotlib",
+    "numpy<2",
+    "opencv-python-headless",
+    "pytorchvideo",
+    "pyyaml",
+    "scikit-image",
+    "scikit-learn",
+    "scipy",
+    "seaborn",
+    "segmentation-models-pytorch",
+    "simplejson",
+    "tensorboard",
+    "timm",
+    "torch",
+    "torchtoolbox",
+    "torchvision",
+    "transformers",
+]
 
 [tool.uv]
 package = false

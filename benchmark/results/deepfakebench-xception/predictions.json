@@ -1,0 +1,2809 @@
+[
+  {
+    "content_hash": "07384e302abb3ab518e316c601457622bb1a67460d1fdaca3c5362d347979dd8",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/07384e302abb3ab518e316c601457622bb1a67460d1fdaca3c5362d347979dd8.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.46911606192588806
+  },
+  {
+    "content_hash": "07f79d4f9cb185b5f2589aeb02f3868288e8a4202cad3dd378236a59d1dfa571",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/07f79d4f9cb185b5f2589aeb02f3868288e8a4202cad3dd378236a59d1dfa571.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.433121919631958
+  },
+  {
+    "content_hash": "0be0c4bfc0aec81122347ee5410a4e81278df49dab0482bcfa5b7f8ebb1f183a",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/0be0c4bfc0aec81122347ee5410a4e81278df49dab0482bcfa5b7f8ebb1f183a.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4851081669330597
+  },
+  {
+    "content_hash": "128bd40a51f84fd5c425d1bc64f40c2db9a763849ab1f880582b850aaa7656eb",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/128bd40a51f84fd5c425d1bc64f40c2db9a763849ab1f880582b850aaa7656eb.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5127044320106506
+  },
+  {
+    "content_hash": "1b9848f4050f057ec149a26537531451100dbc5cc9a7a55367da05ec4c5bde26",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/1b9848f4050f057ec149a26537531451100dbc5cc9a7a55367da05ec4c5bde26.jpg",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5235230326652527
+  },
+  {
+    "content_hash": "1dbb0316c9fdf94ae2b48543f4005940e52d5ad7dd8664a02c2294f1c5fd064a",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/1dbb0316c9fdf94ae2b48543f4005940e52d5ad7dd8664a02c2294f1c5fd064a.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.36938053369522095
+  },
+  {
+    "content_hash": "22f57b1146d5f400d4f3f16eebbf7913e518620e318f53cc409eec675603dda4",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/22f57b1146d5f400d4f3f16eebbf7913e518620e318f53cc409eec675603dda4.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4698896110057831
+  },
+  {
+    "content_hash": "27181a257121302906ac0825fc5d0e30cd3dab312953c70192c3ebe202a31e68",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/27181a257121302906ac0825fc5d0e30cd3dab312953c70192c3ebe202a31e68.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.43470504879951477
+  },
+  {
+    "content_hash": "299e2de57f8371be987ea096817cd12342d020bb1bcc3c8d33d512133cd47d3f",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/299e2de57f8371be987ea096817cd12342d020bb1bcc3c8d33d512133cd47d3f.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47665935754776
+  },
+  {
+    "content_hash": "2fe3883bbe00030fd767436de847d1acdce36792aaf6cd0fbb054e1b72689b41",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/2fe3883bbe00030fd767436de847d1acdce36792aaf6cd0fbb054e1b72689b41.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5691428780555725
+  },
+  {
+    "content_hash": "3016cfebab5dc44162cff763c92c92bec977880b0740f30fe3cecc63cfaa4343",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/3016cfebab5dc44162cff763c92c92bec977880b0740f30fe3cecc63cfaa4343.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48659437894821167
+  },
+  {
+    "content_hash": "3e43427faeafdfdf7a1c3abb382bc7c926339a997375512e4a4e9b46ca140c0c",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/3e43427faeafdfdf7a1c3abb382bc7c926339a997375512e4a4e9b46ca140c0c.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.46651196479797363
+  },
+  {
+    "content_hash": "3e460e4bf2c751320ed902d6b6eec7c3d2aa9c54fdb211ec9f22351054b760dc",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/3e460e4bf2c751320ed902d6b6eec7c3d2aa9c54fdb211ec9f22351054b760dc.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.3570576012134552
+  },
+  {
+    "content_hash": "3ed40b63111d48ea5999b8f022c75de58d30ece4bc35c3b614e94ef771de12f7",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/3ed40b63111d48ea5999b8f022c75de58d30ece4bc35c3b614e94ef771de12f7.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4728028178215027
+  },
+  {
+    "content_hash": "406d8427e83ccd9e72e985d7828a9a8028c863c4f38e66beb7303348832b6b9c",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/406d8427e83ccd9e72e985d7828a9a8028c863c4f38e66beb7303348832b6b9c.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.49761855602264404
+  },
+  {
+    "content_hash": "48b7a71d356bd71b2d4237c623c0c156fabae96ba03ad473f37b267763b11633",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/48b7a71d356bd71b2d4237c623c0c156fabae96ba03ad473f37b267763b11633.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4956314265727997
+  },
+  {
+    "content_hash": "56ba7b5a4368c18dae9dc8cd4d48f6007521442f62059a5791e7a7f2b581d880",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/56ba7b5a4368c18dae9dc8cd4d48f6007521442f62059a5791e7a7f2b581d880.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6605371236801147
+  },
+  {
+    "content_hash": "56f1d36e4e3ea32d9bf32e67c0df3199e10eeb4d13559636c4b6866abe165990",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/56f1d36e4e3ea32d9bf32e67c0df3199e10eeb4d13559636c4b6866abe165990.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.38539785146713257
+  },
+  {
+    "content_hash": "7526b7cc75a534b8fd7eaef239d2b051892b9d90738b45eb7f4fe7e8513d27a9",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/7526b7cc75a534b8fd7eaef239d2b051892b9d90738b45eb7f4fe7e8513d27a9.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.21278902888298035
+  },
+  {
+    "content_hash": "75aafe072ef9cb3cf54dc5d16d5c156b6a58895316972f4df8418ecf1eade992",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/75aafe072ef9cb3cf54dc5d16d5c156b6a58895316972f4df8418ecf1eade992.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48585909605026245
+  },
+  {
+    "content_hash": "79ff2e63097180307311753145d4bfd63fbaa11c2e3939c861e5d57600902475",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/79ff2e63097180307311753145d4bfd63fbaa11c2e3939c861e5d57600902475.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.49592268466949463
+  },
+  {
+    "content_hash": "7c44932e5efc93234dce877a94e0bbbb81a53662fa5ffabba5dc5f05fe7cdf51",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/7c44932e5efc93234dce877a94e0bbbb81a53662fa5ffabba5dc5f05fe7cdf51.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4633938670158386
+  },
+  {
+    "content_hash": "8440371e97749c3ddc3c84c3b361a0f9e4c9dc9399f0667939f7b567826ba248",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/8440371e97749c3ddc3c84c3b361a0f9e4c9dc9399f0667939f7b567826ba248.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4421306848526001
+  },
+  {
+    "content_hash": "8b8a717bdbf96911f3868b8a2a61310b1f62dff6888f28f015f66e2f55dcfb1c",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/8b8a717bdbf96911f3868b8a2a61310b1f62dff6888f28f015f66e2f55dcfb1c.webp",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.2843405604362488
+  },
+  {
+    "content_hash": "8f0802b333d71f75a4c17550ddb522912266f7de20bf524a2b4c148d89fcdf8f",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/8f0802b333d71f75a4c17550ddb522912266f7de20bf524a2b4c148d89fcdf8f.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3730872869491577
+  },
+  {
+    "content_hash": "9992cb53a3131c2a2ed9d031cfa62204d808352a9b9c66fb2bd659de29db2c46",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/9992cb53a3131c2a2ed9d031cfa62204d808352a9b9c66fb2bd659de29db2c46.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.29363131523132324
+  },
+  {
+    "content_hash": "9a24202cfae405b57daadfead4da7736534d1af4126a0d6c73e1be6a4aa5480b",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/9a24202cfae405b57daadfead4da7736534d1af4126a0d6c73e1be6a4aa5480b.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.47791802883148193
+  },
+  {
+    "content_hash": "a1c196021589074be4c3d7c1521343334ca04c422058c4747712943612ca58a4",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/a1c196021589074be4c3d7c1521343334ca04c422058c4747712943612ca58a4.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4691600203514099
+  },
+  {
+    "content_hash": "b19f7071b020fbbbbd63f39bf157207085357ad3ea2a70e3d0268972aa97b6b1",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/b19f7071b020fbbbbd63f39bf157207085357ad3ea2a70e3d0268972aa97b6b1.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4641663730144501
+  },
+  {
+    "content_hash": "b4aee5b2db92b4199f8fb2cf2e0c118f26d4acbc51a24aad29d2861a1072e495",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/b4aee5b2db92b4199f8fb2cf2e0c118f26d4acbc51a24aad29d2861a1072e495.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.6442725658416748
+  },
+  {
+    "content_hash": "b99a4d8dcbab4de120fabe29606bc536fb7959a8d968fe9114a215d988af7d38",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/b99a4d8dcbab4de120fabe29606bc536fb7959a8d968fe9114a215d988af7d38.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3499123752117157
+  },
+  {
+    "content_hash": "ba81dcda51ba351cc99b5d14b2ab9b84e83372869268a1738b84bf9fb4974455",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/ba81dcda51ba351cc99b5d14b2ab9b84e83372869268a1738b84bf9fb4974455.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.400378942489624
+  },
+  {
+    "content_hash": "bc8eed041ec1682b6835168b0f0dc51a2f2a334bcbd912de98a55eedc7fe598a",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/bc8eed041ec1682b6835168b0f0dc51a2f2a334bcbd912de98a55eedc7fe598a.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4988400936126709
+  },
+  {
+    "content_hash": "bfc5ed7f21248dd3a2e3fe1386b83630348ebbaf83c350772b1ae1301e78225f",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/bfc5ed7f21248dd3a2e3fe1386b83630348ebbaf83c350772b1ae1301e78225f.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6310303211212158
+  },
+  {
+    "content_hash": "c552f3317939b6619ff5cfe8c73c46c452637a27c6f698ad43382e8a54d5f0ba",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/c552f3317939b6619ff5cfe8c73c46c452637a27c6f698ad43382e8a54d5f0ba.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6110417246818542
+  },
+  {
+    "content_hash": "c853d0cac2b865434dc1e5b3ddf483ebda85dd609cbbca5bb1a9a3462065a3e5",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/c853d0cac2b865434dc1e5b3ddf483ebda85dd609cbbca5bb1a9a3462065a3e5.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4637607932090759
+  },
+  {
+    "content_hash": "cc68576123d2f6625c6db066e7a08701e5a6acd8d58530399c1177a06916a0a4",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/cc68576123d2f6625c6db066e7a08701e5a6acd8d58530399c1177a06916a0a4.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4790186882019043
+  },
+  {
+    "content_hash": "cf5cf740601b3089b4ae1a947112bc8726984b0c61f2d71ddfc5005dae0732cc",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/cf5cf740601b3089b4ae1a947112bc8726984b0c61f2d71ddfc5005dae0732cc.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.41196000576019287
+  },
+  {
+    "content_hash": "dd736e197c2842c41f7699d083fc34d0cfdc630c24ced9e4779a0890487ecc22",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/dd736e197c2842c41f7699d083fc34d0cfdc630c24ced9e4779a0890487ecc22.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.39846381545066833
+  },
+  {
+    "content_hash": "e26b401d68bcb581c2c8999c921be3bd406d94eb417c7bae7da5ff8a175b161b",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/e26b401d68bcb581c2c8999c921be3bd406d94eb417c7bae7da5ff8a175b161b.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.46556225419044495
+  },
+  {
+    "content_hash": "ead550ad99628a06323f4aa753d2a324526ef63603de4c4ec3cf77a7e3072060",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/ead550ad99628a06323f4aa753d2a324526ef63603de4c4ec3cf77a7e3072060.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4652242064476013
+  },
+  {
+    "content_hash": "eb8bb6f1e02b65dc4e6d75b70c03afec584fa2b4a47ca4d1a9c50aaa0b6f92f9",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/eb8bb6f1e02b65dc4e6d75b70c03afec584fa2b4a47ca4d1a9c50aaa0b6f92f9.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5235621929168701
+  },
+  {
+    "content_hash": "ec786aed6b5c68e840686929e92b21ce92f76c42bd8fbaea02b269cd3c89302d",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/ec786aed6b5c68e840686929e92b21ce92f76c42bd8fbaea02b269cd3c89302d.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4988850951194763
+  },
+  {
+    "content_hash": "f654b2ff6fbc4af0a73385a8e0d9c3f4962cdfa44d57ddd23324e685bea800ad",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/f654b2ff6fbc4af0a73385a8e0d9c3f4962cdfa44d57ddd23324e685bea800ad.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47630786895751953
+  },
+  {
+    "content_hash": "fa632cce995afc4b7974f33902d52c95f49f0a1fff7d822e914a07cc20cab234",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/fa632cce995afc4b7974f33902d52c95f49f0a1fff7d822e914a07cc20cab234.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.41622301936149597
+  },
+  {
+    "content_hash": "fbf063206a1ab90c9d745f82ec9706ee85feb270bb3a7d858b766d574015222e",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/fbf063206a1ab90c9d745f82ec9706ee85feb270bb3a7d858b766d574015222e.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.49905824661254883
+  },
+  {
+    "content_hash": "fd2f3e2001b9bca2e09b010c54dc8f096ca36ce22f1357439750348b226ed7db",
+    "image_path": "data/datasets/openfake/additional-900/images/fake/fd2f3e2001b9bca2e09b010c54dc8f096ca36ce22f1357439750348b226ed7db.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5247141122817993
+  },
+  {
+    "content_hash": "08438c5fa8410f6bd4bee37721db733715605990536b017200a387a263e79608",
+    "image_path": "data/datasets/openfake/additional-900/images/real/08438c5fa8410f6bd4bee37721db733715605990536b017200a387a263e79608.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.6249936819076538
+  },
+  {
+    "content_hash": "103cbc081474f94f336384ed673d9f8f180bf0560ce17d66bdcf3c8adda6e603",
+    "image_path": "data/datasets/openfake/additional-900/images/real/103cbc081474f94f336384ed673d9f8f180bf0560ce17d66bdcf3c8adda6e603.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.3588591516017914
+  },
+  {
+    "content_hash": "12bd4b31dd75102e4a975fb4e0d3c7709590f8d614c4b2f8b96e68014490fbbe",
+    "image_path": "data/datasets/openfake/additional-900/images/real/12bd4b31dd75102e4a975fb4e0d3c7709590f8d614c4b2f8b96e68014490fbbe.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.45878639817237854
+  },
+  {
+    "content_hash": "1564245bbd0aa7132fa0391258283c258e918d85f04ecb93564a3b29de3261ce",
+    "image_path": "data/datasets/openfake/additional-900/images/real/1564245bbd0aa7132fa0391258283c258e918d85f04ecb93564a3b29de3261ce.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.43218013644218445
+  },
+  {
+    "content_hash": "1666626ba244b301d5b10c187b3c9d3cad15a640fa3b91381b12e5756f95552e",
+    "image_path": "data/datasets/openfake/additional-900/images/real/1666626ba244b301d5b10c187b3c9d3cad15a640fa3b91381b12e5756f95552e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.39628368616104126
+  },
+  {
+    "content_hash": "1f71f5110b4e5aa7e41750c81827dfff8d9e20977411b72089994f23ef606a05",
+    "image_path": "data/datasets/openfake/additional-900/images/real/1f71f5110b4e5aa7e41750c81827dfff8d9e20977411b72089994f23ef606a05.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48926597833633423
+  },
+  {
+    "content_hash": "2791a0894d6747cabd0d8814312e2917c77679e14b4232e4d2654061a935f919",
+    "image_path": "data/datasets/openfake/additional-900/images/real/2791a0894d6747cabd0d8814312e2917c77679e14b4232e4d2654061a935f919.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4458635449409485
+  },
+  {
+    "content_hash": "2812f3d602031ec9e018f1a2118d18f7549a23cac91c8208ff3b6016459f2d03",
+    "image_path": "data/datasets/openfake/additional-900/images/real/2812f3d602031ec9e018f1a2118d18f7549a23cac91c8208ff3b6016459f2d03.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4862576127052307
+  },
+  {
+    "content_hash": "289c3d2d731715a1afee54caeee6606ed2c97477fde31b85a3be275139ebcdc4",
+    "image_path": "data/datasets/openfake/additional-900/images/real/289c3d2d731715a1afee54caeee6606ed2c97477fde31b85a3be275139ebcdc4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4832342565059662
+  },
+  {
+    "content_hash": "2f7c27920584d66703b0b302e3a6e3b5be13339bddf6c606ba2390a3d86bae8a",
+    "image_path": "data/datasets/openfake/additional-900/images/real/2f7c27920584d66703b0b302e3a6e3b5be13339bddf6c606ba2390a3d86bae8a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49360260367393494
+  },
+  {
+    "content_hash": "3661bb186f215ff505cda7b90ba04bc4fbeed90c45d8b57f344a244c0ed182fe",
+    "image_path": "data/datasets/openfake/additional-900/images/real/3661bb186f215ff505cda7b90ba04bc4fbeed90c45d8b57f344a244c0ed182fe.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.46726325154304504
+  },
+  {
+    "content_hash": "374e45ebd3ecc4c43b76b05ff0088e54d00a0c1a6bfe658bc8e1b3f0fe8d3acc",
+    "image_path": "data/datasets/openfake/additional-900/images/real/374e45ebd3ecc4c43b76b05ff0088e54d00a0c1a6bfe658bc8e1b3f0fe8d3acc.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.45425063371658325
+  },
+  {
+    "content_hash": "37928f17f6e0bd188c8b623cf0796c0e2d43eea4f2b35e50fb5f9c8064225e60",
+    "image_path": "data/datasets/openfake/additional-900/images/real/37928f17f6e0bd188c8b623cf0796c0e2d43eea4f2b35e50fb5f9c8064225e60.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4666989743709564
+  },
+  {
+    "content_hash": "3803e149d44a82a78efbbd96fd67e7c8293627a89898337312c742ef5fbf5ef0",
+    "image_path": "data/datasets/openfake/additional-900/images/real/3803e149d44a82a78efbbd96fd67e7c8293627a89898337312c742ef5fbf5ef0.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.39816853404045105
+  },
+  {
+    "content_hash": "3a1b5fa6c10324ac43dbfd6604f13d94b13be03b6b537ad3c5ab7cb26f294fe3",
+    "image_path": "data/datasets/openfake/additional-900/images/real/3a1b5fa6c10324ac43dbfd6604f13d94b13be03b6b537ad3c5ab7cb26f294fe3.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.46647512912750244
+  },
+  {
+    "content_hash": "3e48d7980e451d77033d474815c2fc5ecd20a928eb2fdac40b8f14d82791ba00",
+    "image_path": "data/datasets/openfake/additional-900/images/real/3e48d7980e451d77033d474815c2fc5ecd20a928eb2fdac40b8f14d82791ba00.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5621620416641235
+  },
+  {
+    "content_hash": "3f9bb03f34139295fb7f248e10acc18cff44a6a4100454c5f8b291664080fb0e",
+    "image_path": "data/datasets/openfake/additional-900/images/real/3f9bb03f34139295fb7f248e10acc18cff44a6a4100454c5f8b291664080fb0e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48978444933891296
+  },
+  {
+    "content_hash": "4005f8aa218782510b69fd27cf4480e1cf250b943a69487a5206c86669e45067",
+    "image_path": "data/datasets/openfake/additional-900/images/real/4005f8aa218782510b69fd27cf4480e1cf250b943a69487a5206c86669e45067.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47693294286727905
+  },
+  {
+    "content_hash": "408f7858e2e075b582f0e24d32cd8de157073b48308c8f252e6003d87aa22e2d",
+    "image_path": "data/datasets/openfake/additional-900/images/real/408f7858e2e075b582f0e24d32cd8de157073b48308c8f252e6003d87aa22e2d.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4292382001876831
+  },
+  {
+    "content_hash": "40b6fa533d8a7e74194fb49e0e1ac0bd068454e3bc9b847e35a57c24913ca6e8",
+    "image_path": "data/datasets/openfake/additional-900/images/real/40b6fa533d8a7e74194fb49e0e1ac0bd068454e3bc9b847e35a57c24913ca6e8.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.477384090423584
+  },
+  {
+    "content_hash": "412ccea9882261a40077329f8dc0944cfa881d1208239cb74dd8e16736c59400",
+    "image_path": "data/datasets/openfake/additional-900/images/real/412ccea9882261a40077329f8dc0944cfa881d1208239cb74dd8e16736c59400.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.37774673104286194
+  },
+  {
+    "content_hash": "4cd4df40fab1ead22ed12490f6641be1f1d1fad8e2fff1ef40226ad14d19e115",
+    "image_path": "data/datasets/openfake/additional-900/images/real/4cd4df40fab1ead22ed12490f6641be1f1d1fad8e2fff1ef40226ad14d19e115.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4775562584400177
+  },
+  {
+    "content_hash": "4fe56bbb4fe79682cde0354e1d77d21bd71900ca1eb5c60b1662aeb1922d1767",
+    "image_path": "data/datasets/openfake/additional-900/images/real/4fe56bbb4fe79682cde0354e1d77d21bd71900ca1eb5c60b1662aeb1922d1767.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5328367948532104
+  },
+  {
+    "content_hash": "5620e447d4f0608a4368b548917a10748006292454fdb9104a5046f8c1cf2e38",
+    "image_path": "data/datasets/openfake/additional-900/images/real/5620e447d4f0608a4368b548917a10748006292454fdb9104a5046f8c1cf2e38.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48046138882637024
+  },
+  {
+    "content_hash": "5bbd8d2bcb966f7aad8aa4d5cdbd5c257f964680977bc98836917c72a1057afa",
+    "image_path": "data/datasets/openfake/additional-900/images/real/5bbd8d2bcb966f7aad8aa4d5cdbd5c257f964680977bc98836917c72a1057afa.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49035024642944336
+  },
+  {
+    "content_hash": "603dd1302b2fb5cf5a47499e1bcb0ff47de5646afca2f758c81e0acd653e01c5",
+    "image_path": "data/datasets/openfake/additional-900/images/real/603dd1302b2fb5cf5a47499e1bcb0ff47de5646afca2f758c81e0acd653e01c5.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.45954740047454834
+  },
+  {
+    "content_hash": "6a38965d7ba54be6ed4be5b544918a37280a7469e4b87b75f1ebe6d554d9ffda",
+    "image_path": "data/datasets/openfake/additional-900/images/real/6a38965d7ba54be6ed4be5b544918a37280a7469e4b87b75f1ebe6d554d9ffda.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4900313913822174
+  },
+  {
+    "content_hash": "6b14c74f3bd6103ead4041936eabb638aec06ce7a167c63d69ce462bb8a45bac",
+    "image_path": "data/datasets/openfake/additional-900/images/real/6b14c74f3bd6103ead4041936eabb638aec06ce7a167c63d69ce462bb8a45bac.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5452959537506104
+  },
+  {
+    "content_hash": "725ffd38b9191d1d92f27bf9d99963531af43ae978d477947a9a93c018c5a4c9",
+    "image_path": "data/datasets/openfake/additional-900/images/real/725ffd38b9191d1d92f27bf9d99963531af43ae978d477947a9a93c018c5a4c9.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4135347604751587
+  },
+  {
+    "content_hash": "7311cb770224aa8b75a8d9adfb094213c88c026cbc9b27856f9d162ec5150cec",
+    "image_path": "data/datasets/openfake/additional-900/images/real/7311cb770224aa8b75a8d9adfb094213c88c026cbc9b27856f9d162ec5150cec.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4570467174053192
+  },
+  {
+    "content_hash": "77530bd59d9384426ee450a9d54aaf63794d3f17a6ed3f39b6aedf71f1469373",
+    "image_path": "data/datasets/openfake/additional-900/images/real/77530bd59d9384426ee450a9d54aaf63794d3f17a6ed3f39b6aedf71f1469373.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4865478575229645
+  },
+  {
+    "content_hash": "780f8068aa47fdd74244e4dde6bd40d42d7ba8e88c10a2c6e31eeb1d238cb1fc",
+    "image_path": "data/datasets/openfake/additional-900/images/real/780f8068aa47fdd74244e4dde6bd40d42d7ba8e88c10a2c6e31eeb1d238cb1fc.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48906320333480835
+  },
+  {
+    "content_hash": "7c2d679e29d758accffaedc9a632ccb8750a83adbb8a32cb32080ab5e77d833d",
+    "image_path": "data/datasets/openfake/additional-900/images/real/7c2d679e29d758accffaedc9a632ccb8750a83adbb8a32cb32080ab5e77d833d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4847816824913025
+  },
+  {
+    "content_hash": "7d1ed5e5d4e3bc1beb8dbb2c8678c8d75fce261223ea4931d209a5c68aa7a99c",
+    "image_path": "data/datasets/openfake/additional-900/images/real/7d1ed5e5d4e3bc1beb8dbb2c8678c8d75fce261223ea4931d209a5c68aa7a99c.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48751315474510193
+  },
+  {
+    "content_hash": "851d83722549bc78e32c2cef8870777e338e7e80ae1aaef7b84a62a5131d262a",
+    "image_path": "data/datasets/openfake/additional-900/images/real/851d83722549bc78e32c2cef8870777e338e7e80ae1aaef7b84a62a5131d262a.webp",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.9111673831939697
+  },
+  {
+    "content_hash": "861d97af00b1546ebf5d03e6dc8c7f85dfbfaa759f428d997d66b24abe3d1ec1",
+    "image_path": "data/datasets/openfake/additional-900/images/real/861d97af00b1546ebf5d03e6dc8c7f85dfbfaa759f428d997d66b24abe3d1ec1.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.44502636790275574
+  },
+  {
+    "content_hash": "8a13deeb4806758795018513693acc8fefd8492698b4b2a531d9f112863c4175",
+    "image_path": "data/datasets/openfake/additional-900/images/real/8a13deeb4806758795018513693acc8fefd8492698b4b2a531d9f112863c4175.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4833835959434509
+  },
+  {
+    "content_hash": "8e81751bb258e04b0460c3467c238aad619e82665e5142c6cfdf1e7eb963533d",
+    "image_path": "data/datasets/openfake/additional-900/images/real/8e81751bb258e04b0460c3467c238aad619e82665e5142c6cfdf1e7eb963533d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4481346309185028
+  },
+  {
+    "content_hash": "941067793367eb8496ada0012966d8aa70af596af81faf2b72ac48f762d4c947",
+    "image_path": "data/datasets/openfake/additional-900/images/real/941067793367eb8496ada0012966d8aa70af596af81faf2b72ac48f762d4c947.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5691807866096497
+  },
+  {
+    "content_hash": "9c0cddb043bacccf5ae2884acc7ae92cf96a574e602f53dc42b66660f2586c41",
+    "image_path": "data/datasets/openfake/additional-900/images/real/9c0cddb043bacccf5ae2884acc7ae92cf96a574e602f53dc42b66660f2586c41.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5538459420204163
+  },
+  {
+    "content_hash": "9d684d08b6dcede6281b9eca29daf5502ffa70d2ebeff6502ee80fb3464dc0ce",
+    "image_path": "data/datasets/openfake/additional-900/images/real/9d684d08b6dcede6281b9eca29daf5502ffa70d2ebeff6502ee80fb3464dc0ce.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.483120858669281
+  },
+  {
+    "content_hash": "a590a0d5e98e886fbf1daa2ce4de18c2aeafd0ae24c8b4a4cbd02d2d3977b80c",
+    "image_path": "data/datasets/openfake/additional-900/images/real/a590a0d5e98e886fbf1daa2ce4de18c2aeafd0ae24c8b4a4cbd02d2d3977b80c.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.42340201139450073
+  },
+  {
+    "content_hash": "b52089b34726d7967c424ced3f7da564c6e4c63711c3d107ee463526359653ac",
+    "image_path": "data/datasets/openfake/additional-900/images/real/b52089b34726d7967c424ced3f7da564c6e4c63711c3d107ee463526359653ac.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.43944600224494934
+  },
+  {
+    "content_hash": "b5710e93f1bc7aeed4d711790bd1cd5939f33756ddc2eb17bc078a0095ab7425",
+    "image_path": "data/datasets/openfake/additional-900/images/real/b5710e93f1bc7aeed4d711790bd1cd5939f33756ddc2eb17bc078a0095ab7425.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5461437702178955
+  },
+  {
+    "content_hash": "b8d15cb5db5e44e22429599c4b4b4ae76c368bc14a664a9255e5fd0dc94faa08",
+    "image_path": "data/datasets/openfake/additional-900/images/real/b8d15cb5db5e44e22429599c4b4b4ae76c368bc14a664a9255e5fd0dc94faa08.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.6965524554252625
+  },
+  {
+    "content_hash": "bb1c594760514a8c7c94401811ddc6c73e6efbf22a1dcafa5d2dbb493e4927c8",
+    "image_path": "data/datasets/openfake/additional-900/images/real/bb1c594760514a8c7c94401811ddc6c73e6efbf22a1dcafa5d2dbb493e4927c8.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4268677532672882
+  },
+  {
+    "content_hash": "c3aea48d4de71effb22bf88858c543673e50d8cc3e21438f7ef442c62a1315dd",
+    "image_path": "data/datasets/openfake/additional-900/images/real/c3aea48d4de71effb22bf88858c543673e50d8cc3e21438f7ef442c62a1315dd.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4915681779384613
+  },
+  {
+    "content_hash": "c3faa2d56cbdebaebe35236723893398cdb3f7ebed2e55b0d1e35ef601ef8b6f",
+    "image_path": "data/datasets/openfake/additional-900/images/real/c3faa2d56cbdebaebe35236723893398cdb3f7ebed2e55b0d1e35ef601ef8b6f.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4789285957813263
+  },
+  {
+    "content_hash": "c5fb2224ffc915d2b12fc044ebaf3e8dd52148cf5ce5e426df214c9b6596364f",
+    "image_path": "data/datasets/openfake/additional-900/images/real/c5fb2224ffc915d2b12fc044ebaf3e8dd52148cf5ce5e426df214c9b6596364f.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.385736882686615
+  },
+  {
+    "content_hash": "c7fb8de52497a2e1a197583305168c70736bad1b28b08688216581ada130e336",
+    "image_path": "data/datasets/openfake/additional-900/images/real/c7fb8de52497a2e1a197583305168c70736bad1b28b08688216581ada130e336.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4301745891571045
+  },
+  {
+    "content_hash": "ce1f6b93f25718a4b78c7e7e295dd733899198720cdcf40e7a446a278f624fed",
+    "image_path": "data/datasets/openfake/additional-900/images/real/ce1f6b93f25718a4b78c7e7e295dd733899198720cdcf40e7a446a278f624fed.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.47692668437957764
+  },
+  {
+    "content_hash": "d22ab4418eac167cad647691d1d2d705aafb9d508c492e2e5e0c131dca4f4baa",
+    "image_path": "data/datasets/openfake/additional-900/images/real/d22ab4418eac167cad647691d1d2d705aafb9d508c492e2e5e0c131dca4f4baa.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4957706332206726
+  },
+  {
+    "content_hash": "dc8c7b479919a5d77a7587a2c9a68ef98bac85e75d9d348220fb56e5e6026cf4",
+    "image_path": "data/datasets/openfake/additional-900/images/real/dc8c7b479919a5d77a7587a2c9a68ef98bac85e75d9d348220fb56e5e6026cf4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48373228311538696
+  },
+  {
+    "content_hash": "dd876e107a4831147130399c135a348d8a71b15c8aa492e281785181c360a1f3",
+    "image_path": "data/datasets/openfake/additional-900/images/real/dd876e107a4831147130399c135a348d8a71b15c8aa492e281785181c360a1f3.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5750097632408142
+  },
+  {
+    "content_hash": "de2a1078cdf26ff660f587bc6202c1d58b53d9787d1f21dd8c03fd6550ff2c4a",
+    "image_path": "data/datasets/openfake/additional-900/images/real/de2a1078cdf26ff660f587bc6202c1d58b53d9787d1f21dd8c03fd6550ff2c4a.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48544856905937195
+  },
+  {
+    "content_hash": "e6d84633f7e23ea2bd1fb0a1477cbfc3c20388686b752fe322abac26d04e1297",
+    "image_path": "data/datasets/openfake/additional-900/images/real/e6d84633f7e23ea2bd1fb0a1477cbfc3c20388686b752fe322abac26d04e1297.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.7678194642066956
+  },
+  {
+    "content_hash": "e79b3974b916906371db2146e05db1ff24dcc6f14bd3805b3307c3b47fccdfa2",
+    "image_path": "data/datasets/openfake/additional-900/images/real/e79b3974b916906371db2146e05db1ff24dcc6f14bd3805b3307c3b47fccdfa2.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4728630483150482
+  },
+  {
+    "content_hash": "ea1f491e3f8c985b28f83fa15eb336a666183a4fe872460e4aa113aafa444073",
+    "image_path": "data/datasets/openfake/additional-900/images/real/ea1f491e3f8c985b28f83fa15eb336a666183a4fe872460e4aa113aafa444073.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48576298356056213
+  },
+  {
+    "content_hash": "f19b1c24e3bddd20cf978395e030b2fae17ece9bb4a40e5bef76ede2b238e9c1",
+    "image_path": "data/datasets/openfake/additional-900/images/real/f19b1c24e3bddd20cf978395e030b2fae17ece9bb4a40e5bef76ede2b238e9c1.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4787163734436035
+  },
+  {
+    "content_hash": "fddcf3890715d7488c6442cc41ecce8be3136d1445432e699aeddc17ba9ff9f2",
+    "image_path": "data/datasets/openfake/additional-900/images/real/fddcf3890715d7488c6442cc41ecce8be3136d1445432e699aeddc17ba9ff9f2.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4510289132595062
+  },
+  {
+    "content_hash": "00294dcb68a832c07c7fede8179e6f9caa0e209ef1622436be2502c9dfdfaa2a",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/00294dcb68a832c07c7fede8179e6f9caa0e209ef1622436be2502c9dfdfaa2a.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.389234334230423
+  },
+  {
+    "content_hash": "00d551ef32ea946c29602bb6de3293a4653624b19fa1e84f67408f10d8430132",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/00d551ef32ea946c29602bb6de3293a4653624b19fa1e84f67408f10d8430132.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47476285696029663
+  },
+  {
+    "content_hash": "045fc1c8fe52d12262dde8c3933400944984610a76683bd538f5839a14309555",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/045fc1c8fe52d12262dde8c3933400944984610a76683bd538f5839a14309555.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.3394649028778076
+  },
+  {
+    "content_hash": "05821ee51ef95d0a7de9d81a147b95ad2f0bb57f7608320a6e34e3565e13157e",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/05821ee51ef95d0a7de9d81a147b95ad2f0bb57f7608320a6e34e3565e13157e.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48426714539527893
+  },
+  {
+    "content_hash": "073f80938d867d05ff759088df4f97ec3821b4e1bc24e9f3703ff8838568f789",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/073f80938d867d05ff759088df4f97ec3821b4e1bc24e9f3703ff8838568f789.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.363334059715271
+  },
+  {
+    "content_hash": "097db96da5fdf9ac982d53e86e135f7353040781242b5bbdfd762091e6db94b8",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/097db96da5fdf9ac982d53e86e135f7353040781242b5bbdfd762091e6db94b8.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.40877583622932434
+  },
+  {
+    "content_hash": "0a7e89a52c053f6051f6d8d3264528a762d2731f51a94345796cd42b49d54dc6",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/0a7e89a52c053f6051f6d8d3264528a762d2731f51a94345796cd42b49d54dc6.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.7507695555686951
+  },
+  {
+    "content_hash": "0b70504b4786fc7ec65c05711e8438375d5cccc6c21c352ed613e4b521b735fe",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/0b70504b4786fc7ec65c05711e8438375d5cccc6c21c352ed613e4b521b735fe.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48632460832595825
+  },
+  {
+    "content_hash": "0bcdf69572b1e02a6980cc98d22e6e65cff5bd5cce447e74a29c0931e7aa6901",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/0bcdf69572b1e02a6980cc98d22e6e65cff5bd5cce447e74a29c0931e7aa6901.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4141556918621063
+  },
+  {
+    "content_hash": "0cc747e95710a543f2fb2ec0ee0603aadd290997e1b7e2e9fe2717f66bb4b826",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/0cc747e95710a543f2fb2ec0ee0603aadd290997e1b7e2e9fe2717f66bb4b826.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48845192790031433
+  },
+  {
+    "content_hash": "100c0389ea0e51c9d0d1e951c7b0e2495b5ed707ae65f135b96ef518d3f352c3",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/100c0389ea0e51c9d0d1e951c7b0e2495b5ed707ae65f135b96ef518d3f352c3.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4476693868637085
+  },
+  {
+    "content_hash": "113526d056e358968ba7809871910a5c3b3848924f6c32e21bce8cf891f68d9b",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/113526d056e358968ba7809871910a5c3b3848924f6c32e21bce8cf891f68d9b.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4443162977695465
+  },
+  {
+    "content_hash": "114a152b5e9804ff8d6c4024ca73b0119f8a608125f46b2595f6040eeb7c17ec",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/114a152b5e9804ff8d6c4024ca73b0119f8a608125f46b2595f6040eeb7c17ec.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.7030748128890991
+  },
+  {
+    "content_hash": "12565dc391bab4e2bb6b21b5969d5da2ff6e767546940c4101bc9b95b59ea9d2",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/12565dc391bab4e2bb6b21b5969d5da2ff6e767546940c4101bc9b95b59ea9d2.png",
+    "sensitivity_level": "high",
+    "label": 1,
+    "probability_fake": 0.5211536288261414
+  },
+  {
+    "content_hash": "13b7f2b97efa0967297328c662b99d1efcd7de62623b45e21a62a0cce802ff14",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/13b7f2b97efa0967297328c662b99d1efcd7de62623b45e21a62a0cce802ff14.png",
+    "sensitivity_level": "high",
+    "label": 1,
+    "probability_fake": 0.46595484018325806
+  },
+  {
+    "content_hash": "1411c0137ba1fc4943def3d81790421ebbd488dc5fa5d10a90e3c20f6056d223",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/1411c0137ba1fc4943def3d81790421ebbd488dc5fa5d10a90e3c20f6056d223.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.34388235211372375
+  },
+  {
+    "content_hash": "188c83865facb67a88d24438eaba30e3ab8baf95c03612715d363ee87eb0bed0",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/188c83865facb67a88d24438eaba30e3ab8baf95c03612715d363ee87eb0bed0.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47799038887023926
+  },
+  {
+    "content_hash": "18cfb8b96af1cdc6c0a14f5034f65a2a05d906f88adab74d0952ddef8871bce6",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/18cfb8b96af1cdc6c0a14f5034f65a2a05d906f88adab74d0952ddef8871bce6.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.37235358357429504
+  },
+  {
+    "content_hash": "19c530d2a60c0687844cc650389c43eaab499d15c6457ba593704a77a73a7007",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/19c530d2a60c0687844cc650389c43eaab499d15c6457ba593704a77a73a7007.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5102024078369141
+  },
+  {
+    "content_hash": "1c67d2e4b8d8502d8e3abd78b6637eba1b877d3e0badaed576f459fa873f1e90",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/1c67d2e4b8d8502d8e3abd78b6637eba1b877d3e0badaed576f459fa873f1e90.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5648816823959351
+  },
+  {
+    "content_hash": "1c9f16e1d6d8cb404e2ab836ca927743e31c31f9dda8de0d408a028de3b92932",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/1c9f16e1d6d8cb404e2ab836ca927743e31c31f9dda8de0d408a028de3b92932.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.6078551411628723
+  },
+  {
+    "content_hash": "2029415654491971b94d758e2f960e967e049c95a9a42de6e8659b7ac6383fe3",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/2029415654491971b94d758e2f960e967e049c95a9a42de6e8659b7ac6383fe3.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6133232712745667
+  },
+  {
+    "content_hash": "2310020a213b01bf1670b613b67cdf54d9e078a63f232a388bb13df0d4522ee5",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/2310020a213b01bf1670b613b67cdf54d9e078a63f232a388bb13df0d4522ee5.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3778560161590576
+  },
+  {
+    "content_hash": "24a696fb1a873bec98ee896ee42c155138585ae05fca68727e207fe9f4ace5d7",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/24a696fb1a873bec98ee896ee42c155138585ae05fca68727e207fe9f4ace5d7.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4269038736820221
+  },
+  {
+    "content_hash": "25e41aa51dc6e739cf4e77ef570612af965e1a7c89de8b27a333a65ac05b1326",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/25e41aa51dc6e739cf4e77ef570612af965e1a7c89de8b27a333a65ac05b1326.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4848235845565796
+  },
+  {
+    "content_hash": "27a8837396877f6e6c79abe739a969bbbed572cbab48a8ad372f4b3bec846b6e",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/27a8837396877f6e6c79abe739a969bbbed572cbab48a8ad372f4b3bec846b6e.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4202307164669037
+  },
+  {
+    "content_hash": "2bb6546d37b4ec790a3c073d43ae9235f46893ade6816bd9519baaa1385a305d",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/2bb6546d37b4ec790a3c073d43ae9235f46893ade6816bd9519baaa1385a305d.png",
+    "sensitivity_level": "high",
+    "label": 1,
+    "probability_fake": 0.4842146933078766
+  },
+  {
+    "content_hash": "2db98325232bb7d6cf4f996a8ca09365ddd8052a76f7fc1fe1bf7c6c47588201",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/2db98325232bb7d6cf4f996a8ca09365ddd8052a76f7fc1fe1bf7c6c47588201.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.13034647703170776
+  },
+  {
+    "content_hash": "33a3792dac9ca3840412daeaed4fcd6f798e92893bed317a5b2dd7f7ed79b002",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/33a3792dac9ca3840412daeaed4fcd6f798e92893bed317a5b2dd7f7ed79b002.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4513513445854187
+  },
+  {
+    "content_hash": "3b00e6e96bd04214ae3cdb4a0d8870d4a16d09a0f423ebdde2bc23205b787560",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/3b00e6e96bd04214ae3cdb4a0d8870d4a16d09a0f423ebdde2bc23205b787560.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4812672734260559
+  },
+  {
+    "content_hash": "3c5fd88664a4ab56874d3b4061a100fcf9e35d05867ceff5ce70f4f070d6cc19",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/3c5fd88664a4ab56874d3b4061a100fcf9e35d05867ceff5ce70f4f070d6cc19.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4881437420845032
+  },
+  {
+    "content_hash": "48a67a84d155309de77ee56bc4d2fa7e49bd691ccaffbdc87487f8e04640baf4",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/48a67a84d155309de77ee56bc4d2fa7e49bd691ccaffbdc87487f8e04640baf4.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.21912133693695068
+  },
+  {
+    "content_hash": "50988c18326e59169753a7726df7306f449e92fba4989cccedc82e688f97e6fa",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/50988c18326e59169753a7726df7306f449e92fba4989cccedc82e688f97e6fa.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5144420862197876
+  },
+  {
+    "content_hash": "51ef37cde07c65882cbc82e85ccbe844b27a601d844383d5a6754f04222191eb",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/51ef37cde07c65882cbc82e85ccbe844b27a601d844383d5a6754f04222191eb.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4664691388607025
+  },
+  {
+    "content_hash": "54829ca0a6de394d2b1c3220e69a9ee6ab9cc47cb5744d61c5199a7801d6a171",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/54829ca0a6de394d2b1c3220e69a9ee6ab9cc47cb5744d61c5199a7801d6a171.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5463223457336426
+  },
+  {
+    "content_hash": "5b636773049aa592846f5ef93c12af0e25c95a3bede4582f17143a297f47f131",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/5b636773049aa592846f5ef93c12af0e25c95a3bede4582f17143a297f47f131.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4780519902706146
+  },
+  {
+    "content_hash": "5be9d51f0c67dba26b83a6992a8880cc67836be24f3fafd7c2f4d7d9f16e8358",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/5be9d51f0c67dba26b83a6992a8880cc67836be24f3fafd7c2f4d7d9f16e8358.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.7094027996063232
+  },
+  {
+    "content_hash": "61247ee55e4488a5d0addd7258703161e593fafae19fb971e0b7bc5715bff317",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/61247ee55e4488a5d0addd7258703161e593fafae19fb971e0b7bc5715bff317.png",
+    "sensitivity_level": "high",
+    "label": 1,
+    "probability_fake": 0.4673193693161011
+  },
+  {
+    "content_hash": "6640cfd285f46c44334c6956c11d0fc9d84d0606c10e6f014d678eb386d34f16",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/6640cfd285f46c44334c6956c11d0fc9d84d0606c10e6f014d678eb386d34f16.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4956875443458557
+  },
+  {
+    "content_hash": "679edc2def87f6cdcada973bb75f79a9e07a4d3e11067c183308ee9dbdc453bc",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/679edc2def87f6cdcada973bb75f79a9e07a4d3e11067c183308ee9dbdc453bc.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.46386560797691345
+  },
+  {
+    "content_hash": "6db0b19851b9689afb94cf854593614471a82ddd6b781a89d2b391a6c9be3d7a",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/6db0b19851b9689afb94cf854593614471a82ddd6b781a89d2b391a6c9be3d7a.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4913654625415802
+  },
+  {
+    "content_hash": "733ee6ab3dff70235856bb9eaa614767f66a0b695634488a3c89cb3b19286cc0",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/733ee6ab3dff70235856bb9eaa614767f66a0b695634488a3c89cb3b19286cc0.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4743220806121826
+  },
+  {
+    "content_hash": "79e11c3a819e44e635f098aef03a7007e0ce6d9b1617c2403c760de65dc3299b",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/79e11c3a819e44e635f098aef03a7007e0ce6d9b1617c2403c760de65dc3299b.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.41954439878463745
+  },
+  {
+    "content_hash": "7bb92e9f65b5a6f6b87cfd2411a29652f35c49d245928e5fa3ca22a299a10db0",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/7bb92e9f65b5a6f6b87cfd2411a29652f35c49d245928e5fa3ca22a299a10db0.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6418149471282959
+  },
+  {
+    "content_hash": "7c89da9dd986b0507e0d3f1b0df006d441e2b7bf5870efc44e3f6f61febe5878",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/7c89da9dd986b0507e0d3f1b0df006d441e2b7bf5870efc44e3f6f61febe5878.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48133084177970886
+  },
+  {
+    "content_hash": "7cb9633b03b6e40e6b01c490dcbfa2c66985921c486a5d7b51596634c8f8444d",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/7cb9633b03b6e40e6b01c490dcbfa2c66985921c486a5d7b51596634c8f8444d.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.784019947052002
+  },
+  {
+    "content_hash": "7deb6e0833bf859bddc17b8c5b053dae61cd8cf9fc80ceb5ff94bd35da734c32",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/7deb6e0833bf859bddc17b8c5b053dae61cd8cf9fc80ceb5ff94bd35da734c32.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.7839439511299133
+  },
+  {
+    "content_hash": "84ca0dfbdfb307ed6fb8ae5416ece412e94c628efc7af63e18dd8d0d12116288",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/84ca0dfbdfb307ed6fb8ae5416ece412e94c628efc7af63e18dd8d0d12116288.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.49818482995033264
+  },
+  {
+    "content_hash": "87c666dfa8a0abfad787aa77f83cc87d8f760fc47f3e19c7c1c38f0d4dc97120",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/87c666dfa8a0abfad787aa77f83cc87d8f760fc47f3e19c7c1c38f0d4dc97120.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4302371144294739
+  },
+  {
+    "content_hash": "8aeab606e04692b0703fe641715ffdc0415bf8d8baeb5297e88561a478f4ea9b",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/8aeab606e04692b0703fe641715ffdc0415bf8d8baeb5297e88561a478f4ea9b.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5498936176300049
+  },
+  {
+    "content_hash": "8c41762f17b8b4887f4211b66823ddf8a04fdc538ca2ae6841163b96002d3b47",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/8c41762f17b8b4887f4211b66823ddf8a04fdc538ca2ae6841163b96002d3b47.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4980885088443756
+  },
+  {
+    "content_hash": "8f0a1c658d53448b5daf574d50c1d155614d4a12c55f6ddbc0be8e06f88e79b2",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/8f0a1c658d53448b5daf574d50c1d155614d4a12c55f6ddbc0be8e06f88e79b2.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4783799946308136
+  },
+  {
+    "content_hash": "93b9cb48f97259f959607cf816b5825bbd130021100429145b451292fb4caa63",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/93b9cb48f97259f959607cf816b5825bbd130021100429145b451292fb4caa63.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4547092914581299
+  },
+  {
+    "content_hash": "9c12a9841fdea149cc9bf3d8b52101e56e13ebc472787fd2c26ab86f7667828d",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/9c12a9841fdea149cc9bf3d8b52101e56e13ebc472787fd2c26ab86f7667828d.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.42972245812416077
+  },
+  {
+    "content_hash": "a03da41bab0ddfc6649181191a85c0d392830bcc9fda840194acb6a45a10de19",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/a03da41bab0ddfc6649181191a85c0d392830bcc9fda840194acb6a45a10de19.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5108046531677246
+  },
+  {
+    "content_hash": "a3945b578fd3c4fb7756daede652bfe6348817b72f7a20949253be43f9dddf76",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/a3945b578fd3c4fb7756daede652bfe6348817b72f7a20949253be43f9dddf76.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.445332407951355
+  },
+  {
+    "content_hash": "abf623a8aeb0db5ecbe4a5c14f74d1e739867bc215a91cfef9cf6ad67548b1e7",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/abf623a8aeb0db5ecbe4a5c14f74d1e739867bc215a91cfef9cf6ad67548b1e7.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6208564639091492
+  },
+  {
+    "content_hash": "ad80b318e713a9810ff1b10aa50781634729a41971bd4bdfd9d27293434944c7",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/ad80b318e713a9810ff1b10aa50781634729a41971bd4bdfd9d27293434944c7.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.47668787837028503
+  },
+  {
+    "content_hash": "ade9fd796ab48a0acae88445732fc1baef4e7cbd245de21720712c2cb096beb1",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/ade9fd796ab48a0acae88445732fc1baef4e7cbd245de21720712c2cb096beb1.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.42571312189102173
+  },
+  {
+    "content_hash": "af3a266205489d1d0093c5d4713a9851ad6e2b321b1c991abb11472143b05db4",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/af3a266205489d1d0093c5d4713a9851ad6e2b321b1c991abb11472143b05db4.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.15249700844287872
+  },
+  {
+    "content_hash": "afe22a3edcb7326e1ea4f41b72237c373cf05793ff7114b5a8fe995ab4794e38",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/afe22a3edcb7326e1ea4f41b72237c373cf05793ff7114b5a8fe995ab4794e38.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.34258028864860535
+  },
+  {
+    "content_hash": "b118ae31d79d0693f714fb959fb0427d2b02390cfeea7444d1f7ba23f964b8f3",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/b118ae31d79d0693f714fb959fb0427d2b02390cfeea7444d1f7ba23f964b8f3.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6356999278068542
+  },
+  {
+    "content_hash": "b4bd8706ed1bd8820f2e682dc9acf18c6eb3cf3e4cc23f23d356ead38953987c",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/b4bd8706ed1bd8820f2e682dc9acf18c6eb3cf3e4cc23f23d356ead38953987c.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4303460121154785
+  },
+  {
+    "content_hash": "b8a93add3b8274875818780f58d918a8ef1209e749b2742c1b44989c1582cd43",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/b8a93add3b8274875818780f58d918a8ef1209e749b2742c1b44989c1582cd43.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.381452351808548
+  },
+  {
+    "content_hash": "b923386ecfb6ccb2be530ad36b25afbf13aa27366cac35e85381a066cb82df85",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/b923386ecfb6ccb2be530ad36b25afbf13aa27366cac35e85381a066cb82df85.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4521571397781372
+  },
+  {
+    "content_hash": "bacaffab9df3b4c7154ff12c2717bee72bcfd94c71ff284757b71180bd1c4ac3",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/bacaffab9df3b4c7154ff12c2717bee72bcfd94c71ff284757b71180bd1c4ac3.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.490792840719223
+  },
+  {
+    "content_hash": "c392c0d60256fa70d6db2fbaa2800f0833cb5a63e686c78e4386b8106b57a2e6",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/c392c0d60256fa70d6db2fbaa2800f0833cb5a63e686c78e4386b8106b57a2e6.webp",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.40623778104782104
+  },
+  {
+    "content_hash": "c77213925eb4626576a49406ab42749261b81c04b67d40dd78dc0dac24d2c643",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/c77213925eb4626576a49406ab42749261b81c04b67d40dd78dc0dac24d2c643.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.17447280883789062
+  },
+  {
+    "content_hash": "c7a2561c8c38fcb85c7fdefe92ff5e30bb9efd344a7ef31771f227d827d7d00a",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/c7a2561c8c38fcb85c7fdefe92ff5e30bb9efd344a7ef31771f227d827d7d00a.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4663133919239044
+  },
+  {
+    "content_hash": "c8cca11e15c637ee7f85ba35e33ad31faf2ce28c0acf0b988b0dfd1ed5a1adbd",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/c8cca11e15c637ee7f85ba35e33ad31faf2ce28c0acf0b988b0dfd1ed5a1adbd.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.7506925463676453
+  },
+  {
+    "content_hash": "deb7f5b14813c386420b084765a9555307f0545696585e8702cc30ff11cee79b",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/deb7f5b14813c386420b084765a9555307f0545696585e8702cc30ff11cee79b.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.13680750131607056
+  },
+  {
+    "content_hash": "e4429b260df82514fd8a9d9a4fa787807e93f97e91c8fb287bdf09ee55ce7e6c",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/e4429b260df82514fd8a9d9a4fa787807e93f97e91c8fb287bdf09ee55ce7e6c.png",
+    "sensitivity_level": "high",
+    "label": 1,
+    "probability_fake": 0.4941434860229492
+  },
+  {
+    "content_hash": "e6a25a862038a436c22a4241568339693b482d2748071610b24dc7e192ad57df",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/e6a25a862038a436c22a4241568339693b482d2748071610b24dc7e192ad57df.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.005598952062427998
+  },
+  {
+    "content_hash": "ee392781e3e722fb288dc67174414e764f92bae62f934405d39fc809d7df353c",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/ee392781e3e722fb288dc67174414e764f92bae62f934405d39fc809d7df353c.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5082187652587891
+  },
+  {
+    "content_hash": "eefd730ef0d5449e99f0894ea5e09e5110ff36c0e3d0ab3cf54611680b3b678a",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/eefd730ef0d5449e99f0894ea5e09e5110ff36c0e3d0ab3cf54611680b3b678a.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3507046699523926
+  },
+  {
+    "content_hash": "f159f7f1becf4f1af80af2791aec93d7fd89697896ea60244cf75ba1e18ecd7b",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/f159f7f1becf4f1af80af2791aec93d7fd89697896ea60244cf75ba1e18ecd7b.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48253628611564636
+  },
+  {
+    "content_hash": "f712dfcb3863fb0844ae53f5632a18e6f58d020e9391c145853742111c0910f4",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/f712dfcb3863fb0844ae53f5632a18e6f58d020e9391c145853742111c0910f4.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48298028111457825
+  },
+  {
+    "content_hash": "f881925ff3796a8b02099cb43b677db8f2fa2267eb0161e9fe17dce1852e6000",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/f881925ff3796a8b02099cb43b677db8f2fa2267eb0161e9fe17dce1852e6000.jpg",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4851689636707306
+  },
+  {
+    "content_hash": "fcb71b118776df3cca275fc29a0999976b6f7b89857971f0ff835723d53890c4",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/fcb71b118776df3cca275fc29a0999976b6f7b89857971f0ff835723d53890c4.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4655274450778961
+  },
+  {
+    "content_hash": "fded0a0f7f44852b3d2da5e8c934ed357a5311ec6e10ebebe570cf1a71733399",
+    "image_path": "data/datasets/openfake/pilot-600/images/fake/fded0a0f7f44852b3d2da5e8c934ed357a5311ec6e10ebebe570cf1a71733399.jpg",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.47421151399612427
+  },
+  {
+    "content_hash": "008594762f20ec8efb62efe09d5cf0dee237e5c2b2e32f60c50c06d911d58f3e",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/008594762f20ec8efb62efe09d5cf0dee237e5c2b2e32f60c50c06d911d58f3e.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4822506904602051
+  },
+  {
+    "content_hash": "03bd8c2585b6244c18dae7d992578ac52bcf5c7c31d9cfde18a1d1002670ed96",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/03bd8c2585b6244c18dae7d992578ac52bcf5c7c31d9cfde18a1d1002670ed96.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48547565937042236
+  },
+  {
+    "content_hash": "03de9c707a42412e78c18e974e7a5ee2fc8d7b6e6bc9abbdcb9c9b23f60ecd0a",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/03de9c707a42412e78c18e974e7a5ee2fc8d7b6e6bc9abbdcb9c9b23f60ecd0a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.39568033814430237
+  },
+  {
+    "content_hash": "07d4b1e531c83a33816dda5fb4c631c5f27d80bde8970fd35fba8d72ae7074d8",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/07d4b1e531c83a33816dda5fb4c631c5f27d80bde8970fd35fba8d72ae7074d8.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.48777517676353455
+  },
+  {
+    "content_hash": "119e4fa9a3e0b436ac150ae11c3c00edb522a73b1b790fadb9869be8f5b9b16c",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/119e4fa9a3e0b436ac150ae11c3c00edb522a73b1b790fadb9869be8f5b9b16c.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.1785869002342224
+  },
+  {
+    "content_hash": "16afbb9890ffb91a0e7dd9ef2e10080040d48f9c401f76862d00a96192afa737",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/16afbb9890ffb91a0e7dd9ef2e10080040d48f9c401f76862d00a96192afa737.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.46488961577415466
+  },
+  {
+    "content_hash": "16c1b979972f6b2d2846de0545138c9051fdcce463834dc2d9e9c074efbdeb29",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/16c1b979972f6b2d2846de0545138c9051fdcce463834dc2d9e9c074efbdeb29.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4891200065612793
+  },
+  {
+    "content_hash": "2293bde9faae7810bcf4b395b8e30863f46930d3f8238ac986c58a52544976eb",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/2293bde9faae7810bcf4b395b8e30863f46930d3f8238ac986c58a52544976eb.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.3613106310367584
+  },
+  {
+    "content_hash": "2554b23bdf6bc5559f93bf1f6db54732700c6bbdabe57c77b283804122b213f4",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/2554b23bdf6bc5559f93bf1f6db54732700c6bbdabe57c77b283804122b213f4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4747704863548279
+  },
+  {
+    "content_hash": "2d3e0bcb39625517cf44b44331d16741371ffc034f129b397e5efdb585ec9017",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/2d3e0bcb39625517cf44b44331d16741371ffc034f129b397e5efdb585ec9017.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.43671080470085144
+  },
+  {
+    "content_hash": "372412aefdfd367d33f4b0a84521b69f34696966514b5b45e749e8f44aa8b5b1",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/372412aefdfd367d33f4b0a84521b69f34696966514b5b45e749e8f44aa8b5b1.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.41018199920654297
+  },
+  {
+    "content_hash": "3c51f29adfe015506084f22633ef5f4c4a09b98d92a621f8da171ddd25a5cf36",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/3c51f29adfe015506084f22633ef5f4c4a09b98d92a621f8da171ddd25a5cf36.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.47291168570518494
+  },
+  {
+    "content_hash": "3dee7775e211413a6247f6b5ab30b52fcb279f67cf3df94caf9d8735139a5fb8",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/3dee7775e211413a6247f6b5ab30b52fcb279f67cf3df94caf9d8735139a5fb8.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.502980649471283
+  },
+  {
+    "content_hash": "446b2aeac9db27c02eb12b94074272142c5302607581fcf2a157d0e65f129415",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/446b2aeac9db27c02eb12b94074272142c5302607581fcf2a157d0e65f129415.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47796642780303955
+  },
+  {
+    "content_hash": "44b5c025fa5cc27c01325d6859ae1fd3896af79d9ef45007f2bd6b732d0f9820",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/44b5c025fa5cc27c01325d6859ae1fd3896af79d9ef45007f2bd6b732d0f9820.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.6051441431045532
+  },
+  {
+    "content_hash": "45339c635ac1cf8edb6b7973b30b913c53864fbec42538a46cf13ab1f6d116ee",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/45339c635ac1cf8edb6b7973b30b913c53864fbec42538a46cf13ab1f6d116ee.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.3762790858745575
+  },
+  {
+    "content_hash": "4bd7517bbd0a3d2a71a3cf8b8c85f5c9f9e64b9d2f268f59082bb8e80d653121",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/4bd7517bbd0a3d2a71a3cf8b8c85f5c9f9e64b9d2f268f59082bb8e80d653121.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.4530985355377197
+  },
+  {
+    "content_hash": "4e2c1acd5c9da45629e22a94157ff0d82fe18116725d29f5adf892bcc43c3304",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/4e2c1acd5c9da45629e22a94157ff0d82fe18116725d29f5adf892bcc43c3304.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4796619117259979
+  },
+  {
+    "content_hash": "57dff5ed75cc9930c4dae24cb118fc4855f5bc01903687b0f2933356efc6a4ea",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/57dff5ed75cc9930c4dae24cb118fc4855f5bc01903687b0f2933356efc6a4ea.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48812130093574524
+  },
+  {
+    "content_hash": "64d72d545eb2792a0ef1ef8c54ecbcd1f088d124a8eeb7e1fadc10978118eca4",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/64d72d545eb2792a0ef1ef8c54ecbcd1f088d124a8eeb7e1fadc10978118eca4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4483811855316162
+  },
+  {
+    "content_hash": "70dee36e3cd7795914a79f14f343f28175e5b56fe46ccf74df290346a5ea1ce4",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/70dee36e3cd7795914a79f14f343f28175e5b56fe46ccf74df290346a5ea1ce4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.56858891248703
+  },
+  {
+    "content_hash": "7308ea67065725303bd75c72fdf9b022dc3b9a63d60f6eac557f171983fcfdeb",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/7308ea67065725303bd75c72fdf9b022dc3b9a63d60f6eac557f171983fcfdeb.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.46972188353538513
+  },
+  {
+    "content_hash": "772b799e437a64bd783ceac68f40591fcbbc33c15a1cdf95bac75c600c463345",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/772b799e437a64bd783ceac68f40591fcbbc33c15a1cdf95bac75c600c463345.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.43118688464164734
+  },
+  {
+    "content_hash": "786cc0dcb914c4996ec3fd00ef2531e0ed7cc25f5bba976d3e985a237741c18b",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/786cc0dcb914c4996ec3fd00ef2531e0ed7cc25f5bba976d3e985a237741c18b.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4360078275203705
+  },
+  {
+    "content_hash": "79aa2794c596a45a4ed7988cab59d03a66b44dea0129a2e8c45b97f5921be136",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/79aa2794c596a45a4ed7988cab59d03a66b44dea0129a2e8c45b97f5921be136.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4799564480781555
+  },
+  {
+    "content_hash": "79c105dbb0b0854ef28d5f365865a71c17b8bc99cf7535088800a1497d7a42b6",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/79c105dbb0b0854ef28d5f365865a71c17b8bc99cf7535088800a1497d7a42b6.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4322832226753235
+  },
+  {
+    "content_hash": "7ffc45f3e4a6b2f288141d11373cfd3d278d5ccfb8a833a7c952289182085db4",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/7ffc45f3e4a6b2f288141d11373cfd3d278d5ccfb8a833a7c952289182085db4.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49340495467185974
+  },
+  {
+    "content_hash": "82f9d60fa9ad4c62931e5610c27b340af40cb096866198b1d89ca3429bf3645c",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/82f9d60fa9ad4c62931e5610c27b340af40cb096866198b1d89ca3429bf3645c.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4944327771663666
+  },
+  {
+    "content_hash": "8741e1626460b19d4d401897fb4abc19976dfcdfc0c2c4920994508f0ccee8e7",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/8741e1626460b19d4d401897fb4abc19976dfcdfc0c2c4920994508f0ccee8e7.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5809803009033203
+  },
+  {
+    "content_hash": "8fc9aa977138f31b4948ce4389cac31a704e853012002e097ae0657ea4713a64",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/8fc9aa977138f31b4948ce4389cac31a704e853012002e097ae0657ea4713a64.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.42701855301856995
+  },
+  {
+    "content_hash": "935f7a52c1607df49360709b65809456ec7cee797b775bfcf86a7b1b1f24760f",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/935f7a52c1607df49360709b65809456ec7cee797b775bfcf86a7b1b1f24760f.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48534950613975525
+  },
+  {
+    "content_hash": "93aaa38e9e5c41338399aa4d6918976c21cfd2f61b09c2dc43948b25a7dec665",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/93aaa38e9e5c41338399aa4d6918976c21cfd2f61b09c2dc43948b25a7dec665.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48974519968032837
+  },
+  {
+    "content_hash": "93f5a1e7d1c5bab6d94799af9a08847a1b4b003f5fee6c1f362aad5eeae4444b",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/93f5a1e7d1c5bab6d94799af9a08847a1b4b003f5fee6c1f362aad5eeae4444b.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4143568277359009
+  },
+  {
+    "content_hash": "94ef359aa76ad62be15f27cf9810b89b83c25d87ab79f84a8082e280325a7b0b",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/94ef359aa76ad62be15f27cf9810b89b83c25d87ab79f84a8082e280325a7b0b.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4800961911678314
+  },
+  {
+    "content_hash": "961c38035dd85083137607376be1546ed8fb6d3a0446ef99bcc7445c02ec522d",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/961c38035dd85083137607376be1546ed8fb6d3a0446ef99bcc7445c02ec522d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5186424255371094
+  },
+  {
+    "content_hash": "9b247cb47b22be9882e769fca1aaed7ec1a7baa987bc96d90e8e4405dbedee91",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/9b247cb47b22be9882e769fca1aaed7ec1a7baa987bc96d90e8e4405dbedee91.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.40724483132362366
+  },
+  {
+    "content_hash": "a9d929b2aeae89aaeaf6dc22e5dfcb8b3e5e5190df3a52bdd6d760f037d45bd9",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/a9d929b2aeae89aaeaf6dc22e5dfcb8b3e5e5190df3a52bdd6d760f037d45bd9.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.3688501715660095
+  },
+  {
+    "content_hash": "b456c31ac936247b1cc4ac4ec9517352d4723a4ab32156d0078923ad07b7bfe6",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/b456c31ac936247b1cc4ac4ec9517352d4723a4ab32156d0078923ad07b7bfe6.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4865516722202301
+  },
+  {
+    "content_hash": "b793ec7a676668c634b0acfd048019f3318102be5e37831bb1667e891276e495",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/b793ec7a676668c634b0acfd048019f3318102be5e37831bb1667e891276e495.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.46275991201400757
+  },
+  {
+    "content_hash": "ba39b106206997025ec9b50e0a7d42b26dcf1ecc27ce0a3e01163f141c88bd09",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/ba39b106206997025ec9b50e0a7d42b26dcf1ecc27ce0a3e01163f141c88bd09.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.38417550921440125
+  },
+  {
+    "content_hash": "bd50762a871e010c4068126528581e297e8d68005da957f1c228bbf87d5875dc",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/bd50762a871e010c4068126528581e297e8d68005da957f1c228bbf87d5875dc.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.2530239522457123
+  },
+  {
+    "content_hash": "bf3fc7c506de6b43ccc85a0067a8aab0422e6ae97ff1331a7d357138f1558243",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/bf3fc7c506de6b43ccc85a0067a8aab0422e6ae97ff1331a7d357138f1558243.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.41460418701171875
+  },
+  {
+    "content_hash": "c39c7e63bf2c27f16ba5b42d3157da1e0a23589d8843cadd162e5e06eaeb833d",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/c39c7e63bf2c27f16ba5b42d3157da1e0a23589d8843cadd162e5e06eaeb833d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.43577173352241516
+  },
+  {
+    "content_hash": "c6274b8880f20440f28ea1eef3bbe002ef1b8dffbc4ca0b34bd16f15070cafe0",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/c6274b8880f20440f28ea1eef3bbe002ef1b8dffbc4ca0b34bd16f15070cafe0.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4888835549354553
+  },
+  {
+    "content_hash": "c77e38356353d90bdb96c476031ab7d0fbc0e5d6729042bdadf72d42e63a2f18",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/c77e38356353d90bdb96c476031ab7d0fbc0e5d6729042bdadf72d42e63a2f18.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4472796618938446
+  },
+  {
+    "content_hash": "c7bd34d61c2eb0d241e1ae369baa5dc541cbb3e805074cff962db0dafc7333d1",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/c7bd34d61c2eb0d241e1ae369baa5dc541cbb3e805074cff962db0dafc7333d1.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.45254290103912354
+  },
+  {
+    "content_hash": "c952177d459fe51b0b05da3f63b75feeeea5539d40d52326e37a493baa79c273",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/c952177d459fe51b0b05da3f63b75feeeea5539d40d52326e37a493baa79c273.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4139525592327118
+  },
+  {
+    "content_hash": "cccd278ddeab436195b4082d44161517c78b41724a32efa0377dee6ae79e7e3d",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/cccd278ddeab436195b4082d44161517c78b41724a32efa0377dee6ae79e7e3d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5051207542419434
+  },
+  {
+    "content_hash": "cd1f1c6ff98f1f6c7b97c0b1c1f41c59fb24d06b847b33bbd8da069c4bb27935",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/cd1f1c6ff98f1f6c7b97c0b1c1f41c59fb24d06b847b33bbd8da069c4bb27935.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4634488821029663
+  },
+  {
+    "content_hash": "cd43cde1efd10f923261d6d537942db5bef2ebfe88781825df5521c65ab1fd36",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/cd43cde1efd10f923261d6d537942db5bef2ebfe88781825df5521c65ab1fd36.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.7317085862159729
+  },
+  {
+    "content_hash": "d2523c4232d27d7978f688e3bea46884ced1e94b8c61c99141e455e0e60eb502",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/d2523c4232d27d7978f688e3bea46884ced1e94b8c61c99141e455e0e60eb502.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4193727970123291
+  },
+  {
+    "content_hash": "d37a223c59f986e77b04456ea2b45973c3bce7e9c502f6b3d6050e9d0719dc7f",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/d37a223c59f986e77b04456ea2b45973c3bce7e9c502f6b3d6050e9d0719dc7f.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.42186370491981506
+  },
+  {
+    "content_hash": "d6200723f74c9eab13d7523cca105ac51f04dd0fcff7c77d17bf37c78d7fe78e",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/d6200723f74c9eab13d7523cca105ac51f04dd0fcff7c77d17bf37c78d7fe78e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.33202609419822693
+  },
+  {
+    "content_hash": "e0b148ce71c9e955841e858d823be5fcb0b8944401d3d376440b9e74a345afb7",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/e0b148ce71c9e955841e858d823be5fcb0b8944401d3d376440b9e74a345afb7.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.43601861596107483
+  },
+  {
+    "content_hash": "e37b552b23467139fe95dbb82730f0ff29b8735284f7fa830e36e241f7d24f0a",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/e37b552b23467139fe95dbb82730f0ff29b8735284f7fa830e36e241f7d24f0a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.46067094802856445
+  },
+  {
+    "content_hash": "e4392f836a1d2ed899582a62d38298346612bd49e65f6614de9ae7b1702422e0",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/e4392f836a1d2ed899582a62d38298346612bd49e65f6614de9ae7b1702422e0.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.38788938522338867
+  },
+  {
+    "content_hash": "e4955009519fbb6eab3ffdce7e3eb048c6adc075ad0649c2331ff55436e17205",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/e4955009519fbb6eab3ffdce7e3eb048c6adc075ad0649c2331ff55436e17205.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.3546220362186432
+  },
+  {
+    "content_hash": "e54013e9774995a222effee2c34b3391e1b0dc152d8ac6ac0a2c604ac9c8c686",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/e54013e9774995a222effee2c34b3391e1b0dc152d8ac6ac0a2c604ac9c8c686.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.6390182971954346
+  },
+  {
+    "content_hash": "eeb868b50484439724eacb8464b52adbfbf56350ced3d25bb3fc87c19b312aa9",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/eeb868b50484439724eacb8464b52adbfbf56350ced3d25bb3fc87c19b312aa9.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4610828459262848
+  },
+  {
+    "content_hash": "ef449ea45b64aaa0ff30621522aae25e2818cd17c5d4ad63cb38b2931b44f918",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/ef449ea45b64aaa0ff30621522aae25e2818cd17c5d4ad63cb38b2931b44f918.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.6114218235015869
+  },
+  {
+    "content_hash": "f05c346ef23ef0347b57d5b28808579f9205ba69a318c213db51c1cebe4100fd",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/f05c346ef23ef0347b57d5b28808579f9205ba69a318c213db51c1cebe4100fd.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5433768033981323
+  },
+  {
+    "content_hash": "f18656546ec74b14d90f273bed454a4913830795eaa857eec9f679ed55714fe3",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/f18656546ec74b14d90f273bed454a4913830795eaa857eec9f679ed55714fe3.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.36119982600212097
+  },
+  {
+    "content_hash": "f3398590e0a43fd65ad330d5d32b8a6ac81e3cb2fcc05263d8a662a55bf06c84",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/f3398590e0a43fd65ad330d5d32b8a6ac81e3cb2fcc05263d8a662a55bf06c84.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47412392497062683
+  },
+  {
+    "content_hash": "f6e855e6a3066bfe953ccb86a9dd82cbee62f9d9a0d502f65d20173cf78b9e74",
+    "image_path": "data/datasets/openfake/pilot-600/images/real/f6e855e6a3066bfe953ccb86a9dd82cbee62f9d9a0d502f65d20173cf78b9e74.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4695751965045929
+  },
+  {
+    "content_hash": "04ca52d8dc4cdf229af48394be5a3fee6ac0c6fe8a3e290df815e91be8de2814",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/04ca52d8dc4cdf229af48394be5a3fee6ac0c6fe8a3e290df815e91be8de2814.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47193026542663574
+  },
+  {
+    "content_hash": "08ac98b0ffa43c5e3d8088abb10f13fcdbe243e075182db3e732cfbd1a231867",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/08ac98b0ffa43c5e3d8088abb10f13fcdbe243e075182db3e732cfbd1a231867.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4845239520072937
+  },
+  {
+    "content_hash": "0e7e22e427067f08efadab663e1a4f1c1513567d13e7558bc360b55e0048c79d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/0e7e22e427067f08efadab663e1a4f1c1513567d13e7558bc360b55e0048c79d.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5119742155075073
+  },
+  {
+    "content_hash": "15530980a71e3bca66d0c6931eec1eb7cf82ad82bf182418eaaa2df450bb081a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/15530980a71e3bca66d0c6931eec1eb7cf82ad82bf182418eaaa2df450bb081a.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4854382276535034
+  },
+  {
+    "content_hash": "184f67107497daa6867c73a94a993f170ebfd998c6eb894224b60eaa43ff23d3",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/184f67107497daa6867c73a94a993f170ebfd998c6eb894224b60eaa43ff23d3.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.3944583833217621
+  },
+  {
+    "content_hash": "1fb6cab0fbcc6d47276a70ab57244452848733f6e2159bef8fffe04cf67720a4",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/1fb6cab0fbcc6d47276a70ab57244452848733f6e2159bef8fffe04cf67720a4.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.42538416385650635
+  },
+  {
+    "content_hash": "20cf6b08c79a9bb48af20a7420430001d1f9fcb8709449be4c4b42d0e1d8e112",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/20cf6b08c79a9bb48af20a7420430001d1f9fcb8709449be4c4b42d0e1d8e112.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48222461342811584
+  },
+  {
+    "content_hash": "25a0f88d3511166b8649c9a7adaa251823ab583caa866f54a5d127668321f823",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/25a0f88d3511166b8649c9a7adaa251823ab583caa866f54a5d127668321f823.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5310578346252441
+  },
+  {
+    "content_hash": "27dd2e18e8f1b1581c6fe5442368cec27738923f12cb891af27acda9d5d95d51",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/27dd2e18e8f1b1581c6fe5442368cec27738923f12cb891af27acda9d5d95d51.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.30518192052841187
+  },
+  {
+    "content_hash": "28f5b2776caf577799ef4726f9498923bad0096613007a1f06011495c528617e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/28f5b2776caf577799ef4726f9498923bad0096613007a1f06011495c528617e.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4911876916885376
+  },
+  {
+    "content_hash": "29abcb93f31db5b6977e4cb6f5ce7bf3b92e56ba2dbbcec125b019f1370d3a3a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/29abcb93f31db5b6977e4cb6f5ce7bf3b92e56ba2dbbcec125b019f1370d3a3a.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.511651873588562
+  },
+  {
+    "content_hash": "2ca52aab7a4718d9ff2b152c70d484861a13da051958e7d4f39b027b00352fd8",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/2ca52aab7a4718d9ff2b152c70d484861a13da051958e7d4f39b027b00352fd8.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.42345428466796875
+  },
+  {
+    "content_hash": "2fd7dfeae360c67b95d7a9982208c144694ed52458bf7b75efc49252daf31c80",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/2fd7dfeae360c67b95d7a9982208c144694ed52458bf7b75efc49252daf31c80.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.457105427980423
+  },
+  {
+    "content_hash": "33b7f53291d9de5c00736fe79747aa61d9c10a988ccc921822f1e36ec2566566",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/33b7f53291d9de5c00736fe79747aa61d9c10a988ccc921822f1e36ec2566566.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.3576941192150116
+  },
+  {
+    "content_hash": "37caed36371bdc48c09399735739eaeb37eef0f98e5c2551352bc03472caaa00",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/37caed36371bdc48c09399735739eaeb37eef0f98e5c2551352bc03472caaa00.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5460132360458374
+  },
+  {
+    "content_hash": "393251b6a2969798e5eef41307f24380cb6393909a2fe4c724f29c56ecb0bf8e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/393251b6a2969798e5eef41307f24380cb6393909a2fe4c724f29c56ecb0bf8e.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.42100146412849426
+  },
+  {
+    "content_hash": "3dd87daa696501c1548a28ff90d620d81226e1ecca146d7fc9e4d41a47adacc0",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/3dd87daa696501c1548a28ff90d620d81226e1ecca146d7fc9e4d41a47adacc0.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5209155678749084
+  },
+  {
+    "content_hash": "4784907b79c4681e79abc74ca063a1a3893cf7aaf640fe022e014434feb78b51",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/4784907b79c4681e79abc74ca063a1a3893cf7aaf640fe022e014434feb78b51.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.30432531237602234
+  },
+  {
+    "content_hash": "49de00b712948044a523daa78eba28ed3bbfff1029a89368fd1f0fc0014248ee",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/49de00b712948044a523daa78eba28ed3bbfff1029a89368fd1f0fc0014248ee.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.967706561088562
+  },
+  {
+    "content_hash": "4d3b8a5c313bdb9e26796203d3dd386a85dadfc6c20cef7a6164fe13e4cae359",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/4d3b8a5c313bdb9e26796203d3dd386a85dadfc6c20cef7a6164fe13e4cae359.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.24409566819667816
+  },
+  {
+    "content_hash": "4fad2f768d1b0c3a6f5125e4c7ae7e59ac085dff0a709053692418226487c441",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/4fad2f768d1b0c3a6f5125e4c7ae7e59ac085dff0a709053692418226487c441.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48627588152885437
+  },
+  {
+    "content_hash": "5077bbe2ff6cdbd89bded7a0ef1ac451c6e90f11e80de0001811a06c9f970eec",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/5077bbe2ff6cdbd89bded7a0ef1ac451c6e90f11e80de0001811a06c9f970eec.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5248311161994934
+  },
+  {
+    "content_hash": "544422af3922855b85984583ae4e579c35821c544c1186cd6ceb8b18319c8fd8",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/544422af3922855b85984583ae4e579c35821c544c1186cd6ceb8b18319c8fd8.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.47281476855278015
+  },
+  {
+    "content_hash": "5bad4c24ed8c90de7b2c045687c44ed4e6f191055efa6c3e5b4e220a2a48d239",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/5bad4c24ed8c90de7b2c045687c44ed4e6f191055efa6c3e5b4e220a2a48d239.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.451887845993042
+  },
+  {
+    "content_hash": "5ed754ae4a356c5afd2a3c2c323c92114388ab10e39a7990ea8b9f35b31a824e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/5ed754ae4a356c5afd2a3c2c323c92114388ab10e39a7990ea8b9f35b31a824e.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.48790648579597473
+  },
+  {
+    "content_hash": "6199200986325e5fc448796786739d393a23a95be3c7084fa735f7565592f389",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/6199200986325e5fc448796786739d393a23a95be3c7084fa735f7565592f389.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5352162718772888
+  },
+  {
+    "content_hash": "61a8df1641bf64796e73420f2245f5a75f38230d995a7b00fd1305069ab09bcc",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/61a8df1641bf64796e73420f2245f5a75f38230d995a7b00fd1305069ab09bcc.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.5152834057807922
+  },
+  {
+    "content_hash": "62795a2b1cbe271bf97399a28ad4fac3bfc23f8f38707773ce1438374182d797",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/62795a2b1cbe271bf97399a28ad4fac3bfc23f8f38707773ce1438374182d797.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.47434771060943604
+  },
+  {
+    "content_hash": "63d2dfe772f2266863c7b943c781ba67154e71b40c91568a275417947f8ead18",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/63d2dfe772f2266863c7b943c781ba67154e71b40c91568a275417947f8ead18.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.2621391713619232
+  },
+  {
+    "content_hash": "693ba2c39e5fe30924b39b31770a389ba5fe069bbefdcc89f8598cd0cdd91e91",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/693ba2c39e5fe30924b39b31770a389ba5fe069bbefdcc89f8598cd0cdd91e91.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.2426827996969223
+  },
+  {
+    "content_hash": "6b3c4dfb860a050748c40524258998b7e96b7e458f87092af8806663d69575bb",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/6b3c4dfb860a050748c40524258998b7e96b7e458f87092af8806663d69575bb.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.647538423538208
+  },
+  {
+    "content_hash": "6b544cb858e7eb367417f4d4989f0c8b1e77f688751d78a5ecc42ec42b070409",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/6b544cb858e7eb367417f4d4989f0c8b1e77f688751d78a5ecc42ec42b070409.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4519408643245697
+  },
+  {
+    "content_hash": "6b641e123f139078d2ebfff7d6c6c94ff77150c8c843e8fe3af09b1cb72df2a4",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/6b641e123f139078d2ebfff7d6c6c94ff77150c8c843e8fe3af09b1cb72df2a4.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.24987803399562836
+  },
+  {
+    "content_hash": "727dd53588295e102f4b493b9381fb05268c52ac225be618d46f2c18a6c47980",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/727dd53588295e102f4b493b9381fb05268c52ac225be618d46f2c18a6c47980.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5404870510101318
+  },
+  {
+    "content_hash": "7a834e6ae1072b1f410cd47dd08d4294a8754b898b6478cb5c905bfdea5c2059",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/7a834e6ae1072b1f410cd47dd08d4294a8754b898b6478cb5c905bfdea5c2059.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.516965389251709
+  },
+  {
+    "content_hash": "85e05d89b44c8ae89bff7809c4cc9ea59655f534d342d5244e70355ec1397f29",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/85e05d89b44c8ae89bff7809c4cc9ea59655f534d342d5244e70355ec1397f29.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4013243615627289
+  },
+  {
+    "content_hash": "88246a53a15621d7fbf6b5f9150530751cb77d15051e5924835d1e05d9de0468",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/88246a53a15621d7fbf6b5f9150530751cb77d15051e5924835d1e05d9de0468.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.49116718769073486
+  },
+  {
+    "content_hash": "8cc189931eee360ead193ed8293fd15d8c64acabbc6014f2871c7365fe9140c3",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/8cc189931eee360ead193ed8293fd15d8c64acabbc6014f2871c7365fe9140c3.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4780667722225189
+  },
+  {
+    "content_hash": "8f62aa7a154463e499c1c8dc87b6fb3b47be455523fefa660b9aa6bf10a4bdfa",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/8f62aa7a154463e499c1c8dc87b6fb3b47be455523fefa660b9aa6bf10a4bdfa.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.46439749002456665
+  },
+  {
+    "content_hash": "8fb2b37a72a284b146c510401492e6dde8b492b51924cbb46aa1bc3bddd69650",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/8fb2b37a72a284b146c510401492e6dde8b492b51924cbb46aa1bc3bddd69650.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.41449522972106934
+  },
+  {
+    "content_hash": "99c8693a7b70cddc9d39330d4490c3e5ab485e5d37beebba8b07cc076bb6c146",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/99c8693a7b70cddc9d39330d4490c3e5ab485e5d37beebba8b07cc076bb6c146.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.46668726205825806
+  },
+  {
+    "content_hash": "9e64200b350b955cbe4649e5fb5ef7f9a4b3780cda28e8b9fb44250cc378aca8",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/9e64200b350b955cbe4649e5fb5ef7f9a4b3780cda28e8b9fb44250cc378aca8.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5181867480278015
+  },
+  {
+    "content_hash": "a20b1a2205a4f536e7524d5bbad9abac460531164877c4f5f6cbf0c73f62e1b0",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/a20b1a2205a4f536e7524d5bbad9abac460531164877c4f5f6cbf0c73f62e1b0.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.8511924743652344
+  },
+  {
+    "content_hash": "a212bf21501e0e1c84162c4c44b22fbddf332b2152b37f76f9f56c6bee56eba0",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/a212bf21501e0e1c84162c4c44b22fbddf332b2152b37f76f9f56c6bee56eba0.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4825190007686615
+  },
+  {
+    "content_hash": "a4dfc12cf486dcc3ae2f862a3200317391c42715845370737c64ad421cfa66ae",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/a4dfc12cf486dcc3ae2f862a3200317391c42715845370737c64ad421cfa66ae.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.6076679229736328
+  },
+  {
+    "content_hash": "b15272e3dd65e4c16b66287f67d14308c26f8466ba26acc84db72901d6fdf70b",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/b15272e3dd65e4c16b66287f67d14308c26f8466ba26acc84db72901d6fdf70b.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6720330715179443
+  },
+  {
+    "content_hash": "b5cf5c428bee66b49c5f8f3d77ba95cb7f385b1fb3252bffa8581d735a1f1563",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/b5cf5c428bee66b49c5f8f3d77ba95cb7f385b1fb3252bffa8581d735a1f1563.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6416760683059692
+  },
+  {
+    "content_hash": "c38d6a709302f7a35c19e84f7abfeb2a3a874f7061549a3c7c8404b9515cd051",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c38d6a709302f7a35c19e84f7abfeb2a3a874f7061549a3c7c8404b9515cd051.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.39437830448150635
+  },
+  {
+    "content_hash": "c4d19a75ffec3b25458e7a44dd7e1c11a3e9b106e060a74e89c83e785dfc7b54",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c4d19a75ffec3b25458e7a44dd7e1c11a3e9b106e060a74e89c83e785dfc7b54.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.09685691446065903
+  },
+  {
+    "content_hash": "c4da5465a34e7c9cafb597ff062d954935b53ed2f82977bb59580d894d150f6c",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c4da5465a34e7c9cafb597ff062d954935b53ed2f82977bb59580d894d150f6c.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6408841013908386
+  },
+  {
+    "content_hash": "c4ef5ef2f139691c9191ca331101cf7967aa87fac84e8a4c889825b6f73283c7",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c4ef5ef2f139691c9191ca331101cf7967aa87fac84e8a4c889825b6f73283c7.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4751136004924774
+  },
+  {
+    "content_hash": "c8e311ffc8f1f49ab711b2fc77d4d10501bcd8e3238cc67227022bac944b125d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c8e311ffc8f1f49ab711b2fc77d4d10501bcd8e3238cc67227022bac944b125d.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.46758121252059937
+  },
+  {
+    "content_hash": "c928c6fa5ba42d0f1d7d65f7f95ebd23ae3835a597a90371c7e8b28518ba74b5",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c928c6fa5ba42d0f1d7d65f7f95ebd23ae3835a597a90371c7e8b28518ba74b5.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.8313831686973572
+  },
+  {
+    "content_hash": "c9b2ac5127dbd56494e84850d3dc58fa9310669fd40bdef7783f189db450e741",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/c9b2ac5127dbd56494e84850d3dc58fa9310669fd40bdef7783f189db450e741.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5165726542472839
+  },
+  {
+    "content_hash": "cb7d165d032c2eb39be6e57eff30610c0167ba708f20d83924fbd7ae4021b84d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/cb7d165d032c2eb39be6e57eff30610c0167ba708f20d83924fbd7ae4021b84d.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.30946117639541626
+  },
+  {
+    "content_hash": "cbad67fdac0a4b0116d73f2a9c238b53c360c9bcf23d9f4ae115539bbf12f2fa",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/cbad67fdac0a4b0116d73f2a9c238b53c360c9bcf23d9f4ae115539bbf12f2fa.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4554995000362396
+  },
+  {
+    "content_hash": "cdc6c2adcbea5b64d50b74af4c0443e3aa6614588b5fdacdb905fe237bb074fe",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/cdc6c2adcbea5b64d50b74af4c0443e3aa6614588b5fdacdb905fe237bb074fe.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.48183998465538025
+  },
+  {
+    "content_hash": "d83b990da1b743a0385b8d2e287ea925d5c6067d01b688002a9926bde0304f4a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/d83b990da1b743a0385b8d2e287ea925d5c6067d01b688002a9926bde0304f4a.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.2731632590293884
+  },
+  {
+    "content_hash": "da0a9d12c2fbf72f026a50ce13a1005c56738e8c58989a520810d9c121fa820f",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/da0a9d12c2fbf72f026a50ce13a1005c56738e8c58989a520810d9c121fa820f.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3226334750652313
+  },
+  {
+    "content_hash": "dc3c5b4fcddc615a09ec80486017484cc4e9aff600e16cb1d3ebcec090c5a20e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/dc3c5b4fcddc615a09ec80486017484cc4e9aff600e16cb1d3ebcec090c5a20e.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.2800425589084625
+  },
+  {
+    "content_hash": "e14c2b72ee15ebc0d3ad2b65d557797a2cba7e590b0544a229ae192ac81c5d4f",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e14c2b72ee15ebc0d3ad2b65d557797a2cba7e590b0544a229ae192ac81c5d4f.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.2882823944091797
+  },
+  {
+    "content_hash": "e1571cbce847ae739a5829d8d4714a796e64f0bb008864e4184e0f391e270b87",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e1571cbce847ae739a5829d8d4714a796e64f0bb008864e4184e0f391e270b87.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3965545892715454
+  },
+  {
+    "content_hash": "e285cca656782fef8597b829527282a4a8b3ffe65a32e6648fdfa7707ae75e7c",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e285cca656782fef8597b829527282a4a8b3ffe65a32e6648fdfa7707ae75e7c.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4829085171222687
+  },
+  {
+    "content_hash": "e3fcba18f5421e091c34a951fc82c1739dc87a7656ecce311020aa94c82bc3de",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e3fcba18f5421e091c34a951fc82c1739dc87a7656ecce311020aa94c82bc3de.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.2066853791475296
+  },
+  {
+    "content_hash": "e5f55ef6b86b20d493f1523d83ffa07cf74e5e1d2ae8f7015ec289d6320247da",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e5f55ef6b86b20d493f1523d83ffa07cf74e5e1d2ae8f7015ec289d6320247da.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.536296010017395
+  },
+  {
+    "content_hash": "e7a47f8237030d196b002bb73670edaf3c085f60e1d1a4dc926f222c38423aa1",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/e7a47f8237030d196b002bb73670edaf3c085f60e1d1a4dc926f222c38423aa1.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.12940670549869537
+  },
+  {
+    "content_hash": "eea23b496c2b49430c24785a9fc529d8b80c117c2b795d3495dc6dea34440b5d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/eea23b496c2b49430c24785a9fc529d8b80c117c2b795d3495dc6dea34440b5d.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.43367889523506165
+  },
+  {
+    "content_hash": "ef5ac6ff7160d5a07c39e78ece79bb63a0bb57503a777b6a89fdd1ae6c5d6584",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/ef5ac6ff7160d5a07c39e78ece79bb63a0bb57503a777b6a89fdd1ae6c5d6584.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.3699430525302887
+  },
+  {
+    "content_hash": "f261de55321515a60143820b17c29702de21627730f6c9810318b5a4d9cba573",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/f261de55321515a60143820b17c29702de21627730f6c9810318b5a4d9cba573.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.6632300615310669
+  },
+  {
+    "content_hash": "f3f29617a1b1ce4e37dccfcc24761fb9dbc7a15d75622ed552c27360d894e754",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/f3f29617a1b1ce4e37dccfcc24761fb9dbc7a15d75622ed552c27360d894e754.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.483519047498703
+  },
+  {
+    "content_hash": "f62a81375856d7937de5f10f77fb2e2ff2f79ad5425bb09b7cc190846fc67fa3",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/f62a81375856d7937de5f10f77fb2e2ff2f79ad5425bb09b7cc190846fc67fa3.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.9368551969528198
+  },
+  {
+    "content_hash": "f7b346c7ba61116a506793d733d46ea0394f3e048af676e6d4ddc6a328f507c2",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/f7b346c7ba61116a506793d733d46ea0394f3e048af676e6d4ddc6a328f507c2.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.4022260308265686
+  },
+  {
+    "content_hash": "fc874880b9a04dc295d47ea313f3342e1376eae30f3cd71998f1d8a80d4fd654",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/fc874880b9a04dc295d47ea313f3342e1376eae30f3cd71998f1d8a80d4fd654.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.6973757743835449
+  },
+  {
+    "content_hash": "fcb8509c41b1aace8e26155e530d67c34d1dd57d4e11c96a15278e9e65fadfad",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/fcb8509c41b1aace8e26155e530d67c34d1dd57d4e11c96a15278e9e65fadfad.png",
+    "sensitivity_level": "medium",
+    "label": 1,
+    "probability_fake": 0.4886195957660675
+  },
+  {
+    "content_hash": "fcc33daa2f0dcaf21466e090b42935a1002b5a99a2adf56930bb62a8341e89ce",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/fake/fcc33daa2f0dcaf21466e090b42935a1002b5a99a2adf56930bb62a8341e89ce.png",
+    "sensitivity_level": "low",
+    "label": 1,
+    "probability_fake": 0.5552935004234314
+  },
+  {
+    "content_hash": "01c2dc25de4fd1137d5eba4c85cd924388783d41a356f5ba7652aaafb537132c",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/01c2dc25de4fd1137d5eba4c85cd924388783d41a356f5ba7652aaafb537132c.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.411710649728775
+  },
+  {
+    "content_hash": "02748a7ea7f4b4c86e6af44b003fe6e3f019a88377fa69a53a9b8be93f443daf",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/02748a7ea7f4b4c86e6af44b003fe6e3f019a88377fa69a53a9b8be93f443daf.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4924463927745819
+  },
+  {
+    "content_hash": "056e94ca3802b167d68c51ef79a45b9d8156d3d3749d75c11a2478714015bab9",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/056e94ca3802b167d68c51ef79a45b9d8156d3d3749d75c11a2478714015bab9.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4584784507751465
+  },
+  {
+    "content_hash": "08d8bd1005a12d89f20435d181be248f7fecb411d5c9c07657503196a6fde8bf",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/08d8bd1005a12d89f20435d181be248f7fecb411d5c9c07657503196a6fde8bf.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4656849503517151
+  },
+  {
+    "content_hash": "0b760c4b24ae68818da9c0fb756ce5ebc7a8845d65b8966b86e16b5d43e37324",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/0b760c4b24ae68818da9c0fb756ce5ebc7a8845d65b8966b86e16b5d43e37324.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4829906225204468
+  },
+  {
+    "content_hash": "0d3a6c1adf273fd526f05973b18e6ba54ca8f627beb115c24a258a216186ed64",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/0d3a6c1adf273fd526f05973b18e6ba54ca8f627beb115c24a258a216186ed64.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.5265771150588989
+  },
+  {
+    "content_hash": "1066e29317832e8599746a8a39be02cc203d261d6297fcaec01f23e1901a93a8",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/1066e29317832e8599746a8a39be02cc203d261d6297fcaec01f23e1901a93a8.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4112018346786499
+  },
+  {
+    "content_hash": "1649eac954d5a54d6419a76ce460b565d1afe9b052b78663aecadb88a4038f6d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/1649eac954d5a54d6419a76ce460b565d1afe9b052b78663aecadb88a4038f6d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.44586992263793945
+  },
+  {
+    "content_hash": "19acabba6a6c886cf0bf07d27a22c770163b240d9a989c9649f17762d228503a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/19acabba6a6c886cf0bf07d27a22c770163b240d9a989c9649f17762d228503a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5009048581123352
+  },
+  {
+    "content_hash": "1a8d02901738183f57a59a686fb847bcb003d46de5fd2fbf10ce889898f0d9b0",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/1a8d02901738183f57a59a686fb847bcb003d46de5fd2fbf10ce889898f0d9b0.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4483993649482727
+  },
+  {
+    "content_hash": "23e0f9c0fe7eac99d6b4ac0b15cacc3f4b41de3c447e01175c3c5c416196018d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/23e0f9c0fe7eac99d6b4ac0b15cacc3f4b41de3c447e01175c3c5c416196018d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49024054408073425
+  },
+  {
+    "content_hash": "24d498d3de2afbd47c2589fdcf13036be6856aeac0cc7ca6d395f9d6cf07d56a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/24d498d3de2afbd47c2589fdcf13036be6856aeac0cc7ca6d395f9d6cf07d56a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4739129841327667
+  },
+  {
+    "content_hash": "2616ae726257175cbc4aee0907a4a767fe09f6d053a48083a30d22315b722736",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/2616ae726257175cbc4aee0907a4a767fe09f6d053a48083a30d22315b722736.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4491421580314636
+  },
+  {
+    "content_hash": "26d332cdb2027871c60be2fed4e8345e0a34fc2c48ac3cc2a093161f906ddf68",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/26d332cdb2027871c60be2fed4e8345e0a34fc2c48ac3cc2a093161f906ddf68.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.7328198552131653
+  },
+  {
+    "content_hash": "281e02921d20ad0f013239909818ebb00da14d01a382fab61a7b4f10227aab5b",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/281e02921d20ad0f013239909818ebb00da14d01a382fab61a7b4f10227aab5b.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4663727581501007
+  },
+  {
+    "content_hash": "2901813455299c13e3f026e5a451a8d452b6827e7086cc6d5d7988e5a1e48086",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/2901813455299c13e3f026e5a451a8d452b6827e7086cc6d5d7988e5a1e48086.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48291343450546265
+  },
+  {
+    "content_hash": "2a1ea8ce014057b6977a8b6bea9efcb4c26e81da93d5910c90a3095fd0b22c3e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/2a1ea8ce014057b6977a8b6bea9efcb4c26e81da93d5910c90a3095fd0b22c3e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4899129271507263
+  },
+  {
+    "content_hash": "2c1575eac884ba672c6e56bc30672b7087ac1ed956c1b48cd1bad16326331981",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/2c1575eac884ba672c6e56bc30672b7087ac1ed956c1b48cd1bad16326331981.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.48145395517349243
+  },
+  {
+    "content_hash": "2e060d486cccb9f6226a5a7aaad48e2e502dd27699afac8c74a07a03feca643d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/2e060d486cccb9f6226a5a7aaad48e2e502dd27699afac8c74a07a03feca643d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.44573235511779785
+  },
+  {
+    "content_hash": "317960cdb93ed395e34cdaac6e99ced6e792b82eec15462e64fcef9ebc97756e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/317960cdb93ed395e34cdaac6e99ced6e792b82eec15462e64fcef9ebc97756e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4751017689704895
+  },
+  {
+    "content_hash": "36fcab72dabecc23cbe9fbf3990d637b304e07f112510fad98811d86e362038b",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/36fcab72dabecc23cbe9fbf3990d637b304e07f112510fad98811d86e362038b.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49919071793556213
+  },
+  {
+    "content_hash": "37a97dbde990ab7d8a069d5d5948a739442a5f6a8a4b7a3469e07b44169777a7",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/37a97dbde990ab7d8a069d5d5948a739442a5f6a8a4b7a3469e07b44169777a7.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.40401244163513184
+  },
+  {
+    "content_hash": "3b8158e65aa15623e3d19186ff59e7be26a80fe6b28ec5a71be85e23498bb3f1",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/3b8158e65aa15623e3d19186ff59e7be26a80fe6b28ec5a71be85e23498bb3f1.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47946158051490784
+  },
+  {
+    "content_hash": "493e7d380af21afff596672dce5c3dd5a60efec2d2a06583ce35a9747666eca2",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/493e7d380af21afff596672dce5c3dd5a60efec2d2a06583ce35a9747666eca2.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4823913276195526
+  },
+  {
+    "content_hash": "497cb7e3696f4f9d849081072f422942be9139d1a108c04ccb9a163a316c142a",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/497cb7e3696f4f9d849081072f422942be9139d1a108c04ccb9a163a316c142a.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5094220638275146
+  },
+  {
+    "content_hash": "4bf38b511c3f62c70f7f533b687b15a426160a5a21f4f2ca8755e0875b728ada",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/4bf38b511c3f62c70f7f533b687b15a426160a5a21f4f2ca8755e0875b728ada.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49985814094543457
+  },
+  {
+    "content_hash": "4de90417a051be8e858e688b2730e3cf619bea650f95c8d7c2166ec36cabf2d4",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/4de90417a051be8e858e688b2730e3cf619bea650f95c8d7c2166ec36cabf2d4.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.36056452989578247
+  },
+  {
+    "content_hash": "5335d115d003dbdba4a58c9e52b05b09fae5703715321bcf5c98ec951a06160c",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/5335d115d003dbdba4a58c9e52b05b09fae5703715321bcf5c98ec951a06160c.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4999311864376068
+  },
+  {
+    "content_hash": "5788da0599bb07df312fe68fe87df1d48b638aed5e97476059897017410ab13d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/5788da0599bb07df312fe68fe87df1d48b638aed5e97476059897017410ab13d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49373340606689453
+  },
+  {
+    "content_hash": "5da4ef2b94390dafa65b7e3d5a763cdc042cf28a8cf9a00f5fe470bd9c569d2f",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/5da4ef2b94390dafa65b7e3d5a763cdc042cf28a8cf9a00f5fe470bd9c569d2f.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4123329520225525
+  },
+  {
+    "content_hash": "65dd5ce1b90f73808f8b19456d70aa35b95eef26d213b34cee35cfa3f74ffcd6",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/65dd5ce1b90f73808f8b19456d70aa35b95eef26d213b34cee35cfa3f74ffcd6.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4258062243461609
+  },
+  {
+    "content_hash": "6fb7195d5a54bba2928a575369ec5d2b29fa14e128eed97dd03213138613b66d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/6fb7195d5a54bba2928a575369ec5d2b29fa14e128eed97dd03213138613b66d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4884905517101288
+  },
+  {
+    "content_hash": "74198b8fa4109520ef64b8a68f3c5685ac29685c59e16541b7dd18acacc53b9e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/74198b8fa4109520ef64b8a68f3c5685ac29685c59e16541b7dd18acacc53b9e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4616301655769348
+  },
+  {
+    "content_hash": "7c8167afdd57fa6021a7b58d6782acce1bd63b8ddd3bfa218dd81c1b3caf16fc",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/7c8167afdd57fa6021a7b58d6782acce1bd63b8ddd3bfa218dd81c1b3caf16fc.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4814748466014862
+  },
+  {
+    "content_hash": "80b6f407808ba28b0d8c6e09f3adace9a4408da9535b72e493af26fca6aa4412",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/80b6f407808ba28b0d8c6e09f3adace9a4408da9535b72e493af26fca6aa4412.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4494188129901886
+  },
+  {
+    "content_hash": "81ccccfcdaae9e42343367ab91c537c7e9b96e0075869fcdb4d8392d8aee3a64",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/81ccccfcdaae9e42343367ab91c537c7e9b96e0075869fcdb4d8392d8aee3a64.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4839247763156891
+  },
+  {
+    "content_hash": "8241bbae3a5ea1bfef7a442ce2bf631b1636664f15461873bf633f6b774a4265",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/8241bbae3a5ea1bfef7a442ce2bf631b1636664f15461873bf633f6b774a4265.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.46989646553993225
+  },
+  {
+    "content_hash": "880ad5b295990c8fc8f60a504a83e2764760f845382bd48cf12a1ead982ca864",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/880ad5b295990c8fc8f60a504a83e2764760f845382bd48cf12a1ead982ca864.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.44891324639320374
+  },
+  {
+    "content_hash": "98873b22b0d43aeb75b3ed110eedc887fdc706138cb28c6a986285d8cbb3328e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/98873b22b0d43aeb75b3ed110eedc887fdc706138cb28c6a986285d8cbb3328e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.44186848402023315
+  },
+  {
+    "content_hash": "99c061240c406a7162bf4db87086b0dee01ff52f0b4a9671e8b9964b7ecc3d81",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/99c061240c406a7162bf4db87086b0dee01ff52f0b4a9671e8b9964b7ecc3d81.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.46382662653923035
+  },
+  {
+    "content_hash": "9a32e7a75568d5996555f668087e061713d1fa5e92113e450c8ec48c1d4f6e38",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/9a32e7a75568d5996555f668087e061713d1fa5e92113e450c8ec48c1d4f6e38.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.45880335569381714
+  },
+  {
+    "content_hash": "9d0c8ad7f5c2987905174b65cabe46cfe275f0500e6865013a89b1c3d9268edf",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/9d0c8ad7f5c2987905174b65cabe46cfe275f0500e6865013a89b1c3d9268edf.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.42817333340644836
+  },
+  {
+    "content_hash": "b2555488817f591b559538d7b6b4794359c67daec417b33a10f348a9c7e9ed3f",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/b2555488817f591b559538d7b6b4794359c67daec417b33a10f348a9c7e9ed3f.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.40106436610221863
+  },
+  {
+    "content_hash": "b84aeb44d07ddd976764fb43760e93d4d07c41cdd99f817a83334721756179ce",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/b84aeb44d07ddd976764fb43760e93d4d07c41cdd99f817a83334721756179ce.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.48213595151901245
+  },
+  {
+    "content_hash": "b9f28a9c7e25db31da55ef294770b11995d157a819817761fc8513dd75ba304d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/b9f28a9c7e25db31da55ef294770b11995d157a819817761fc8513dd75ba304d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47420594096183777
+  },
+  {
+    "content_hash": "bd05cc98a020f538fcc2158c16653c0d556946e68fae83d6776c0a65e7ea0040",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/bd05cc98a020f538fcc2158c16653c0d556946e68fae83d6776c0a65e7ea0040.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4211582541465759
+  },
+  {
+    "content_hash": "bd37e7d5ac4479f6c10e29f3d7b67131cd74f0ebd3657720a6c88818c08b9c20",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/bd37e7d5ac4479f6c10e29f3d7b67131cd74f0ebd3657720a6c88818c08b9c20.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4655226767063141
+  },
+  {
+    "content_hash": "bd9a1cac342380dd2b2c2c0a8d63c67fdbc13951960a98c5803676d194ba1905",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/bd9a1cac342380dd2b2c2c0a8d63c67fdbc13951960a98c5803676d194ba1905.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.3636174499988556
+  },
+  {
+    "content_hash": "c0feb92794768bb18f374a57504541906f8fe5cf4aab9afc8b772edeb19dd95e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c0feb92794768bb18f374a57504541906f8fe5cf4aab9afc8b772edeb19dd95e.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.468683660030365
+  },
+  {
+    "content_hash": "c1b3f31da807d1c6bcefffe55f71a0c217667319557d4af9fbea5ed6930ae674",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c1b3f31da807d1c6bcefffe55f71a0c217667319557d4af9fbea5ed6930ae674.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.21392129361629486
+  },
+  {
+    "content_hash": "c32119264940e68ed08f6ecdae85f5d84cb60bc17ec1cf1b57ac0bb435cea278",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c32119264940e68ed08f6ecdae85f5d84cb60bc17ec1cf1b57ac0bb435cea278.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.47106388211250305
+  },
+  {
+    "content_hash": "c3d7812ae36bd3d9f350ac75178914e8298e099972b164c0a8c5f2467761628d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c3d7812ae36bd3d9f350ac75178914e8298e099972b164c0a8c5f2467761628d.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49101701378822327
+  },
+  {
+    "content_hash": "c5224d8826510a803826e9b3d994623f3905b28787a92a9d2ec47890d6595d61",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c5224d8826510a803826e9b3d994623f3905b28787a92a9d2ec47890d6595d61.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.23152300715446472
+  },
+  {
+    "content_hash": "c7f48c001248fdf39e471f051de245b8c6580c57b4c6f9f69853e99000e51306",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/c7f48c001248fdf39e471f051de245b8c6580c57b4c6f9f69853e99000e51306.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.35817357897758484
+  },
+  {
+    "content_hash": "dbad08fd38392fc7900329c81f539852697567b1f60a1a98376f9bc504746fb0",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/dbad08fd38392fc7900329c81f539852697567b1f60a1a98376f9bc504746fb0.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.269069105386734
+  },
+  {
+    "content_hash": "dcc1f92c50deced95bc0f18f66a9b4c3c532c0de1c950499c4059754e86e81ea",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/dcc1f92c50deced95bc0f18f66a9b4c3c532c0de1c950499c4059754e86e81ea.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4087173640727997
+  },
+  {
+    "content_hash": "e015c35145b8a33c602e0786b2b08df2fd7e1489566a17618c57b39c5dbdaae6",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e015c35145b8a33c602e0786b2b08df2fd7e1489566a17618c57b39c5dbdaae6.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4986172616481781
+  },
+  {
+    "content_hash": "e0654928fe7dcca7e49a7b02bde373aac01491458814fb27078a7af303458653",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e0654928fe7dcca7e49a7b02bde373aac01491458814fb27078a7af303458653.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.47609344124794006
+  },
+  {
+    "content_hash": "e0a5381a5d132cec0cefadb6d712df425e12320dbbbce7c4dac762b0cc1ff38e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e0a5381a5d132cec0cefadb6d712df425e12320dbbbce7c4dac762b0cc1ff38e.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.44254955649375916
+  },
+  {
+    "content_hash": "e0b4db02808cedaf5415fb5b48096e4204ae22889d0da00a91e4b65e56fcfa05",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e0b4db02808cedaf5415fb5b48096e4204ae22889d0da00a91e4b65e56fcfa05.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.433677077293396
+  },
+  {
+    "content_hash": "e1ec95025f09d918f352446d501a64a2d1a07a1a4a883c4c0a682612c173ce10",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e1ec95025f09d918f352446d501a64a2d1a07a1a4a883c4c0a682612c173ce10.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4717279374599457
+  },
+  {
+    "content_hash": "e41d3c7ef887099c9bf8436a4129552501da31e09bc93182dc5427f9e26c1bba",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e41d3c7ef887099c9bf8436a4129552501da31e09bc93182dc5427f9e26c1bba.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4652796983718872
+  },
+  {
+    "content_hash": "e974c5270c9beb4a5fac394ad7750e613409a4e1c0f17e7ffc91fca96afc3a5d",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/e974c5270c9beb4a5fac394ad7750e613409a4e1c0f17e7ffc91fca96afc3a5d.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4821063280105591
+  },
+  {
+    "content_hash": "f16e86b8d3f99d67e4d16e584519e1b0f16cba06e7b9f9ebaaa762c6c94e866e",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f16e86b8d3f99d67e4d16e584519e1b0f16cba06e7b9f9ebaaa762c6c94e866e.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.49058082699775696
+  },
+  {
+    "content_hash": "f340c67311643341beb4e1b8d223875c31b373bf27ab1bbc1f52acd969e4d0b6",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f340c67311643341beb4e1b8d223875c31b373bf27ab1bbc1f52acd969e4d0b6.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.42150455713272095
+  },
+  {
+    "content_hash": "f41bca5c5fe8d055261c9c0d23bb989f1a3a57ba70bc73a24417b223dcd79090",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f41bca5c5fe8d055261c9c0d23bb989f1a3a57ba70bc73a24417b223dcd79090.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4694444537162781
+  },
+  {
+    "content_hash": "f46ea0a9f7122cb111f80792f1eecf8b7cf816517426349568d972e8737d7f76",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f46ea0a9f7122cb111f80792f1eecf8b7cf816517426349568d972e8737d7f76.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.7258201837539673
+  },
+  {
+    "content_hash": "f5f53c4a5c57fed5111f36edc822cfa089ee7541ee3564740bf1027842e5bc7c",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f5f53c4a5c57fed5111f36edc822cfa089ee7541ee3564740bf1027842e5bc7c.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.39590904116630554
+  },
+  {
+    "content_hash": "f6f7e9f71ea5cd3759c4c94c754524b6d3ab2777270c5f3b77c2c826c84a28b5",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f6f7e9f71ea5cd3759c4c94c754524b6d3ab2777270c5f3b77c2c826c84a28b5.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4830760657787323
+  },
+  {
+    "content_hash": "f78780217e05573a991428332a693fd5e6d4f5a2ecd021cc0b78406f3b5a41fa",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f78780217e05573a991428332a693fd5e6d4f5a2ecd021cc0b78406f3b5a41fa.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.45241689682006836
+  },
+  {
+    "content_hash": "f7bd047ca38f4a60feb27f8c29464b445780a0eb97033478b0c7538ea8645a43",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f7bd047ca38f4a60feb27f8c29464b445780a0eb97033478b0c7538ea8645a43.jpg",
+    "sensitivity_level": "high",
+    "label": 0,
+    "probability_fake": 0.14490310847759247
+  },
+  {
+    "content_hash": "f86ef2949dcc58a6659ef4c08136853de3dc87c2e79314519acc3b28abe0ceb8",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f86ef2949dcc58a6659ef4c08136853de3dc87c2e79314519acc3b28abe0ceb8.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.5817974209785461
+  },
+  {
+    "content_hash": "f9c3596a3388d0a929ee5a43dd74c44c7eac50a58646c14cef596c8ac3b1a630",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/f9c3596a3388d0a929ee5a43dd74c44c7eac50a58646c14cef596c8ac3b1a630.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.4792967140674591
+  },
+  {
+    "content_hash": "fa2ed703b49f210195fdd1f3a462f1b95826253121aded4f08fd439b0e8623e7",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/fa2ed703b49f210195fdd1f3a462f1b95826253121aded4f08fd439b0e8623e7.jpg",
+    "sensitivity_level": "medium",
+    "label": 0,
+    "probability_fake": 0.7366725206375122
+  },
+  {
+    "content_hash": "ff8f3d8daae076d6bf47870b598317a8d4b421e404d40c1087d945d45f0eeece",
+    "image_path": "data/datasets/sid-set/candidate-1500/images/real/ff8f3d8daae076d6bf47870b598317a8d4b421e404d40c1087d945d45f0eeece.jpg",
+    "sensitivity_level": "low",
+    "label": 0,
+    "probability_fake": 0.4461190402507782
+  }
+]
