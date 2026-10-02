@@ -48,6 +48,24 @@ EXPORT_FIELDS = (
     *RUBRIC_FIELDS,
     "original_annotation_json",
 )
+MODEL_REVIEW_EXPORT_FIELDS = (
+    *EXPORT_FIELDS,
+    "image_id",
+    "image_path",
+    "source_label",
+    "human_initial_label",
+    "human_initial_at",
+    "model_prediction",
+    "model_confidence",
+    "prob_low",
+    "prob_medium",
+    "prob_high",
+    "agreement_initial",
+    "human_final_label",
+    "agreement_final",
+    "model_version",
+)
+SENSITIVITY_LABELS = ("low", "medium", "high")
 
 
 def identity(name: str) -> tuple[str, str]:
@@ -146,9 +164,12 @@ class SharedStore:
 
     @staticmethod
     def _snapshot_mode(db) -> bool:
-        return db.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='review_snapshot'"
-        ).fetchone() is not None
+        return (
+            db.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='review_snapshot'"
+            ).fetchone()
+            is not None
+        )
 
     @property
     def is_review_snapshot(self) -> bool:
@@ -176,8 +197,17 @@ class SharedStore:
                 for item in batch["images"]:
                     content_hash = item["content_hash"]
                     previous = db.execute(
-                        "SELECT batch_id FROM batch_images WHERE content_hash=?", (content_hash,)
+                        "SELECT bi.batch_id, b.dataset_role FROM batch_images bi "
+                        "JOIN batches b USING(batch_id) WHERE bi.content_hash=?",
+                        (content_hash,),
                     ).fetchall()
+                    if previous and (
+                        batch["dataset_role"] == "model_review"
+                        or any(row["dataset_role"] == "model_review" for row in previous)
+                    ):
+                        raise AnnotationError(
+                            f"Model-review image already belongs to another batch: {content_hash}"
+                        )
                     cursor = db.execute(
                         "INSERT OR IGNORE INTO images VALUES (?,?)",
                         (content_hash, item["image_bytes"]),
@@ -242,7 +272,7 @@ class SharedStore:
         include_reviewed: bool = False,
         now: float | None = None,
     ) -> dict | None:
-        if kind not in ("annotation", "review"):
+        if kind not in ("annotation", "review", "model_review"):
             raise AnnotationError("Unknown queue.")
         key, person = identity(name)
         now = time.time() if now is None else now
@@ -257,9 +287,21 @@ class SharedStore:
                 return dict(existing)
             eligibility = (
                 "NOT EXISTS (SELECT 1 FROM annotations a WHERE a.content_hash=i.content_hash)"
-                if kind == "annotation"
+                if kind in ("annotation", "model_review")
                 else "EXISTS (SELECT 1 FROM annotations a WHERE a.content_hash=i.content_hash "
                 "AND a.annotator_key<>:person)"
+            )
+            if kind == "model_review":
+                eligibility += (
+                    " AND NOT EXISTS (SELECT 1 FROM drafts d WHERE d.content_hash=i.content_hash "
+                    "AND d.kind='model_review_completed')"
+                    " AND (json_extract(i.provenance_json,'$.assigned_annotator') IS NULL "
+                    "OR lower(json_extract(i.provenance_json,'$.assigned_annotator'))=:person)"
+                )
+            role_filter = (
+                "b.dataset_role='model_review'"
+                if kind == "model_review"
+                else "b.dataset_role<>'model_review'"
             )
             if kind == "review" and not include_reviewed:
                 eligibility += (
@@ -268,7 +310,8 @@ class SharedStore:
             row = db.execute(
                 f"""
                 SELECT DISTINCT i.content_hash FROM batch_images i JOIN batches b USING(batch_id)
-                WHERE b.is_open=1 AND (:batch IS NULL OR b.batch_id=:batch) AND {eligibility}
+                WHERE b.is_open=1 AND (:batch IS NULL OR b.batch_id=:batch)
+                AND {role_filter} AND {eligibility}
                 AND NOT EXISTS (SELECT 1 FROM reservations r
                     WHERE r.content_hash=i.content_hash AND r.kind=:kind)
                 ORDER BY EXISTS (SELECT 1 FROM drafts d WHERE d.content_hash=i.content_hash
@@ -354,6 +397,21 @@ class SharedStore:
                 "reviews": reviews,
             }
 
+    def model_review_case(self, content_hash: str) -> dict:
+        with self.connection() as db:
+            rows = db.execute(
+                "SELECT i.original_filename, i.provenance_json FROM batch_images i "
+                "JOIN batches b USING(batch_id) WHERE i.content_hash=? "
+                "AND b.dataset_role='model_review' ORDER BY b.created_at, b.batch_id",
+                (content_hash,),
+            ).fetchall()
+            if len(rows) != 1:
+                raise AnnotationError(f"Expected one model-review membership for {content_hash}.")
+            return {
+                "image_path": rows[0]["original_filename"],
+                "provenance": json.loads(rows[0]["provenance_json"]),
+            }
+
     def draft(self, lease: dict) -> dict | None:
         with self.connection() as db:
             row = db.execute(
@@ -361,6 +419,115 @@ class SharedStore:
                 (lease["content_hash"], lease["kind"], lease["person_key"]),
             ).fetchone()
             return json.loads(row[0]) if row else None
+
+    def save_model_review_draft(
+        self,
+        token: str,
+        name: str,
+        *,
+        initial: str | None = None,
+        final: str | None = None,
+        now: float | None = None,
+    ) -> dict:
+        now = time.time() if now is None else now
+        with self.connection(write=True) as db:
+            lease = self._lease(db, token, name, now)
+            if lease["kind"] != "model_review":
+                raise AnnotationError("Not a model-review reservation.")
+            row = db.execute(
+                "SELECT payload FROM drafts WHERE content_hash=? AND kind='model_review' "
+                "AND person_key=?",
+                (lease["content_hash"], lease["person_key"]),
+            ).fetchone()
+            payload = json.loads(row[0]) if row else {}
+            if initial is not None:
+                if initial not in SENSITIVITY_LABELS:
+                    raise AnnotationError("Choose low, medium, or high.")
+                if payload.get("human_initial_label") not in (None, initial):
+                    raise AnnotationError(
+                        "The initial human label is already saved and cannot change."
+                    )
+                if not payload:
+                    payload = {"human_initial_label": initial, "initial_at": timestamp()}
+            if not payload.get("human_initial_label"):
+                raise AnnotationError("Save the initial human label before revealing the model.")
+            if final is not None:
+                if final not in SENSITIVITY_LABELS:
+                    raise AnnotationError("Choose low, medium, or high.")
+                payload["human_final_label"] = final
+            db.execute(
+                "INSERT OR REPLACE INTO drafts VALUES (?,?,?,?)",
+                (lease["content_hash"], "model_review", lease["person_key"], json.dumps(payload)),
+            )
+            db.execute(
+                "UPDATE reservations SET expires_at=? WHERE token=?",
+                (now + self.reservation_seconds, token),
+            )
+            return payload
+
+    def complete_model_review(
+        self, token: str, name: str, final: str, *, now: float | None = None
+    ) -> None:
+        if final not in SENSITIVITY_LABELS:
+            raise AnnotationError("Choose low, medium, or high.")
+        now = time.time() if now is None else now
+        with self.connection(write=True) as db:
+            lease = self._lease(db, token, name, now)
+            if lease["kind"] != "model_review":
+                raise AnnotationError("Not a model-review reservation.")
+            draft = db.execute(
+                "SELECT payload FROM drafts WHERE content_hash=? AND kind='model_review' "
+                "AND person_key=?",
+                (lease["content_hash"], lease["person_key"]),
+            ).fetchone()
+            if draft is None:
+                raise AnnotationError("The initial human label has not been saved.")
+            values = json.loads(draft[0])
+            initial = values.get("human_initial_label")
+            if initial not in SENSITIVITY_LABELS:
+                raise AnnotationError("Invalid saved initial human label.")
+            memberships = db.execute(
+                "SELECT i.provenance_json FROM batch_images i JOIN batches b USING(batch_id) "
+                "WHERE i.content_hash=? AND b.dataset_role='model_review'",
+                (lease["content_hash"],),
+            ).fetchall()
+            if len(memberships) != 1:
+                raise AnnotationError("Expected exactly one model-review batch membership.")
+            model_prediction = json.loads(memberships[0][0]).get("model_prediction")
+            if model_prediction not in SENSITIVITY_LABELS:
+                raise AnnotationError("Missing model prediction in batch metadata.")
+            if db.execute(
+                "SELECT 1 FROM drafts WHERE content_hash=? AND kind='model_review_completed'",
+                (lease["content_hash"],),
+            ).fetchone():
+                raise AnnotationError("This image already has a completed model review.")
+            payload = {
+                "record_type": "model_review",
+                "content_hash": lease["content_hash"],
+                "annotator": lease["person"],
+                "human_initial_label": initial,
+                "initial_at": values["initial_at"],
+                "human_final_label": final,
+                "agreement_initial": initial == model_prediction,
+                "agreement_final": final == model_prediction,
+                "annotated_at": timestamp(),
+            }
+            # Keep completed model reviews outside the rubric-only annotations table.
+            # A distinct kind in the existing durable drafts table needs no schema change.
+            db.execute(
+                "INSERT INTO drafts VALUES (?,?,?,?)",
+                (
+                    lease["content_hash"],
+                    "model_review_completed",
+                    lease["person_key"],
+                    json.dumps(payload),
+                ),
+            )
+            db.execute("DELETE FROM reservations WHERE token=?", (token,))
+            db.execute(
+                "DELETE FROM drafts WHERE content_hash=? AND kind='model_review' AND person_key=?",
+                (lease["content_hash"], lease["person_key"]),
+            )
 
     def complete(
         self,
@@ -375,10 +542,14 @@ class SharedStore:
         now = time.time() if now is None else now
         with self.connection(write=True) as db:
             lease = self._lease(db, token, name, now)
+            if lease["kind"] not in ("annotation", "review"):
+                raise AnnotationError("Use the model-review completion action for this image.")
             content_hash = lease["content_hash"]
             if self._snapshot_mode(db) and (
                 lease["kind"] != "review"
-                or db.execute("SELECT 1 FROM reviews WHERE content_hash=?", (content_hash,)).fetchone()
+                or db.execute(
+                    "SELECT 1 FROM reviews WHERE content_hash=?", (content_hash,)
+                ).fetchone()
             ):
                 raise AnnotationError("Review snapshots support pending reviews only.")
             if lease["kind"] == "annotation":
@@ -445,12 +616,21 @@ class SharedStore:
                     SUM(EXISTS(SELECT 1 FROM annotations a WHERE a.content_hash=s.content_hash)) annotated,
                     SUM(EXISTS(SELECT 1 FROM reviews r WHERE r.content_hash=s.content_hash)) confirmed,
                     SUM(EXISTS(SELECT 1 FROM reservations r WHERE r.content_hash=s.content_hash
-                        AND r.kind='annotation' AND r.expires_at>?)) reserved
+                        AND r.kind IN ('annotation','model_review') AND r.expires_at>?)) reserved
                     FROM ({scope}) s
                 """,
                     [time.time(), *args],
                 ).fetchone()
                 total, annotated, confirmed, reserved = (v or 0 for v in counts)
+                if batch is None or batch["dataset_role"] == "model_review":
+                    completed = db.execute(
+                        f"SELECT COUNT(*) FROM ({scope}) s WHERE EXISTS "
+                        "(SELECT 1 FROM drafts d WHERE d.content_hash=s.content_hash "
+                        "AND d.kind='model_review_completed')",
+                        args,
+                    ).fetchone()[0]
+                    annotated += completed
+                    confirmed += completed
                 rows.append(
                     {
                         "batch": batch["name"] if batch else "All batches (unique images)",
@@ -466,6 +646,8 @@ class SharedStore:
             return rows
 
     def export_csv(self, kind: str = "current", batch_id: str | None = None) -> bytes:
+        if kind == "model_review":
+            return self.export_model_review_csv(batch_id)
         if kind not in ("current", "confirmed", "history"):
             raise AnnotationError("Unknown export.")
         output = io.StringIO(newline="")
@@ -476,7 +658,8 @@ class SharedStore:
                 """
                 SELECT b.*, i.*, a.annotator, a.payload FROM batch_images i
                 JOIN batches b USING(batch_id) JOIN annotations a USING(content_hash)
-                WHERE (? IS NULL OR b.batch_id=?) ORDER BY b.batch_id, i.original_filename
+                WHERE b.dataset_role<>'model_review' AND (? IS NULL OR b.batch_id=?)
+                ORDER BY b.batch_id, i.original_filename
             """,
                 (batch_id, batch_id),
             ):
@@ -522,4 +705,57 @@ class SharedStore:
                     )
                     record["needs_review"] = str(record["needs_review"]).lower()
                     writer.writerow(record)
+        return output.getvalue().encode("utf-8")
+
+    def export_model_review_csv(self, batch_id: str | None = None) -> bytes:
+        output = io.StringIO(newline="")
+        writer = csv.DictWriter(output, fieldnames=MODEL_REVIEW_EXPORT_FIELDS)
+        writer.writeheader()
+        with self.connection() as db:
+            for row in db.execute(
+                "SELECT b.batch_id, b.name, b.dataset_role, i.content_hash, "
+                "i.original_filename, i.provenance_json, d.payload "
+                "FROM batch_images i JOIN batches b USING(batch_id) "
+                "JOIN drafts d USING(content_hash) "
+                "WHERE b.dataset_role='model_review' AND (? IS NULL OR b.batch_id=?) "
+                "AND d.kind='model_review_completed' "
+                "ORDER BY b.batch_id, i.original_filename",
+                (batch_id, batch_id),
+            ):
+                payload = json.loads(row["payload"])
+                if payload.get("record_type") != "model_review":
+                    raise AnnotationError(f"Invalid model-review decision: {row['content_hash']}")
+                provenance = json.loads(row["provenance_json"])
+                record = {
+                    "batch_id": row["batch_id"],
+                    "batch_name": row["name"],
+                    "dataset_role": row["dataset_role"],
+                    "content_hash": row["content_hash"],
+                    "blind_id": f"SF-{row['content_hash'][:20]}",
+                    "original_filename": row["original_filename"],
+                    "source_dataset": provenance.get("source_dataset", "unknown"),
+                    "normalized_label": provenance.get("normalized_label", "unknown"),
+                    "provenance_json": row["provenance_json"],
+                    "annotator": payload["annotator"],
+                    "annotated_at": payload["annotated_at"],
+                    "status": "model_review_completed",
+                    "image_id": provenance.get("image_id", row["content_hash"]),
+                    "image_path": row["original_filename"],
+                    "source_label": provenance.get(
+                        "source_label", provenance.get("normalized_label", "unknown")
+                    ),
+                    "human_initial_label": payload["human_initial_label"],
+                    "human_initial_at": payload["initial_at"],
+                    "model_prediction": provenance["model_prediction"],
+                    "model_confidence": provenance.get("confidence", ""),
+                    "prob_low": provenance.get("prob_low", ""),
+                    "prob_medium": provenance.get("prob_medium", ""),
+                    "prob_high": provenance.get("prob_high", ""),
+                    "agreement_initial": str(payload["agreement_initial"]).lower(),
+                    "human_final_label": payload["human_final_label"],
+                    "agreement_final": str(payload["agreement_final"]).lower(),
+                    "model_version": provenance.get("model_version", ""),
+                    "sensitivity_level": payload["human_final_label"],
+                }
+                writer.writerow(record)
         return output.getvalue().encode("utf-8")

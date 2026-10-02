@@ -6,6 +6,7 @@ import csv
 import hashlib
 import io
 import json
+import math
 import stat
 import uuid
 import warnings
@@ -15,8 +16,9 @@ from pathlib import Path, PurePosixPath
 
 from PIL import Image, UnidentifiedImageError
 
-from .annotation_schema import ANNOTATION_FIELDS, AnnotationError, _annotation_from_row
 from scripts.legacy.human_train_assignment import COMPONENT_PATHS
+
+from .annotation_schema import ANNOTATION_FIELDS, AnnotationError, _annotation_from_row
 
 SNAPSHOT = "annotations/human-train-v0/SensiFake_annotations_401/sensitivity_annotations_401.csv"
 SNAPSHOT_SHA256 = "d4cf41d8df87475321f616dfa09b256513c1ee1f380bb2633a33ac693fa2170b"
@@ -64,7 +66,13 @@ def validate_image(data: bytes, filename: str) -> str:
 
 def prepare_zip(upload, name: str, dataset_role: str = "custom") -> list[dict]:
     """Optional root metadata.json maps exact archive filenames to provenance objects."""
-    if dataset_role not in ("custom", "rrdataset", "gold_development", "human_train"):
+    if dataset_role not in (
+        "custom",
+        "rrdataset",
+        "gold_development",
+        "human_train",
+        "model_review",
+    ):
         raise AnnotationError("Unknown dataset role.")
     try:
         with zipfile.ZipFile(upload) as archive:
@@ -96,6 +104,17 @@ def prepare_zip(upload, name: str, dataset_role: str = "custom") -> list[dict]:
             }
             if metadata.keys() - filenames:
                 raise AnnotationError("Metadata references files absent from the ZIP.")
+            model_entries = {
+                filename
+                for filename, values in metadata.items()
+                if values.get("review_type") == "model_review"
+            }
+            if model_entries:
+                if model_entries != filenames:
+                    raise AnnotationError("A model-review ZIP needs metadata for every image.")
+                dataset_role = "model_review"
+            elif dataset_role == "model_review":
+                raise AnnotationError("A model-review ZIP needs a model-review metadata.json.")
             images = []
             for entry in entries:
                 if entry.is_dir() or entry.filename == "metadata.json":
@@ -105,7 +124,61 @@ def prepare_zip(upload, name: str, dataset_role: str = "custom") -> list[dict]:
                 data = archive.read(entry)
                 content_hash = validate_image(data, entry.filename)
                 provenance = dict(metadata.get(entry.filename, {}))
-                label = provenance.get("normalized_label", "unknown")
+                if dataset_role == "model_review":
+                    if provenance.get("content_hash", content_hash) != content_hash:
+                        raise AnnotationError(f"Model-review hash mismatch: {entry.filename}")
+                    if provenance.get("image_id", content_hash) != content_hash:
+                        raise AnnotationError(f"Model-review image_id mismatch: {entry.filename}")
+                    if provenance.get("image_path", entry.filename) != entry.filename:
+                        raise AnnotationError(f"Model-review image_path mismatch: {entry.filename}")
+                    if provenance.get("model_prediction") not in ("low", "medium", "high"):
+                        raise AnnotationError(f"Missing/invalid model prediction: {entry.filename}")
+                    assigned = provenance.get("assigned_annotator")
+                    if assigned is not None and (
+                        not isinstance(assigned, str) or not assigned.strip() or len(assigned) > 80
+                    ):
+                        raise AnnotationError(f"Invalid assigned annotator: {entry.filename}")
+                    for field in ("confidence", "prob_low", "prob_medium", "prob_high"):
+                        value = provenance.get(field, "")
+                        if value not in (None, ""):
+                            try:
+                                number = float(value)
+                            except (TypeError, ValueError) as exc:
+                                raise AnnotationError(f"Invalid {field}: {entry.filename}") from exc
+                            if not math.isfinite(number) or not 0 <= number <= 1:
+                                raise AnnotationError(f"Invalid {field}: {entry.filename}")
+                    probabilities = [
+                        provenance.get(f"prob_{level}", "") for level in ("low", "medium", "high")
+                    ]
+                    if all(value not in (None, "") for value in probabilities):
+                        numbers = [float(value) for value in probabilities]
+                        if not math.isclose(sum(numbers), 1, abs_tol=1e-5):
+                            raise AnnotationError(
+                                f"Model probabilities do not sum to one: {entry.filename}"
+                            )
+                        predicted = ("low", "medium", "high")[numbers.index(max(numbers))]
+                        if predicted != provenance["model_prediction"]:
+                            raise AnnotationError(
+                                f"Model prediction/probability mismatch: {entry.filename}"
+                            )
+                        confidence = provenance.get("confidence", "")
+                        if confidence not in (None, "") and not math.isclose(
+                            float(confidence), max(numbers), abs_tol=1e-5
+                        ):
+                            raise AnnotationError(f"Model confidence mismatch: {entry.filename}")
+                    provenance.setdefault("image_id", content_hash)
+                    provenance.setdefault("content_hash", content_hash)
+                    provenance.setdefault("image_path", entry.filename)
+                    provenance.setdefault("source_dataset", "unknown")
+                    label = provenance.get(
+                        "normalized_label", provenance.get("source_label", "unknown")
+                    )
+                    if provenance.get("source_label", label) != label:
+                        raise AnnotationError(f"Conflicting source labels: {entry.filename}")
+                    if label != "unknown":
+                        provenance.setdefault("label_source", "review_manifest_declared")
+                else:
+                    label = provenance.get("normalized_label", "unknown")
                 if label not in ("real", "fake", "unknown"):
                     raise AnnotationError("normalized_label must be real, fake, or unknown.")
                 if label != "unknown" and not provenance.get("label_source"):

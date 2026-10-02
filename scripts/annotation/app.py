@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -15,6 +16,121 @@ from scripts.annotation.annotation_database import RUBRIC_FIELDS, SharedStore, i
 from scripts.annotation.annotation_schema import AnnotationError, calculate_score, sensitivity_level
 from scripts.annotation.import_batches import SNAPSHOT, prepare_legacy, prepare_zip
 from scripts.annotation.paths import REPOSITORY_ROOT
+
+MODEL_REVIEW_KEYS = st.components.v2.component(
+    "model_review_keyboard_shortcuts",
+    html="<span aria-hidden='true'></span>",
+    js="""
+export default function (component) {
+  const { data, parentElement, setTriggerValue } = component;
+  const documentRef = parentElement.ownerDocument;
+  const handleKey = (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+    const target = event.target;
+    if (target?.isContentEditable || target?.matches?.('textarea, select, input:not([type=radio])')) return;
+    const allowed = ['1', '2', '3'];
+    if (data.stage === 'reveal') allowed.push('Enter');
+    if (!allowed.includes(event.key)) return;
+    event.preventDefault();
+    setTriggerValue('pressed', { key: event.key, case_id: data.case_id });
+  };
+  documentRef.addEventListener('keydown', handleKey);
+  return () => documentRef.removeEventListener('keydown', handleKey);
+}
+""",
+)
+
+
+def model_review_queue(store: SharedStore, name: str, batch_id: str | None) -> None:
+    person_key, _ = identity(name)
+    state_key = f"lease_{store.path}_{person_key}_model_review"
+    if state_key not in st.session_state:
+        if st.button("Resume or reserve an image", type="primary"):
+            lease = store.reserve(name, batch_id, kind="model_review")
+            if lease:
+                st.session_state[state_key] = lease
+                st.rerun()
+            st.info(
+                "No pending model-review images are available. Check the batch and your assigned annotator name."
+            )
+        return
+
+    lease = st.session_state[state_key]
+    content_hash, token = lease["content_hash"], lease["token"]
+    case = store.model_review_case(content_hash)
+    provenance = case["provenance"]
+    st.caption(f"Image SF-{content_hash[:20]}")
+    if st.button("Release image"):
+        store.release(token, name)
+        del st.session_state[state_key]
+        st.rerun()
+    st.image(store.image(content_hash), width="stretch")
+
+    draft = store.draft(lease) or {}
+    initial = draft.get("human_initial_label")
+    stage = "reveal" if initial else "human"
+    shortcut = MODEL_REVIEW_KEYS(
+        key=f"model_review_keys_{token}",
+        data={"stage": stage, "case_id": token},
+        on_pressed_change=lambda: None,
+    )
+    pressed = getattr(shortcut, "pressed", None)
+    key = (
+        pressed.get("key")
+        if isinstance(pressed, Mapping) and pressed.get("case_id") == token
+        else None
+    )
+    st.caption("1 Low · 2 Medium · 3 High · Enter Confirm and next (after reveal)")
+    choices = {"1": "low", "2": "medium", "3": "high"}
+
+    if not initial:
+        st.write("**Step 1 — Your independent sensitivity decision**")
+        st.caption("The model prediction is hidden until you save this first choice.")
+        buttons = st.columns(3)
+        selected = None
+        for number, level in choices.items():
+            if buttons[int(number) - 1].button(
+                f"{number} {level.title()}", key=f"{token}_initial_{level}"
+            ):
+                selected = level
+        selected = choices.get(key, selected)
+        if selected:
+            store.save_model_review_draft(token, name, initial=selected)
+            st.rerun()
+        return
+
+    st.write("**Step 2 — Model prediction revealed**")
+    prediction = provenance["model_prediction"]
+    st.write(f"Your initial label: **{initial}** · Model prediction: **{prediction}**")
+    st.write("**AGREEMENT**" if initial == prediction else "**DISAGREEMENT**")
+    confidence = provenance.get("confidence", "")
+    if confidence not in (None, ""):
+        st.write(f"Model confidence: **{float(confidence):.3f}**")
+    probabilities = {
+        label: provenance.get(f"prob_{label}", "") for label in ("low", "medium", "high")
+    }
+    if any(value not in (None, "") for value in probabilities.values()):
+        st.write("Model probabilities:", probabilities)
+    st.caption(
+        f"Dataset: {provenance.get('source_dataset', 'unknown')} · Source label: {provenance.get('normalized_label', 'unknown')}"
+    )
+
+    st.write("**Step 3 — Confirm or change your final label**")
+    final_key = f"{token}_final_label"
+    if final_key not in st.session_state:
+        st.session_state[final_key] = draft.get("human_final_label", initial)
+    if key in choices:
+        st.session_state[final_key] = choices[key]
+    final = st.radio("Final sensitivity", ("low", "medium", "high"), key=final_key, horizontal=True)
+    store.save_model_review_draft(token, name, final=final)
+    if st.button("Confirm and next", type="primary") or key == "Enter":
+        store.complete_model_review(token, name, final)
+        next_lease = store.reserve(name, batch_id, kind="model_review")
+        if next_lease:
+            st.session_state[state_key] = next_lease
+        else:
+            del st.session_state[state_key]
+        st.rerun()
 
 
 def rubric_inputs(defaults: dict, key: str) -> dict:
@@ -150,7 +266,7 @@ def work_queue(store: SharedStore, name: str, batch_id: str | None, kind: str):
 
 def imports(store: SharedStore):
     st.write(
-        "Import a ZIP containing images and, optionally, a root metadata.json mapping filenames to provenance. All images must be readable. Existing hashes share their annotation across batches."
+        "Import one ZIP containing images and, optionally, a root metadata.json mapping filenames to provenance. A model-review metadata.json is detected automatically. All images must be readable."
     )
     name = st.text_input("Batch name")
     role = st.selectbox("Dataset role", ("custom", "rrdataset", "gold_development", "human_train"))
@@ -208,14 +324,29 @@ def main():
         key="annotator_name",
     )
     if store.is_review_snapshot:
-        st.caption("Offline review snapshot. Review as many images as you wish, then return this file.")
-    pages = ("Review", "Progress and exports") if store.is_review_snapshot else (
-        "Annotate", "Review", "Progress and exports", "Import batches"
+        st.caption(
+            "Offline review snapshot. Review as many images as you wish, then return this file."
+        )
+    batches = store.batches()
+    has_model_review = any(b["dataset_role"] == "model_review" for b in batches)
+    pages = (
+        ("Review", "Progress and exports")
+        if store.is_review_snapshot
+        else (
+            ("Annotate", "Review")
+            + (("Model review",) if has_model_review else ())
+            + ("Progress and exports", "Import batches")
+        )
     )
     page = st.sidebar.radio("Workspace", pages)
-    batches = store.batches()
     options = {
-        b["batch_id"]: b["name"] for b in batches if b["is_open"] or page == "Progress and exports"
+        b["batch_id"]: b["name"]
+        for b in batches
+        if (b["is_open"] or page == "Progress and exports")
+        and (
+            page in ("Progress and exports", "Import batches")
+            or (b["dataset_role"] == "model_review") == (page == "Model review")
+        )
     }
     batch_id = st.sidebar.selectbox(
         "Batch",
@@ -223,27 +354,30 @@ def main():
         format_func=lambda value: options[value] if value else "All batches",
     )
     try:
-        if page in ("Annotate", "Review"):
+        if page in ("Annotate", "Review", "Model review"):
             if not name.strip():
                 st.info("Enter your name to start or resume.")
                 return
-            with st.expander("Scoring rubric"):
-                st.write(
-                    "Judge only visible content. Do not infer authenticity, origin, or hidden context."
-                )
-                st.write(
-                    "Public relevance: 0 no evident public interest; 1 limited/contextual; 2 clear, broad public interest."
-                )
-                st.write(
-                    "Harm urgency: 0 no observable urgent harm; 1 plausible/moderate concern; 2 severe or time-critical concern."
-                )
-                st.write(
-                    "Vulnerability: 0 no observable cue; 1 a person or context visibly warrants added protection."
-                )
-                st.write(
-                    "Sum: 0–1 low, 2–3 medium, 4–5 high. Rationale is optional; low confidence flags review by default."
-                )
-            work_queue(store, name, batch_id, "annotation" if page == "Annotate" else "review")
+            if page == "Model review":
+                model_review_queue(store, name, batch_id)
+            else:
+                with st.expander("Scoring rubric"):
+                    st.write(
+                        "Judge only visible content. Do not infer authenticity, origin, or hidden context."
+                    )
+                    st.write(
+                        "Public relevance: 0 no evident public interest; 1 limited/contextual; 2 clear, broad public interest."
+                    )
+                    st.write(
+                        "Harm urgency: 0 no observable urgent harm; 1 plausible/moderate concern; 2 severe or time-critical concern."
+                    )
+                    st.write(
+                        "Vulnerability: 0 no observable cue; 1 a person or context visibly warrants added protection."
+                    )
+                    st.write(
+                        "Sum: 0–1 low, 2–3 medium, 4–5 high. Rationale is optional; low confidence flags review by default."
+                    )
+                work_queue(store, name, batch_id, "annotation" if page == "Annotate" else "review")
         elif page == "Import batches":
             imports(store)
         else:
@@ -255,6 +389,7 @@ def main():
                 ("current", "Current annotations"),
                 ("confirmed", "Confirmed annotations"),
                 ("history", "Review history"),
+                ("model_review", "Model review decisions"),
             ):
                 st.download_button(
                     label,

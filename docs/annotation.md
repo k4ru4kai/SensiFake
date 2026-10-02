@@ -12,6 +12,43 @@ SQLite conserva immagini, provenienza, annotazioni originali e tutte le revision
 I CSV sono esportazioni di analisi/audit. Non esiste una dimensione fissa del
 progetto, né un numero obbligatorio di immagini o revisori.
 
+## Revisione delle prediction automatiche
+
+Generare i tre ZIP disgiunti dalle sole prediction prive di label umana:
+
+```bash
+uv run python scripts/selection/build_model_review_batches.py
+```
+
+L'output è `annotations/packages/outgoing/model_review_batch_01/`: uno ZIP per
+Sara, Lorenzo e Giovanni (200 immagini ciascuno), `review_assignment.csv` e
+`review_audit.json`. Ogni ZIP contiene `images/` e un `metadata.json` alla
+radice. Il manifest collega filename, SHA-256, prediction e probabilità; il
+parser riconosce automaticamente la modalità model review. Un vecchio ZIP con
+sole immagini continua ad aprirsi come batch standard.
+Gli ZIP sono esclusi da Git e devono essere consegnati separatamente a ciascun
+annotatore; il pull del repository fornisce codice e CSV, non le immagini del batch.
+
+Per una wave successiva, scegliere un nuovo `--batch-id` ed escludere
+l'assegnazione precedente:
+
+```bash
+uv run python scripts/selection/build_model_review_batches.py \
+  --batch-id batch_02 \
+  --exclude annotations/packages/outgoing/model_review_batch_01/review_assignment.csv
+```
+
+Nell'app, aprire **Import batches**, caricare il proprio ZIP e poi selezionare
+**Model review**. Inserire il nome assegnato (`sara`, `lorenzo` o `giovanni`,
+senza distinzione tra maiuscole/minuscole) e usarlo ancora per riprendere. La
+prediction resta nascosta finché non si salva la prima scelta umana. Dopo il
+reveal, confermare o cambiare la label finale. I tasti `1`, `2`, `3` scelgono
+low, medium, high; `Enter` conferma dopo il reveal. I pulsanti funzionano
+sempre. La coda attuale non supporta il ritorno a un'immagine già completata.
+Il draft della scelta iniziale e quello finale sono salvati nello stesso
+storage già usato dall'app; il CSV si scarica da **Progress and exports → Model
+review decisions**. Nessuna prediction viene scritta nel master umano.
+
 ## Implementato: passaggio di revisione offline
 
 Il manutentore crea uno snapshot completo e portabile dello stato corrente:

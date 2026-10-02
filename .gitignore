@@ -232,6 +232,9 @@ __marimo__/
 !/annotations/packages/outgoing/
 /annotations/packages/outgoing/*
 !/annotations/packages/outgoing/README.md
+!/annotations/packages/outgoing/model_review_batch_01/
+/annotations/packages/outgoing/model_review_batch_01/*
+!/annotations/packages/outgoing/model_review_batch_01/review_assignment.csv
 !/annotations/packages/returned/
 /annotations/packages/returned/*
 !/annotations/packages/returned/README.md
@@ -260,6 +263,12 @@ __marimo__/
 **/dataset-metadata.json
 /outputs/
 /artifacts/
+
+# Generated Kaggle sensitivity package and model binaries
+/data/kaggle/
+*.pth
+*.pt
+*.ckpt
 
 # Local environments and credentials
 .venv/
