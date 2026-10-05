@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import fcntl
 import hashlib
 import io
 import json
@@ -16,9 +15,16 @@ import os
 import sys
 import tempfile
 from collections import Counter, defaultdict
+from contextlib import contextmanager
 from pathlib import Path
 
 from PIL import Image
+
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - only exercised on native Windows
+    fcntl = None
+    import msvcrt
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
@@ -455,6 +461,25 @@ def atomic_write(path: Path, data: bytes) -> None:
         temporary.unlink(missing_ok=True)
 
 
+@contextmanager
+def build_lock(path: Path):
+    """Lock a build across POSIX and native Windows interpreters."""
+    with path.open("a+") as lock:
+        if fcntl is not None:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+        else:
+            lock.seek(0)
+            msvcrt.locking(lock.fileno(), msvcrt.LK_LOCK, 1)
+        try:
+            yield
+        finally:
+            if fcntl is not None:
+                fcntl.flock(lock, fcntl.LOCK_UN)
+            else:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+
+
 def build(
     root: Path,
     output: Path,
@@ -470,8 +495,7 @@ def build(
     ):
         raise ValueError("Output directory must be separate from input directories")
     output.mkdir(parents=True, exist_ok=True)
-    with (output / ".build.lock").open("a") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+    with build_lock(output / ".build.lock"):
         rows, issues = collect_images(
             root, rr_root, read_csv(evidence_path) if evidence_path else []
         )
