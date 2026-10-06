@@ -123,6 +123,28 @@ The benchmark reports accuracy, balanced accuracy, fake precision, fake recall,
 fake F1, ROC-AUC, real/fake counts, and the `tn`/`fp`/`fn`/`tp` confusion
 matrix. The fixed classification threshold is `P(fake) >= 0.5`.
 
+It also reports **sensitivity-weighted accuracy**, which gives each sample a
+weight based on the sensitivity of its content:
+
+| Sensitivity | Weight |
+|---|---:|
+| low | 1 |
+| medium | 2 |
+| high | 3 |
+
+The metric is:
+
+```text
+sensitivity_weighted_accuracy =
+    sum(sample_weight × correct_prediction) / sum(sample_weight)
+```
+
+Consequently, an error on high-sensitivity content affects the score three
+times as much as an error on low-sensitivity content. This complements
+ordinary accuracy rather than replacing it: report both when comparing
+detectors, because the sensitivity-weighted score reflects the application's
+risk priorities while ordinary metrics remain directly comparable.
+
 Generated reports include:
 
 - `low/`, `medium/`, and `high/` directories with predictions, metrics,
@@ -132,16 +154,14 @@ Generated reports include:
 - `datasets_metrics.json` and `datasets_metrics.csv` with per-dataset
   accuracy, balanced accuracy, fake precision/recall/F1, ROC-AUC, and class
   counts;
-- `dataset_metrics.png`, comparing all classification metrics across source
-  datasets;
+- `dataset_metrics.png`, comparing all classification metrics, including
+  sensitivity-weighted accuracy, across source datasets;
 - `dataset_class_counts.png`, showing the real/fake composition of each source
   dataset;
 - one `confusion_matrix_<dataset>.png` per source dataset;
 - `dataset_sensitivity_metrics.json` and
   `dataset_sensitivity_f1_heatmap.png`, showing how fake F1 changes across
   datasets and sensitivity levels;
-- `sensitivity_metrics.png` and `sensitivity_class_counts.png`, comparing
-  metrics and class balance across sensitivity levels.
 
 The output layout is approximately:
 
@@ -156,8 +176,6 @@ The output layout is approximately:
 ├── dataset_metrics.png
 ├── dataset_sensitivity_f1_heatmap.png
 ├── dataset_class_counts.png
-├── sensitivity_metrics.png
-├── sensitivity_class_counts.png
 ├── confusion_matrix_<dataset>.png
 ├── low/ | medium/ | high/
 └── datasets/<dataset>/

@@ -18,6 +18,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LEVELS = ("low", "medium", "high")
+SENSITIVITY_WEIGHTS = {"low": 1.0, "medium": 2.0, "high": 3.0}
 DEFAULT_ANNOTATIONS = ROOT / "benchmark/data/sensifake-hf/metadata/sensifake_all.csv"
 DEFAULT_DEEPFAKEBENCH = ROOT / "external/DeepfakeBench"
 DEFAULT_DETECTOR_CONFIG = DEFAULT_DEEPFAKEBENCH / "training/config/detector/effort.yaml"
@@ -172,6 +173,26 @@ def binary_metrics(labels: list[int], probabilities: list[float]) -> dict[str, A
     }
 
 
+def sensitivity_weighted_accuracy(rows: list[dict[str, Any]]) -> float:
+    """Score accuracy while weighting high-sensitivity samples more heavily."""
+    if not rows:
+        raise ValueError("rows must be non-empty")
+    total_weight = 0.0
+    correct_weight = 0.0
+    for row in rows:
+        try:
+            weight = SENSITIVITY_WEIGHTS[row["sensitivity_level"]]
+        except KeyError as error:
+            raise ValueError(
+                f"Unknown sensitivity level: {row.get('sensitivity_level')!r}"
+            ) from error
+        total_weight += weight
+        correct_weight += weight * (
+            int(row["probability_fake"] >= 0.5) == row["label"]
+        )
+    return correct_weight / total_weight
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = list(rows[0]) if rows else []
@@ -202,6 +223,7 @@ def plot_metric_comparison(
         ("recall_fake", "Fake recall"),
         ("f1_fake", "Fake F1"),
         ("roc_auc", "ROC-AUC"),
+        ("sensitivity_weighted_accuracy", "Sensitivity-weighted accuracy"),
     )
     figure, axis = plt.subplots(figsize=(max(8, len(groups) * 1.3), 5))
     positions = np.arange(len(groups))
@@ -333,6 +355,8 @@ def write_group_results(
         )
         for group, rows in sorted(grouped_rows.items())
     }
+    for group, rows in grouped_rows.items():
+        metrics[group]["sensitivity_weighted_accuracy"] = sensitivity_weighted_accuracy(rows)
     metrics_dir = output / group_name
     metrics_dir.mkdir(parents=True, exist_ok=True)
     for group, rows in sorted(grouped_rows.items()):
@@ -358,6 +382,9 @@ def write_group_results(
             "recall_fake": group_metrics["recall_fake"],
             "f1_fake": group_metrics["f1_fake"],
             "roc_auc": group_metrics["roc_auc"],
+            "sensitivity_weighted_accuracy": group_metrics[
+                "sensitivity_weighted_accuracy"
+            ],
         })
     write_csv(output / f"{group_name}_metrics.csv", summary_rows)
     return metrics
@@ -500,12 +527,19 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     (args.output / "predictions.json").write_text(
         json.dumps(predictions, indent=2) + "\n", encoding="utf-8"
     )
-    metrics = {"all": binary_metrics([r["label"] for r in predictions], [r["probability_fake"] for r in predictions])}
+    metrics = {
+        "all": binary_metrics(
+            [r["label"] for r in predictions],
+            [r["probability_fake"] for r in predictions],
+        )
+    }
+    metrics["all"]["sensitivity_weighted_accuracy"] = sensitivity_weighted_accuracy(predictions)
     for level in LEVELS:
         level_rows = [row for row in predictions if row["sensitivity_level"] == level]
         if not level_rows:
             raise ValueError(f"No annotated images in sensitivity level {level}")
         metrics[level] = binary_metrics([r["label"] for r in level_rows], [r["probability_fake"] for r in level_rows])
+        metrics[level]["sensitivity_weighted_accuracy"] = sensitivity_weighted_accuracy(level_rows)
         write_csv(args.output / level / "predictions.csv", level_rows)
         (args.output / level / "metrics.json").write_text(json.dumps(metrics[level], indent=2) + "\n", encoding="utf-8")
         plot_level(args.output, level, metrics[level], level_rows)
@@ -544,18 +578,6 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         encoding="utf-8",
     )
     plot_f1_heatmap(args.output, dataset_level_metrics)
-    plot_metric_comparison(
-        args.output,
-        {level: metrics[level] for level in LEVELS},
-        "Effort metrics by sensitivity level",
-        "sensitivity_metrics.png",
-    )
-    plot_counts(
-        args.output,
-        {level: metrics[level] for level in LEVELS},
-        "SensiFake images by sensitivity level",
-        "sensitivity_class_counts.png",
-    )
     metrics["selection_counts"] = dict(Counter(row["sensitivity_level"] for row in predictions))
     (args.output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
     return metrics

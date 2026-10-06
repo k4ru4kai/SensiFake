@@ -9,6 +9,7 @@ from benchmark.deepfakebench_xception import (
     automatic_rows,
     binary_metrics,
     grouped_metrics,
+    sensitivity_weighted_accuracy,
 )
 
 
@@ -68,6 +69,15 @@ def test_grouped_metrics_reports_each_source_dataset() -> None:
     assert list(metrics) == ["dataset-a", "dataset-b"]
     assert metrics["dataset-a"]["f1_fake"] == 1.0
     assert metrics["dataset-b"]["f1_fake"] == 0.0
+
+
+def test_sensitivity_weighted_accuracy_emphasizes_high_sensitivity_errors() -> None:
+    rows = [
+        {"sensitivity_level": "low", "label": 0, "probability_fake": 0.9},
+        {"sensitivity_level": "high", "label": 1, "probability_fake": 0.9},
+    ]
+
+    assert sensitivity_weighted_accuracy(rows) == 0.75
 
 
 def test_automatic_rows_uses_source_label_and_predicted_level(tmp_path: Path) -> None:
