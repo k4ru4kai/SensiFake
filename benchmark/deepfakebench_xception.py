@@ -13,10 +13,17 @@ import os
 import sys
 from collections import Counter
 from pathlib import Path
+import re
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LEVELS = ("low", "medium", "high")
+DEFAULT_ANNOTATIONS = ROOT / "benchmark/data/sensifake-hf/metadata/sensifake_all.csv"
+DEFAULT_DEEPFAKEBENCH = ROOT / "external/DeepfakeBench"
+DEFAULT_DETECTOR_CONFIG = DEFAULT_DEEPFAKEBENCH / "training/config/detector/effort.yaml"
+DEFAULT_EFFORT_MODEL = DEFAULT_DEEPFAKEBENCH / "huggingface/clip-vit-large-patch14"
+DEFAULT_WEIGHTS = DEFAULT_DEEPFAKEBENCH / "training/weights/effort_clip_L14_trainOn_sdv14.pth"
+DEFAULT_OUTPUT = ROOT / "benchmark/results/deepfakebench-effort-hf"
 
 
 def repository_path(path: Path) -> Path:
@@ -52,7 +59,11 @@ def annotated_rows(manifest: Path, root: Path = ROOT) -> list[dict[str, Any]]:
             image_path = (root / row["image_path"]).resolve()
             if not image_path.is_file():
                 raise FileNotFoundError(f"Image referenced by manifest is missing: {image_path}")
-            selected.append({**row, "resolved_image_path": image_path})
+            selected.append({
+                **row,
+                "source_dataset": row.get("source_dataset") or row.get("dataset") or "unknown",
+                "resolved_image_path": image_path,
+            })
     if not selected:
         raise ValueError("No readable, linked, verified annotated images were found")
     return selected
@@ -71,6 +82,7 @@ def automatic_rows(csv_path: Path, root: Path = ROOT) -> list[dict[str, Any]]:
                 selected.append({
                     "content_hash": row["sha256"],
                     "image_path": row["source_original_path"],
+                    "source_dataset": row.get("source_dataset") or "unknown",
                     "sensitivity_level": sensitivity_level,
                     "normalized_label": row["real_fake_label_name"],
                     "resolved_image_path": image_path,
@@ -94,6 +106,7 @@ def automatic_rows(csv_path: Path, root: Path = ROOT) -> list[dict[str, Any]]:
             selected.append({
                 "content_hash": row["content_hash"],
                 "image_path": source_paths[0],
+                "source_dataset": row.get("source_dataset") or "unknown",
                 "sensitivity_level": sensitivity_level,
                 "normalized_label": row["source_label"],
                 "resolved_image_path": image_path,
@@ -101,6 +114,26 @@ def automatic_rows(csv_path: Path, root: Path = ROOT) -> list[dict[str, Any]]:
     if not selected:
         raise ValueError("No valid automatic sensitivity predictions were found")
     return selected
+
+
+def dataset_name(row: dict[str, Any]) -> str:
+    """Return a stable dataset label for old and published manifests."""
+    return str(row.get("source_dataset") or row.get("dataset") or "unknown")
+
+
+def grouped_metrics(
+    rows: list[dict[str, Any]], group_key: str
+) -> dict[str, dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        groups.setdefault(str(row[group_key]), []).append(row)
+    return {
+        group: binary_metrics(
+            [row["label"] for row in group_rows],
+            [row["probability_fake"] for row in group_rows],
+        )
+        for group, group_rows in sorted(groups.items())
+    }
 
 
 def binary_metrics(labels: list[int], probabilities: list[float]) -> dict[str, Any]:
@@ -146,6 +179,188 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def safe_name(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9_.-]+", "_", value).strip("_") or "unknown"
+
+
+def plot_metric_comparison(
+    output: Path,
+    grouped: dict[str, dict[str, Any]],
+    title: str,
+    filename: str,
+) -> None:
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    groups = list(grouped)
+    metric_names = (
+        ("accuracy", "Accuracy"),
+        ("balanced_accuracy", "Balanced accuracy"),
+        ("precision_fake", "Fake precision"),
+        ("recall_fake", "Fake recall"),
+        ("f1_fake", "Fake F1"),
+        ("roc_auc", "ROC-AUC"),
+    )
+    figure, axis = plt.subplots(figsize=(max(8, len(groups) * 1.3), 5))
+    positions = np.arange(len(groups))
+    width = 0.8 / len(metric_names)
+    for index, (key, label) in enumerate(metric_names):
+        values = [grouped[group].get(key) or 0 for group in groups]
+        axis.bar(positions + index * width, values, width, label=label)
+    axis.set(
+        xticks=positions + width * (len(metric_names) - 1) / 2,
+        xticklabels=groups,
+        ylim=(0, 1.05),
+        ylabel="Score",
+        title=title,
+    )
+    axis.tick_params(axis="x", labelrotation=35)
+    axis.legend(ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.18))
+    figure.tight_layout()
+    figure.savefig(output / filename, dpi=160, bbox_inches="tight")
+    plt.close(figure)
+
+
+def plot_counts(output: Path, grouped: dict[str, dict[str, Any]], title: str, filename: str) -> None:
+    import matplotlib.pyplot as plt
+
+    groups = list(grouped)
+    real = [grouped[group]["real"] for group in groups]
+    fake = [grouped[group]["fake"] for group in groups]
+    figure, axis = plt.subplots(figsize=(max(7, len(groups) * 1.2), 4.5))
+    positions = list(range(len(groups)))
+    axis.bar(positions, real, label="Real", color="#2563eb")
+    axis.bar(positions, fake, bottom=real, label="Fake", color="#dc2626")
+    axis.set(
+        xticks=positions,
+        xticklabels=groups,
+        ylabel="Images",
+        title=title,
+    )
+    axis.tick_params(axis="x", labelrotation=35)
+    axis.legend()
+    figure.tight_layout()
+    figure.savefig(output / filename, dpi=160, bbox_inches="tight")
+    plt.close(figure)
+
+
+def plot_dataset_confusion_matrices(
+    output: Path, grouped: dict[str, dict[str, Any]]
+) -> None:
+    import matplotlib.pyplot as plt
+
+    for dataset, metrics in grouped.items():
+        confusion = metrics["confusion_matrix"]
+        matrix = [[confusion["tn"], confusion["fp"]], [confusion["fn"], confusion["tp"]]]
+        figure, axis = plt.subplots(figsize=(4.5, 4))
+        image = axis.imshow(matrix, cmap="Blues")
+        axis.set(
+            xticks=[0, 1],
+            yticks=[0, 1],
+            xticklabels=["real", "fake"],
+            yticklabels=["real", "fake"],
+            xlabel="Predicted",
+            ylabel="Annotated",
+            title=f"Confusion matrix: {dataset}",
+        )
+        for row_index in range(2):
+            for column_index in range(2):
+                axis.text(
+                    column_index,
+                    row_index,
+                    matrix[row_index][column_index],
+                    ha="center",
+                    va="center",
+                )
+        figure.colorbar(image, ax=axis)
+        figure.tight_layout()
+        figure.savefig(output / f"confusion_matrix_{safe_name(dataset)}.png", dpi=160)
+        plt.close(figure)
+
+
+def plot_f1_heatmap(
+    output: Path, grouped: dict[tuple[str, str], dict[str, Any]]
+) -> None:
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    datasets = sorted({dataset for dataset, _ in grouped})
+    levels = list(LEVELS)
+    values = np.full((len(datasets), len(levels)), np.nan)
+    for row_index, dataset in enumerate(datasets):
+        for column_index, level in enumerate(levels):
+            metrics = grouped.get((dataset, level))
+            if metrics and metrics["f1_fake"] is not None:
+                values[row_index, column_index] = metrics["f1_fake"]
+    figure, axis = plt.subplots(figsize=(6, max(3.5, len(datasets) * 0.55)))
+    image = axis.imshow(values, cmap="RdYlGn", vmin=0, vmax=1, aspect="auto")
+    axis.set(
+        xticks=range(len(levels)),
+        yticks=range(len(datasets)),
+        xticklabels=levels,
+        yticklabels=datasets,
+        xlabel="Sensitivity level",
+        title="Fake F1 by source dataset and sensitivity",
+    )
+    for row_index in range(len(datasets)):
+        for column_index in range(len(levels)):
+            value = values[row_index, column_index]
+            if not np.isnan(value):
+                axis.text(
+                    column_index,
+                    row_index,
+                    f"{value:.3f}",
+                    ha="center",
+                    va="center",
+                )
+    figure.colorbar(image, ax=axis, label="Fake F1")
+    figure.tight_layout()
+    figure.savefig(output / "dataset_sensitivity_f1_heatmap.png", dpi=160)
+    plt.close(figure)
+
+
+def write_group_results(
+    output: Path,
+    group_name: str,
+    grouped_rows: dict[str, list[dict[str, Any]]],
+) -> dict[str, dict[str, Any]]:
+    metrics = {
+        group: binary_metrics(
+            [row["label"] for row in rows],
+            [row["probability_fake"] for row in rows],
+        )
+        for group, rows in sorted(grouped_rows.items())
+    }
+    metrics_dir = output / group_name
+    metrics_dir.mkdir(parents=True, exist_ok=True)
+    for group, rows in sorted(grouped_rows.items()):
+        group_dir = metrics_dir / safe_name(group)
+        group_dir.mkdir(parents=True, exist_ok=True)
+        write_csv(group_dir / "predictions.csv", rows)
+        (group_dir / "metrics.json").write_text(
+            json.dumps(metrics[group], indent=2) + "\n", encoding="utf-8"
+        )
+    (output / f"{group_name}_metrics.json").write_text(
+        json.dumps(metrics, indent=2) + "\n", encoding="utf-8"
+    )
+    summary_rows = []
+    for group, group_metrics in metrics.items():
+        summary_rows.append({
+            "group": group,
+            "count": group_metrics["count"],
+            "real": group_metrics["real"],
+            "fake": group_metrics["fake"],
+            "accuracy": group_metrics["accuracy"],
+            "balanced_accuracy": group_metrics["balanced_accuracy"],
+            "precision_fake": group_metrics["precision_fake"],
+            "recall_fake": group_metrics["recall_fake"],
+            "f1_fake": group_metrics["f1_fake"],
+            "roc_auc": group_metrics["roc_auc"],
+        })
+    write_csv(output / f"{group_name}_metrics.csv", summary_rows)
+    return metrics
 
 
 def plot_level(output: Path, level: str, metrics: dict[str, Any], rows: list[dict[str, Any]]) -> None:
@@ -275,6 +490,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             probabilities = output["prob"].detach().cpu().tolist()
             for row, probability in zip(batch_rows, probabilities):
                 predictions.append({"content_hash": row["content_hash"], "image_path": row["image_path"],
+                                    "source_dataset": dataset_name(row),
                                     "sensitivity_level": row["sensitivity_level"],
                                     "label": int(row["normalized_label"] == "fake"),
                                     "probability_fake": probability})
@@ -293,6 +509,53 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         write_csv(args.output / level / "predictions.csv", level_rows)
         (args.output / level / "metrics.json").write_text(json.dumps(metrics[level], indent=2) + "\n", encoding="utf-8")
         plot_level(args.output, level, metrics[level], level_rows)
+    dataset_rows: dict[str, list[dict[str, Any]]] = {}
+    for row in predictions:
+        dataset_rows.setdefault(row["source_dataset"], []).append(row)
+    metrics["datasets"] = write_group_results(args.output, "datasets", dataset_rows)
+    metrics["dataset_counts"] = {
+        dataset: {
+            "count": dataset_metrics["count"],
+            "real": dataset_metrics["real"],
+            "fake": dataset_metrics["fake"],
+        }
+        for dataset, dataset_metrics in metrics["datasets"].items()
+    }
+    plot_metric_comparison(args.output, metrics["datasets"], "Effort metrics by source dataset", "dataset_metrics.png")
+    plot_counts(args.output, metrics["datasets"], "SensiFake images by source dataset", "dataset_class_counts.png")
+    plot_dataset_confusion_matrices(args.output, metrics["datasets"])
+    dataset_level_rows: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for row in predictions:
+        key = (row["source_dataset"], row["sensitivity_level"])
+        dataset_level_rows.setdefault(key, []).append(row)
+    dataset_level_metrics = {
+        key: binary_metrics(
+            [row["label"] for row in rows],
+            [row["probability_fake"] for row in rows],
+        )
+        for key, rows in sorted(dataset_level_rows.items())
+    }
+    metrics["dataset_sensitivity"] = {
+        f"{dataset}::{level}": group_metrics
+        for (dataset, level), group_metrics in dataset_level_metrics.items()
+    }
+    (args.output / "dataset_sensitivity_metrics.json").write_text(
+        json.dumps(metrics["dataset_sensitivity"], indent=2) + "\n",
+        encoding="utf-8",
+    )
+    plot_f1_heatmap(args.output, dataset_level_metrics)
+    plot_metric_comparison(
+        args.output,
+        {level: metrics[level] for level in LEVELS},
+        "Effort metrics by sensitivity level",
+        "sensitivity_metrics.png",
+    )
+    plot_counts(
+        args.output,
+        {level: metrics[level] for level in LEVELS},
+        "SensiFake images by sensitivity level",
+        "sensitivity_class_counts.png",
+    )
     metrics["selection_counts"] = dict(Counter(row["sensitivity_level"] for row in predictions))
     (args.output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
     return metrics
@@ -300,12 +563,42 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--annotations", type=Path, default=ROOT / "annotations/human-train-v0/automatic_annotation/sensifake_complete_sensitivity.csv")
-    parser.add_argument("--deepfakebench", type=Path, required=True, help="DeepfakeBench checkout")
-    parser.add_argument("--detector-config", type=Path, default=ROOT / "external/DeepfakeBench/training/config/detector/effort.yaml")
-    parser.add_argument("--effort-model", type=Path, required=True, help="Local openai/clip-vit-large-patch14 directory")
-    parser.add_argument("--weights", type=Path, required=True, help="DeepfakeBench Effort detector checkpoint")
-    parser.add_argument("--output", type=Path, default=ROOT / "benchmark/results/deepfakebench-effort")
+    parser.add_argument(
+        "--annotations",
+        type=Path,
+        default=DEFAULT_ANNOTATIONS,
+        help=f"Annotation CSV (default: {DEFAULT_ANNOTATIONS})",
+    )
+    parser.add_argument(
+        "--deepfakebench",
+        type=Path,
+        default=DEFAULT_DEEPFAKEBENCH,
+        help=f"DeepfakeBench checkout (default: {DEFAULT_DEEPFAKEBENCH})",
+    )
+    parser.add_argument(
+        "--detector-config",
+        type=Path,
+        default=DEFAULT_DETECTOR_CONFIG,
+        help=f"Effort detector config (default: {DEFAULT_DETECTOR_CONFIG})",
+    )
+    parser.add_argument(
+        "--effort-model",
+        type=Path,
+        default=DEFAULT_EFFORT_MODEL,
+        help=f"Local CLIP ViT-L/14 directory (default: {DEFAULT_EFFORT_MODEL})",
+    )
+    parser.add_argument(
+        "--weights",
+        type=Path,
+        default=DEFAULT_WEIGHTS,
+        help=f"Effort checkpoint (default: {DEFAULT_WEIGHTS})",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help=f"Output directory (default: {DEFAULT_OUTPUT})",
+    )
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--mean", type=float, nargs=3, default=(0.48145466, 0.4578275, 0.40821073))
     parser.add_argument("--std", type=float, nargs=3, default=(0.26862954, 0.26130258, 0.27577711))

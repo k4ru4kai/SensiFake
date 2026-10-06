@@ -1,23 +1,63 @@
-# DeepfakeBench Effort evaluation
+# DeepfakeBench Effort benchmark
 
-`deepfakebench_xception.py` evaluates
-`annotations/human-train-v0/automatic_annotation/sensifake_complete_sensitivity.csv`
-with DeepfakeBench's `effort` detector. It uses each row's verified
-`source_label` as the authenticity target and reports metrics separately for
-the complete CSV's `low`, `medium`, and `high` sensitivity levels. Reviewed
-adjudicated levels take priority over model-only levels.
+`deepfakebench_xception.py` evaluates SensiFake images with DeepfakeBench's
+`effort` detector. The filename is historical: this runner does **not** use
+the Xception detector. It uses CLIP ViT-L/14 with Effort's trained
+classification head.
+
+The benchmark uses the manifest's verified real/fake label as the target and
+reports results for:
+
+- the complete evaluated population;
+- the `low`, `medium`, and `high` sensitivity levels;
+- every `source_dataset` represented in the input manifest;
+- every dataset/sensitivity combination that contains images.
+
+For published SensiFake metadata, use
+`benchmark/data/sensifake-hf/metadata/sensifake_all.csv`. It contains the
+resolved source dataset, source image path, verified authenticity label, and
+final sensitivity label.
 
 The evaluator imports the official DeepfakeBench Effort detector. Effort uses
 CLIP ViT-L/14 at 224x224 with CLIP normalization. DeepfakeBench is kept outside
 this repository.
 
-First build the unified manifest:
+## Download the Hugging Face dataset
+
+Install or update the Hugging Face CLI if necessary:
+
+```bash
+uv tool install huggingface_hub
+```
+
+Download the complete published SensiFake dataset into the benchmark data
+directory:
+
+```bash
+hf download K4ru4k4i/SensiFake \
+  --repo-type dataset \
+  --local-dir benchmark/data/sensifake-hf
+```
+
+The downloaded directory should contain
+`benchmark/data/sensifake-hf/metadata/sensifake_all.csv` and the corresponding
+image files referenced by that metadata. If the dataset is gated or requires
+authentication, log in first:
+
+```bash
+hf auth login
+```
+
+## Setup
+
+For the repository's local annotation manifest, first build the unified
+manifest:
 
 ```bash
 uv run python scripts/datasets/build_unified_manifest.py
 ```
 
-Install the benchmark extras and obtain DeepfakeBench:
+Install the benchmark dependencies and obtain DeepfakeBench:
 
 ```bash
 uv sync --group benchmark
@@ -37,18 +77,92 @@ uv run hf download openai/clip-vit-large-patch14 \
 DeepfakeBench release `v1.0.1` does not include a pretrained Effort detector
 checkpoint. Provide a compatible Effort checkpoint yourself, or train Effort
 first, and put it in `external/DeepfakeBench/training/weights/`. Do not use
-`xception_best.pth`; it is a different architecture.
+`xception_best.pth`: it is a different architecture. The checkpoint must
+match the CLIP ViT-L/14 Effort model.
 
-Run from the repository root in Bash or WSL:
+## Running the benchmark
+
+The benchmark includes defaults for the published Hugging Face dataset,
+DeepfakeBench checkout, local CLIP model, Effort checkpoint, and output
+directory. After setup, run it from the repository root in Bash or WSL with:
+
+```bash
+uv run python benchmark/deepfakebench_xception.py
+```
+
+The default command uses:
+
+- `benchmark/data/sensifake-hf/metadata/sensifake_all.csv`;
+- `external/DeepfakeBench`;
+- `external/DeepfakeBench/huggingface/clip-vit-large-patch14`;
+- `external/DeepfakeBench/training/weights/effort_clip_L14_trainOn_sdv14.pth`;
+- `benchmark/results/deepfakebench-effort-hf`.
+
+All paths remain configurable if a different manifest, model, checkpoint, or
+output directory is needed. For example, run with the repository's local
+annotation manifest:
 
 ```bash
 uv run python benchmark/deepfakebench_xception.py \
-  --deepfakebench external/DeepfakeBench \
   --annotations annotations/human-train-v0/automatic_annotation/sensifake_complete_sensitivity.csv \
-  --effort-model external/DeepfakeBench/huggingface/clip-vit-large-patch14 \
-  --weights external/DeepfakeBench/training/weights/effort_clip_L14_trainOn_sdv14.pth
+  --output benchmark/results/deepfakebench-effort-local
 ```
 
-Outputs are written to `benchmark/results/deepfakebench-effort/`: the full
-prediction CSV and JSON, plus one `low/`, `medium/`, and `high/` directory with
-its prediction CSV, metrics JSON, confusion matrix, and probability plot.
+The `--device` option accepts `cpu` or `cuda`. If it is omitted, CUDA is used
+when available. Useful options include `--batch-size`, `--detector-config`,
+`--mean`, and `--std`. Run `--help` to see all options.
+
+## Metrics and outputs
+
+Outputs are written to the directory passed with `--output` (the default is
+`benchmark/results/deepfakebench-effort`). The full prediction CSV and JSON
+contain `content_hash`, `image_path`, `source_dataset`,
+`sensitivity_level`, `label`, and `probability_fake`.
+
+The benchmark reports accuracy, balanced accuracy, fake precision, fake recall,
+fake F1, ROC-AUC, real/fake counts, and the `tn`/`fp`/`fn`/`tp` confusion
+matrix. The fixed classification threshold is `P(fake) >= 0.5`.
+
+Generated reports include:
+
+- `low/`, `medium/`, and `high/` directories with predictions, metrics,
+  confusion matrices, and probability plots;
+- `datasets/` with a prediction CSV and metrics JSON for every
+  `source_dataset` in the manifest;
+- `datasets_metrics.json` and `datasets_metrics.csv` with per-dataset
+  accuracy, balanced accuracy, fake precision/recall/F1, ROC-AUC, and class
+  counts;
+- `dataset_metrics.png`, comparing all classification metrics across source
+  datasets;
+- `dataset_class_counts.png`, showing the real/fake composition of each source
+  dataset;
+- one `confusion_matrix_<dataset>.png` per source dataset;
+- `dataset_sensitivity_metrics.json` and
+  `dataset_sensitivity_f1_heatmap.png`, showing how fake F1 changes across
+  datasets and sensitivity levels;
+- `sensitivity_metrics.png` and `sensitivity_class_counts.png`, comparing
+  metrics and class balance across sensitivity levels.
+
+The output layout is approximately:
+
+```text
+<output>/
+├── predictions.csv
+├── predictions.json
+├── metrics.json
+├── datasets_metrics.csv
+├── datasets_metrics.json
+├── dataset_sensitivity_metrics.json
+├── dataset_metrics.png
+├── dataset_sensitivity_f1_heatmap.png
+├── dataset_class_counts.png
+├── sensitivity_metrics.png
+├── sensitivity_class_counts.png
+├── confusion_matrix_<dataset>.png
+├── low/ | medium/ | high/
+└── datasets/<dataset>/
+```
+
+Dataset names are sanitized when used as directory or filename components.
+If an older manifest does not provide `source_dataset`, results are grouped
+under `unknown`.

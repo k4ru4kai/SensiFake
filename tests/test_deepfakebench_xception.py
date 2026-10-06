@@ -4,7 +4,12 @@ from pathlib import Path
 
 from PIL import Image
 
-from benchmark.deepfakebench_xception import annotated_rows, automatic_rows, binary_metrics
+from benchmark.deepfakebench_xception import (
+    annotated_rows,
+    automatic_rows,
+    binary_metrics,
+    grouped_metrics,
+)
 
 
 def write_manifest(path: Path, rows: list[dict[str, str]]) -> None:
@@ -50,6 +55,21 @@ def test_binary_metrics_uses_fake_as_positive_class() -> None:
     assert metrics["roc_auc"] == 0.75
 
 
+def test_grouped_metrics_reports_each_source_dataset() -> None:
+    rows = [
+        {"source_dataset": "dataset-a", "label": 0, "probability_fake": 0.1},
+        {"source_dataset": "dataset-a", "label": 1, "probability_fake": 0.9},
+        {"source_dataset": "dataset-b", "label": 0, "probability_fake": 0.8},
+        {"source_dataset": "dataset-b", "label": 1, "probability_fake": 0.2},
+    ]
+
+    metrics = grouped_metrics(rows, "source_dataset")
+
+    assert list(metrics) == ["dataset-a", "dataset-b"]
+    assert metrics["dataset-a"]["f1_fake"] == 1.0
+    assert metrics["dataset-b"]["f1_fake"] == 0.0
+
+
 def test_automatic_rows_uses_source_label_and_predicted_level(tmp_path: Path) -> None:
     image = tmp_path / "source.png"
     Image.new("RGB", (2, 2), "white").save(image)
@@ -58,6 +78,7 @@ def test_automatic_rows_uses_source_label_and_predicted_level(tmp_path: Path) ->
         csv_path,
         [{
             "content_hash": "hash",
+            "source_dataset": "example/dataset",
             "source_label": "fake",
             "source_paths_json": json.dumps(["source.png"]),
             "predicted_sensitivity_level": "medium",
@@ -67,5 +88,6 @@ def test_automatic_rows_uses_source_label_and_predicted_level(tmp_path: Path) ->
     selected = automatic_rows(csv_path, tmp_path)
 
     assert selected[0]["normalized_label"] == "fake"
+    assert selected[0]["source_dataset"] == "example/dataset"
     assert selected[0]["sensitivity_level"] == "medium"
     assert selected[0]["resolved_image_path"] == image.resolve()
