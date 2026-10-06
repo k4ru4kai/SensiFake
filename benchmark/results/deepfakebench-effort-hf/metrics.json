@@ -1,0 +1,75 @@
+{
+  "all": {
+    "count": 4499,
+    "real": 2249,
+    "fake": 2250,
+    "accuracy": 0.7452767281618138,
+    "balanced_accuracy": 0.7452362037448743,
+    "precision_fake": 0.6798045602605863,
+    "recall_fake": 0.9275555555555556,
+    "f1_fake": 0.7845864661654135,
+    "roc_auc": 0.8444784348599378,
+    "confusion_matrix": {
+      "tn": 1266,
+      "fp": 983,
+      "fn": 163,
+      "tp": 2087
+    }
+  },
+  "low": {
+    "count": 1267,
+    "real": 642,
+    "fake": 625,
+    "accuracy": 0.6850828729281768,
+    "balanced_accuracy": 0.6880660436137072,
+    "precision_fake": 0.6239035087719298,
+    "recall_fake": 0.9104,
+    "f1_fake": 0.7404033832140533,
+    "roc_auc": 0.7743476635514018,
+    "confusion_matrix": {
+      "tn": 299,
+      "fp": 343,
+      "fn": 56,
+      "tp": 569
+    }
+  },
+  "medium": {
+    "count": 3008,
+    "real": 1554,
+    "fake": 1454,
+    "accuracy": 0.758311170212766,
+    "balanced_accuracy": 0.7637640096374622,
+    "precision_fake": 0.6844241501775749,
+    "recall_fake": 0.9277854195323246,
+    "f1_fake": 0.7877372262773723,
+    "roc_auc": 0.8703691410018782,
+    "confusion_matrix": {
+      "tn": 932,
+      "fp": 622,
+      "fn": 105,
+      "tp": 1349
+    }
+  },
+  "high": {
+    "count": 224,
+    "real": 53,
+    "fake": 171,
+    "accuracy": 0.9107142857142857,
+    "balanced_accuracy": 0.8243407260289087,
+    "precision_fake": 0.9037433155080213,
+    "recall_fake": 0.9883040935672515,
+    "f1_fake": 0.9441340782122905,
+    "roc_auc": 0.9430652101952995,
+    "confusion_matrix": {
+      "tn": 35,
+      "fp": 18,
+      "fn": 2,
+      "tp": 169
+    }
+  },
+  "selection_counts": {
+    "medium": 3008,
+    "low": 1267,
+    "high": 224
+  }
+}

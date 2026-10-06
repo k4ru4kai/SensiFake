@@ -64,6 +64,18 @@ def automatic_rows(csv_path: Path, root: Path = ROOT) -> list[dict[str, Any]]:
         rows = list(csv.DictReader(stream))
     selected = []
     for row in rows:
+        if row.get("real_fake_label_name") in ("real", "fake"):
+            sensitivity_level = row.get("final_sensitivity_label")
+            image_path = (root / row["source_original_path"]).resolve()
+            if sensitivity_level in LEVELS and image_path.is_file():
+                selected.append({
+                    "content_hash": row["sha256"],
+                    "image_path": row["source_original_path"],
+                    "sensitivity_level": sensitivity_level,
+                    "normalized_label": row["real_fake_label_name"],
+                    "resolved_image_path": image_path,
+                })
+            continue
         sensitivity_level = (
             row.get("adjudicated_sensitivity_level")
             or row.get("sensitivity_level")
@@ -175,6 +187,13 @@ def load_effort_model(args: argparse.Namespace, config: dict[str, Any]):
     training = deepfakebench / "training"
     require_directory(training / "detectors", "DeepfakeBench training package")
     require_directory(args.effort_model, "Effort Hugging Face CLIP model directory")
+    landmark_model = deepfakebench / "preprocessing/dlib_tools/shape_predictor_81_face_landmarks.dat"
+    if not landmark_model.is_file():
+        raise FileNotFoundError(
+            f"DeepfakeBench landmark model not found: {landmark_model}. "
+            "Download it from https://github.com/SCLBD/DeepfakeBench/releases/download/"
+            "v1.0.0/shape_predictor_81_face_landmarks.dat"
+        )
     sys.path.insert(0, str(training))
     previous_cwd = Path.cwd()
     os.chdir(deepfakebench)
@@ -232,7 +251,9 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
 
     with args.annotations.open(encoding="utf-8", newline="") as stream:
         fields = set(csv.DictReader(stream).fieldnames or ())
-    rows = automatic_rows(args.annotations) if "predicted_sensitivity_level" in fields else annotated_rows(args.annotations)
+    rows = automatic_rows(args.annotations) if (
+        {"predicted_sensitivity_level", "real_fake_label_name"} & fields
+    ) else annotated_rows(args.annotations)
     with args.detector_config.open(encoding="utf-8") as stream:
         config = yaml.safe_load(stream)
     model, torch, device = load_effort_model(args, config)
