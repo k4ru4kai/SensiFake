@@ -1,0 +1,371 @@
+{
+  "status": "candidate-only data minimization; not anonymous",
+  "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+  "records": [
+    {
+      "candidate_path": "annotations/openfake/development-v0/blinded_annotation_summary_30.csv",
+      "risk": "LOW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "58d868963869c265e4e85cdffbb0fa6455593334368e6c09f22a06eb0caf73a8",
+      "candidate_sha256": "58d868963869c265e4e85cdffbb0fa6455593334368e6c09f22a06eb0caf73a8",
+      "rows": 6,
+      "columns": [
+        "table",
+        "category",
+        "count"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "table",
+        "category",
+        "count"
+      ],
+      "preserved_columns_sha256": "2a5d7c989797d69fbeec8d8414be176cc7e54e7adbefb938128dacaf3ed96a0b",
+      "actions": [
+        "restore exact published bytes"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "annotations/openfake/development-v0/sensitivity_annotations.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "c783a28509ca200d37d7b9e0f79a4bdd359c3f59f16acf2a0a80759875eb573f",
+      "candidate_sha256": "a774991da08b8af0abd2330e217c822f731abf738ed77cb2e620d1f095fd8adc",
+      "rows": 101,
+      "columns": [
+        "content_hash",
+        "blind_id",
+        "public_relevance",
+        "harm_urgency",
+        "vulnerability",
+        "sensitivity_score",
+        "sensitivity_level",
+        "sensitivity_rationale",
+        "annotation_confidence",
+        "needs_review",
+        "annotation_round",
+        "annotated_at"
+      ],
+      "changed_columns": {
+        "sensitivity_rationale": 6,
+        "annotated_at": 101
+      },
+      "preserved_columns": [
+        "content_hash",
+        "blind_id",
+        "public_relevance",
+        "harm_urgency",
+        "vulnerability",
+        "sensitivity_score",
+        "sensitivity_level",
+        "annotation_confidence",
+        "needs_review",
+        "annotation_round"
+      ],
+      "preserved_columns_sha256": "ffc597abc1e5f990b1b313c5dea93b6bde0d80738e36a8fcaa1f575e45056887",
+      "actions": [
+        "blank optional rationale values; retain column",
+        "round operational timestamps to start of their original calendar day; timezone retained"
+      ],
+      "byte_identical": false
+    },
+    {
+      "candidate_path": "annotations/openfake/development-v0/sensitivity_reannotation_round2_sample.csv",
+      "risk": "LOW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "5048c1c4d64c5a6924bbb370e561742bf5ebbe460266943871509dbf9cbb18d6",
+      "candidate_sha256": "5048c1c4d64c5a6924bbb370e561742bf5ebbe460266943871509dbf9cbb18d6",
+      "rows": 6,
+      "columns": [
+        "blind_id",
+        "annotation_round"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "blind_id",
+        "annotation_round"
+      ],
+      "preserved_columns_sha256": "c3109f818dd8e45cd93e898ea09947b25e75d0cd5db202e61a6de31520b745da",
+      "actions": [
+        "restore exact published bytes"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "annotations/packages/outgoing/model_review_batch_01/review_assignment.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "055cc73bd9c939e9acd75c41182c6fd87c979869dfab365a758f1612fa534607",
+      "candidate_sha256": "0fec9b672703bcfb20f5e1e02be715f891274c2ae620a0cf8da39f893c8accfe",
+      "rows": 600,
+      "columns": [
+        "image_id",
+        "content_hash",
+        "annotator",
+        "batch_id",
+        "selection_type",
+        "source_dataset",
+        "source_label",
+        "model_prediction",
+        "confidence",
+        "prob_low",
+        "prob_medium",
+        "prob_high",
+        "model_version",
+        "image_path",
+        "source_image_path"
+      ],
+      "changed_columns": {
+        "annotator": 600,
+        "batch_id": 600
+      },
+      "preserved_columns": [
+        "image_id",
+        "content_hash",
+        "selection_type",
+        "source_dataset",
+        "source_label",
+        "model_prediction",
+        "confidence",
+        "prob_low",
+        "prob_medium",
+        "prob_high",
+        "model_version",
+        "image_path",
+        "source_image_path"
+      ],
+      "preserved_columns_sha256": "4fd89a35e90e6f556d38d63bdc79e90d2ad232783d5ad013bbe2bed2ce8c73f4",
+      "actions": [
+        "stable rater aliases",
+        "replace attribution token in batch IDs bijectively; batch membership unchanged"
+      ],
+      "byte_identical": false
+    },
+    {
+      "candidate_path": "annotations/splits/gold_silver_assignment.csv",
+      "risk": "LOW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "7710f0347708ca604a0b90e5a7ba9531f0778fcf055c3c525e9b5ebba9793b02",
+      "candidate_sha256": "7710f0347708ca604a0b90e5a7ba9531f0778fcf055c3c525e9b5ebba9793b02",
+      "rows": 3000,
+      "columns": [
+        "content_hash",
+        "source_dataset",
+        "component",
+        "normalized_label",
+        "relative_image_path",
+        "role",
+        "split_seed"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "content_hash",
+        "source_dataset",
+        "component",
+        "normalized_label",
+        "relative_image_path",
+        "role",
+        "split_seed"
+      ],
+      "preserved_columns_sha256": "29cafe2e4a3b14421175289a809d07e2f65146a3fb778cdd0a5ae9dd5151aa6a",
+      "actions": [
+        "restore exact published bytes"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "annotations/splits/human_train_assignment.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "a9e432bdbe758d1637634c094bfb042b128e825fca6c7f5044924197723a2dcf",
+      "candidate_sha256": "e5626a9582d81edc21fc350d5ea03ee3db29a2310b5475ec1a8ac83784eac77c",
+      "rows": 300,
+      "columns": [
+        "content_hash",
+        "source_dataset",
+        "component",
+        "normalized_label",
+        "relative_image_path",
+        "role",
+        "split_seed",
+        "assignment_role",
+        "annotator_id",
+        "annotation_order",
+        "human_train_seed"
+      ],
+      "changed_columns": {
+        "annotator_id": 300
+      },
+      "preserved_columns": [
+        "content_hash",
+        "source_dataset",
+        "component",
+        "normalized_label",
+        "relative_image_path",
+        "role",
+        "split_seed",
+        "assignment_role",
+        "annotation_order",
+        "human_train_seed"
+      ],
+      "preserved_columns_sha256": "49caf7855f07a1f6357764cdeb54b859a46764d0e933815430a42188b854c3ba",
+      "actions": [
+        "stable rater aliases; membership, order and seed unchanged"
+      ],
+      "byte_identical": false
+    },
+    {
+      "candidate_path": "annotations/tasks/human-train-v0/reviewer-001.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "495f74a7b28612841abb633e067bb1390dce069276f2354837013c3089da40fb",
+      "candidate_sha256": "495f74a7b28612841abb633e067bb1390dce069276f2354837013c3089da40fb",
+      "rows": 100,
+      "columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "preserved_columns_sha256": "06066101327a08a76f356fd2840c8be8943b88e30c1cf710e28bff0e8a54a5b1",
+      "actions": [
+        "neutral task filename only; content byte-identical"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "annotations/tasks/human-train-v0/reviewer-002.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "a5ffed24d5fc70536bd1e756dfe7362f284bf08075f2bb44297dfe26bb445792",
+      "candidate_sha256": "a5ffed24d5fc70536bd1e756dfe7362f284bf08075f2bb44297dfe26bb445792",
+      "rows": 100,
+      "columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "preserved_columns_sha256": "e5c742fde999c7fd7d76c6d5effb6368c65a75b2847367022fc25915f57cfd7b",
+      "actions": [
+        "neutral task filename only; content byte-identical"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "annotations/tasks/human-train-v0/reviewer-003.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "abf7f0b64fa5c8744f393beb72a47e7dc73c546e6d36775ed802e0d45af3c5fb",
+      "candidate_sha256": "abf7f0b64fa5c8744f393beb72a47e7dc73c546e6d36775ed802e0d45af3c5fb",
+      "rows": 100,
+      "columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "changed_columns": {},
+      "preserved_columns": [
+        "blind_id",
+        "content_hash",
+        "component",
+        "relative_image_path",
+        "annotation_order"
+      ],
+      "preserved_columns_sha256": "c2a056f5868088d186666d3a9a3870fbfbeb72db1c7eb9f9f3a46fc724fbd1ba",
+      "actions": [
+        "neutral task filename only; content byte-identical"
+      ],
+      "byte_identical": true
+    },
+    {
+      "candidate_path": "notebooks/final output/sensifake_complete_sensitivity.csv",
+      "risk": "REVIEW",
+      "source_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+      "source_sha256": "26b212658f9cea55b62ebb6c932743902e9c72921b28196cc6f07dc75f878c6c",
+      "candidate_sha256": "583be16092f49759751b4583dcaf3e953cf73c60cfef5bd33c329f6e109d4b3a",
+      "rows": 4499,
+      "columns": [
+        "content_hash",
+        "source_dataset",
+        "source_label",
+        "source_label_provenance",
+        "image_path",
+        "source_paths_json",
+        "sensitivity_level",
+        "annotation_source",
+        "original_sensitivity_level",
+        "review_status",
+        "adjudicated_sensitivity_level",
+        "adjudicator",
+        "adjudicated_at",
+        "predicted_sensitivity_level",
+        "prob_low",
+        "prob_medium",
+        "prob_high",
+        "confidence",
+        "model_version"
+      ],
+      "changed_columns": {
+        "adjudicator": 41,
+        "adjudicated_at": 41,
+        "source_paths_json": 1499
+      },
+      "preserved_columns": [
+        "content_hash",
+        "source_dataset",
+        "source_label",
+        "source_label_provenance",
+        "image_path",
+        "sensitivity_level",
+        "annotation_source",
+        "original_sensitivity_level",
+        "review_status",
+        "adjudicated_sensitivity_level",
+        "predicted_sensitivity_level",
+        "prob_low",
+        "prob_medium",
+        "prob_high",
+        "confidence",
+        "model_version"
+      ],
+      "preserved_columns_sha256": "e71a28003b43907fb1271ec4b9fc51ddfba50099aea62abadaa2c27cf649446f",
+      "actions": [
+        "stable actor alias only on populated adjudicator cells",
+        "round operational adjudication times to calendar day; timezone retained",
+        "alias person-labelled relative path components; retain source partitions, asset filenames and ordered path multiplicity"
+      ],
+      "byte_identical": false
+    }
+  ],
+  "identity_mapping_published": false,
+  "notes": [
+    "Human attribution aliases do not remove existing public Git-history linkages.",
+    "LOW files and neutral-name task bodies are byte-identical; other CSVs are explicitly transformed derivatives.",
+    "Structured scientific columns retain exact string values and order.",
+    "Blank rationale columns retain schema; timestamps retain calendar day/offset and are rounded, not exact observations.",
+    "Relative source path aliases are provenance locators, not newly created local image paths; identify images by content_hash.",
+    "No contributor credits, source citations or author metadata were changed."
+  ]
+}

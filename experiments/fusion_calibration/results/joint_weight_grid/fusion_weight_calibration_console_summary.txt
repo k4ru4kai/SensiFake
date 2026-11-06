@@ -1,0 +1,65 @@
+ADN VALIDATION BASELINE
+accuracy          0.793333
+macro_f1          0.792792
+fake_precision    0.766129
+fake_recall       0.844444
+fake_f1           0.803383
+fake_fnr          0.155556
+
+CURRENT FUSION CONFIGURATION (normalized; original EPSILON=0.05)
+w_low              0.322581
+w_medium           0.537634
+w_high             1.000000
+epsilon            0.046500
+accuracy           0.771111
+macro_f1           0.769195
+fake_precision     0.729323
+fake_recall        0.862222
+fake_f1            0.790224
+fake_fnr           0.137778
+corrections        4.000000
+regressions       14.000000
+
+CALIBRATED FUSION CONFIGURATION
+BEST_W_L: 0.45
+BEST_W_M: 0.5
+BEST_W_H: 1
+BEST_EPSILON: 0.065
+accuracy           0.766667
+macro_f1           0.764310
+fake_precision     0.722222
+fake_recall        0.866667
+fake_f1            0.787879
+fake_fnr           0.133333
+corrections        5.000000
+regressions       17.000000
+
+DELTAS VS ADN
+accuracy         -0.026667
+macro_f1         -0.028482
+fake_precision   -0.043907
+fake_recall       0.022222
+fake_f1          -0.015504
+fake_fnr         -0.022222
+
+STABILITY (held-out validation; mean ± sample std)
+5-fold accuracy: 0.731111 ± 0.068223
+5-fold macro_f1: 0.723246 ± 0.072880
+5-fold fake_recall: 0.871111 ± 0.089443
+5-fold fake_fnr: 0.128889 ± 0.089443
+Selected-parameter variability: {"w_low": {"0.1": 2, "0.45": 2, "0.6": 1}, "w_medium": {"0.5": 2, "0.75": 1, "0.95": 2}, "epsilon": {"0.055": 2, "0.065": 2, "0.14": 1}}
+Held-out ADN mean Accuracy: 0.793333; mean Fusion delta Accuracy: -0.062222
+3 distinct configurations were selected across 5 folds. Local plateaus in full-validation metrics do not establish stable exact weight estimates. The 0.03 Accuracy allowance is enforced on calibration subsets, not on held-out diagnostic folds.
+
+TRUE-SENSITIVITY DIAGNOSTIC
+sensitivity  samples  accuracy  fake_recall  fake_fnr  changed_predictions  corrections  regressions
+        Low      127  0.653543     0.809524  0.190476                   12            3            9
+     Medium      301  0.803987     0.882759  0.117241                   10            2            8
+       High       22  0.909091     0.941176  0.058824                    0            0            0
+
+Semantic order preserved: True; W_M − W_L = 0.05; W_H − W_M = 0.5
+Several neighboring configurations yield nearly identical validation metrics: the solution lies in a stable-performing local parameter region on the full validation grid, rather than supporting uniquely optimal exact decimals. Interpret weight gaps alongside the 5-fold parameter variability; small decimal differences are not scientific evidence.
+Normalization prediction disagreements: [0, 0]
+Thresholds outside [0, 1]: 0 configurations (no clipping).
+TEST USED FOR CALIBRATION: NO
+Outputs: legacy/ComputerVisionProject/tools/formula_wigth_test_output

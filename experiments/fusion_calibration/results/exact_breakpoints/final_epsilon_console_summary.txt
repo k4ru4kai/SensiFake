@@ -1,0 +1,66 @@
+FIXED SENSITIVITY WEIGHTS
+Low: 1/3
+Medium: 2/3
+High: 1
+
+ADN VALIDATION BASELINE
+accuracy                0.793333
+macro_f1                0.792792
+fake_precision          0.766129
+fake_recall             0.844444
+fake_f1                 0.803383
+fake_fnr                0.155556
+weighted_fake_recall    0.861386
+weighted_fake_fnr       0.138614
+
+FINAL SENSITIVITY-AWARE FUSION
+BEST_EPSILON: 0.035769800509300682
+Exact BEST_EPSILON: 12475616/348775107
+Optimal interval: [0.035769800509300682, 0.039086751746461021)
+accuracy                0.771111
+macro_f1                0.769195
+fake_precision          0.729323
+fake_recall             0.862222
+fake_f1                 0.790224
+fake_fnr                0.137778
+weighted_fake_recall    0.876238
+weighted_fake_fnr       0.123762
+Changed predictions: 18
+Corrections: 4
+Regressions: 14
+The validation data support an optimal decision interval rather than a uniquely identifiable EPSILON decimal.
+
+DELTAS VS ADN
+accuracy               -0.022222
+macro_f1               -0.023597
+fake_precision         -0.036806
+fake_recall             0.017778
+fake_f1                -0.013159
+fake_fnr               -0.017778
+weighted_fake_recall    0.014851
+weighted_fake_fnr      -0.014851
+
+STABILITY
+5-fold selected EPSILON values: 0.035769800509300682, 0.035769800509300682, 0.035769800509300682, 0.025056248848319834, 0.035769800509300682
+5-fold held-out accuracy: 0.77111111 ± 0.06216267
+5-fold held-out macro_f1: 0.76847635 ± 0.06327162
+5-fold held-out fake_recall: 0.85777778 ± 0.07793635
+5-fold held-out weighted_fake_recall: 0.87008418 ± 0.06697964
+5-fold held-out fake_fnr: 0.14222222 ± 0.07793635
+5-fold held-out weighted_fake_fnr: 0.12991582 ± 0.06697964
+Parameter variability: min=0.025056248848319834, max=0.035769800509300682, sample std=0.004791246
+
+TRUE-SENSITIVITY DIAGNOSTICS
+sensitivity  samples  true_fake_samples  accuracy  fake_recall  fake_fnr  changed_predictions  corrections  regressions
+        Low      127                 63  0.661417     0.793651  0.206349                    9            2            7
+     Medium      301                145  0.807309     0.882759  0.117241                    9            2            7
+       High       22                 17  0.909091     0.941176  0.058824                    0            0            0
+
+SAMPLES CHANGING EXACTLY AT BEST_EPSILON
+                                                        image_id                                                                                image_path
+341cbb369afb44c8cc8786689b7845ad2d124417b6025370089bab3b0bf336de autoannotated/images/341cbb369afb44c8cc8786689b7845ad2d124417b6025370089bab3b0bf336de.png
+Exact breakpoints: 202; candidate values including zero: 203; unique policies: 203
+Literal float64 boundary disagreements at selected policy: 0
+Breakpoints and decisions use exact rational comparisons, without EPSILON rounding or tolerance-based policy expansion.
+TEST USED FOR CALIBRATION: NO
+Outputs: legacy/ComputerVisionProject/tools/epsilon_final

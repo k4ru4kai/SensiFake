@@ -1,0 +1,74 @@
+{
+  "random_seed": 35,
+  "epochs": 8,
+  "adn_trainable_layers": {
+    "initial": [
+      "backbone.fc"
+    ],
+    "after_head_only_epochs": [
+      "backbone.layer4",
+      "backbone.fc"
+    ]
+  },
+  "adn_head_only_epochs": 2,
+  "adn_head_lr": 0.0001,
+  "adn_layer4_lr": 1e-05,
+  "batch_size": 64,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "early_stopping_patience": 2,
+  "adn_dropout": 0.3,
+  "adn_label_smoothing": 0.05,
+  "csn_human_weight": 1.5,
+  "csn_auto_weight": 1.0,
+  "csn_low_weight": 1.0,
+  "csn_medium_weight": 1.0,
+  "csn_high_weight": 2.0,
+  "augmentation": {
+    "train": {
+      "horizontal_flip_probability": 0.5,
+      "color_jitter": {
+        "brightness": 0.1,
+        "contrast": 0.1,
+        "saturation": 0.0,
+        "hue": 0.0
+      }
+    },
+    "adn_training_crop": {
+      "scale": [
+        0.9,
+        1.0
+      ],
+      "ratio": [
+        0.95,
+        1.05
+      ]
+    },
+    "validation_test_demo": "unchanged deterministic resize/tensor/normalize"
+  },
+  "human_path_pattern": "human_annotated/images/",
+  "auto_path_pattern": "autoannotated/images/",
+  "expected_original_human_count": 701,
+  "full_dataset_human_count": 1101,
+  "full_dataset_human_annotation_sources": {
+    "human_master_final": 701,
+    "consolidated_human_review": 400
+  },
+  "train_human_count": 778,
+  "train_auto_count": 2371,
+  "train_sensitivity_counts": {
+    "low": 887,
+    "medium": 2105,
+    "high": 157
+  },
+  "split_fractions": {
+    "train": 0.7,
+    "validation": 0.1,
+    "test": 0.2
+  },
+  "split_fingerprint": "126e41dbf4a2d2c9868bbdc0d045dfcde3c449cebcdcb291dd31dc6017724e97",
+  "csn_freeze_backbone_epochs": 1,
+  "checkpoint_selection": "validation_macro_f1",
+  "early_stopping_metric": "validation_macro_f1",
+  "configuration_source": "SensiFakeProject-v3-validation.ipynb (training/validation only)"
+}

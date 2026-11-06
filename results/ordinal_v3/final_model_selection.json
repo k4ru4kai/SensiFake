@@ -1,0 +1,21 @@
+{
+  "selected_model": "V3",
+  "selected_checkpoint": "autoannotator-final version/output/checkpoints/best_model_ordinal_v3.pt",
+  "checkpoint_sha256": "48f6495d4a62ded10d98c3835ffcd33c8f5c653e5df19cb03aef62582060e9b4",
+  "v3_minus_v2_macro_f1": 0.03443463674861147,
+  "ordinal_thresholds": {
+    "t1": 0.5,
+    "t2": 0.44
+  },
+  "calibration_file": "autoannotator-final version/output/metrics/threshold_calibration.json",
+  "vetoes": [],
+  "policy": {
+    "min_macro_f1_gain": 0.0,
+    "max_high_f1_drop": 0.05,
+    "max_high_recall_drop": 0.05,
+    "max_balanced_accuracy_drop": 0.05,
+    "max_source_macro_f1_drop": 0.05,
+    "max_ordinal_mae_increase": 0.02
+  },
+  "conclusion": "V3 ordinal formulation outperformed V2 under the fixed selection rule"
+}

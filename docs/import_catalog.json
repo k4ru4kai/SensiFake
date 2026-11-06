@@ -1,0 +1,485 @@
+[
+  {
+    "source": "remote-main:notebooks/qwen3vl_gold_pilot.ipynb",
+    "destination": "notebooks/qwen3vl_gold_pilot.ipynb",
+    "original_sha256": "19f3f280e062c8f3b6d7db392510f1d45ea0985a7b4b5d2f1f88169042d309a4",
+    "candidate_sha256": "870d82313679a3adfb00e2a4fb3d8a03f7adb3924e7efd245f5299f113635c0f",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "remote-main:notebooks/qwen3vl_prompt_v2_gold_diagnostic.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v2_gold_diagnostic.ipynb",
+    "original_sha256": "e92b6e9729f9d347509b76ae8368942cb748247ee6cc9aa3b2b32d028fe1cb9f",
+    "candidate_sha256": "9dd642215e6e385091ecb7908aa386cd5debdea101e1df11c63034307331f34e",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "remote-main:notebooks/qwen3vl_prompt_v2_gold_holdout.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v2_gold_holdout.ipynb",
+    "original_sha256": "65272f833ff93e66d894337ee6692f8ece3fd1823b2b640777e6fb8a23c254ff",
+    "candidate_sha256": "e807be3c684c2d9d6434f299b58a9d21aa1f8f6c96efef10009fca7d3d8d2d4c",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "remote-main:notebooks/qwen3vl_prompt_v3_gold_diagnostic.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v3_gold_diagnostic.ipynb",
+    "original_sha256": "700e3a1eebba2aa370bd9f2a9cec63a25a72bb9fbd76d7694013a42fd0360715",
+    "candidate_sha256": "033290cc9d617893d3dc6f997f76c0c6bf6cf0282bf2bb9460e5852a44774275",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "remote-main:notebooks/qwen3vl_sharded_throughput_benchmark.ipynb",
+    "destination": "notebooks/qwen3vl_sharded_throughput_benchmark.ipynb",
+    "original_sha256": "b46a577c12d23c6414083a9b4c212fd14eb21446e69b2bc3fefc1247f0bd742b",
+    "candidate_sha256": "410d4cb70ed3eb0cbea38af4a70b8b982301a48616e80a3b41c76f7c09dece74",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "remote-main:notebooks/qwen3vl_throughput_benchmark.ipynb",
+    "destination": "notebooks/qwen3vl_throughput_benchmark.ipynb",
+    "original_sha256": "a875ab534156d3254aae7eb9df50499d09cb33bdbc0ef7b1648324d0ee6f4492",
+    "candidate_sha256": "37992c4c2883df026f1f73fae502c6a794756881cc26eb975911a0451202deba",
+    "transformation": "explicit source-only privacy derivative; original remains in Git history"
+  },
+  {
+    "source": "SensiFake/sensifake_data/__init__.py",
+    "destination": "sensifake_data/__init__.py",
+    "original_sha256": "672e7e456e45c87eeb5febe79f664c2fbe87a10905c37085d74a457ffde24689",
+    "candidate_sha256": "672e7e456e45c87eeb5febe79f664c2fbe87a10905c37085d74a457ffde24689",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake/sensifake_data/published.py",
+    "destination": "sensifake_data/published.py",
+    "original_sha256": "8eaffebb4180d82a42abcf6fb6c8a7ceeefb5a23c11cf6073acc28a0e3206742",
+    "candidate_sha256": "8eaffebb4180d82a42abcf6fb6c8a7ceeefb5a23c11cf6073acc28a0e3206742",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/final_dataset/metadata/label_schema.json",
+    "destination": "dataset_metadata/label_schema.json",
+    "original_sha256": "b4a1c7597a67069c02618a1ff4659416e1995cc5a57afa3b42fd54cf2902452c",
+    "candidate_sha256": "b4a1c7597a67069c02618a1ff4659416e1995cc5a57afa3b42fd54cf2902452c",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/final_dataset/metadata/dataset_statistics.json",
+    "destination": "dataset_metadata/dataset_statistics.json",
+    "original_sha256": "cd01b0389e0abb4813ec357b6b047af431cf5d5fe6e73925f4ca36eef5824057",
+    "candidate_sha256": "cd01b0389e0abb4813ec357b6b047af431cf5d5fe6e73925f4ca36eef5824057",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_gold_pilot.ipynb",
+    "destination": "notebooks/qwen3vl_gold_pilot.ipynb",
+    "original_sha256": "19f3f280e062c8f3b6d7db392510f1d45ea0985a7b4b5d2f1f88169042d309a4",
+    "candidate_sha256": "870d82313679a3adfb00e2a4fb3d8a03f7adb3924e7efd245f5299f113635c0f",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_prompt_v2_gold_diagnostic.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v2_gold_diagnostic.ipynb",
+    "original_sha256": "e92b6e9729f9d347509b76ae8368942cb748247ee6cc9aa3b2b32d028fe1cb9f",
+    "candidate_sha256": "9dd642215e6e385091ecb7908aa386cd5debdea101e1df11c63034307331f34e",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_prompt_v2_gold_holdout.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v2_gold_holdout.ipynb",
+    "original_sha256": "65272f833ff93e66d894337ee6692f8ece3fd1823b2b640777e6fb8a23c254ff",
+    "candidate_sha256": "e807be3c684c2d9d6434f299b58a9d21aa1f8f6c96efef10009fca7d3d8d2d4c",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_prompt_v3_gold_diagnostic.ipynb",
+    "destination": "notebooks/qwen3vl_prompt_v3_gold_diagnostic.ipynb",
+    "original_sha256": "700e3a1eebba2aa370bd9f2a9cec63a25a72bb9fbd76d7694013a42fd0360715",
+    "candidate_sha256": "033290cc9d617893d3dc6f997f76c0c6bf6cf0282bf2bb9460e5852a44774275",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_sharded_throughput_benchmark.ipynb",
+    "destination": "notebooks/qwen3vl_sharded_throughput_benchmark.ipynb",
+    "original_sha256": "b46a577c12d23c6414083a9b4c212fd14eb21446e69b2bc3fefc1247f0bd742b",
+    "candidate_sha256": "410d4cb70ed3eb0cbea38af4a70b8b982301a48616e80a3b41c76f7c09dece74",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/notebooks/experiments/qwen3vl_throughput_benchmark.ipynb",
+    "destination": "notebooks/qwen3vl_throughput_benchmark.ipynb",
+    "original_sha256": "a875ab534156d3254aae7eb9df50499d09cb33bdbc0ef7b1648324d0ee6f4492",
+    "candidate_sha256": "37992c4c2883df026f1f73fae502c6a794756881cc26eb975911a0451202deba",
+    "transformation": "source-only archival derivative; outputs/execution/host metadata stripped; code unchanged; exact source/markdown duplicate consolidated with preserved remote notebook"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_calibration_input_audit.json",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_calibration_input_audit.json",
+    "original_sha256": "bd55d546af378dceb3389ebc7211c0b377e4064e6f5a2963a85536f44cc86011",
+    "candidate_sha256": "d3eed6f22f483fc8071bb6888495bc3ffcce7e2d1cb68c8bd7c0eda028bb5f86",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged; Windows source paths / JSON path keys normalized"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_calibration_validation_summary.json",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_calibration_validation_summary.json",
+    "original_sha256": "f7a0ab951b39a32980d89dea58d3624516bc705c5d0fd181c883a6968350d41d",
+    "candidate_sha256": "034d1834990056945bb4677d71fbf37d7fa50d02aa9f1f6f11b370e70933b8fa",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_by_sensitivity_validation.csv",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_by_sensitivity_validation.csv",
+    "original_sha256": "66a35e6daac86850ccae9674d85be21e78c19292c16d74657fdf3962d9e1b64d",
+    "candidate_sha256": "66a35e6daac86850ccae9674d85be21e78c19292c16d74657fdf3962d9e1b64d",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_sweep_validation.csv",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_sweep_validation.csv",
+    "original_sha256": "4cb0273606fd11e07f64a5c93d7354eea57575a1890e132e2347382a4acc5da0",
+    "candidate_sha256": "4cb0273606fd11e07f64a5c93d7354eea57575a1890e132e2347382a4acc5da0",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_validation_decision_changes.jpg",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_validation_decision_changes.jpg",
+    "original_sha256": "9a29dc165f9699ae2aba619e23f479c0bd5eb8075f6749b1a217a18d00153f8b",
+    "candidate_sha256": "9a29dc165f9699ae2aba619e23f479c0bd5eb8075f6749b1a217a18d00153f8b",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_validation_fnr.jpg",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_validation_fnr.jpg",
+    "original_sha256": "425642095f47ae25dd1971a4eb9efd3f7a3ad59a03899e3382fce1c71cda4191",
+    "candidate_sha256": "425642095f47ae25dd1971a4eb9efd3f7a3ad59a03899e3382fce1c71cda4191",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_validation_metrics.jpg",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_validation_metrics.jpg",
+    "original_sha256": "b39cacd0fe7f127e443f4bd92f470241fe7d1daf24dc229a5993a547ae98228d",
+    "candidate_sha256": "b39cacd0fe7f127e443f4bd92f470241fe7d1daf24dc229a5993a547ae98228d",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/formula_test_output/fusion_epsilon_validation_tradeoff.jpg",
+    "destination": "experiments/fusion_calibration/results/historical_fixed_grid/fusion_epsilon_validation_tradeoff.jpg",
+    "original_sha256": "119a6187b6a17a1ffbe31365eb5446b3d2f9191d4633220273bc05f438c452c9",
+    "candidate_sha256": "119a6187b6a17a1ffbe31365eb5446b3d2f9191d4633220273bc05f438c452c9",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/adn_current_vs_calibrated_weights_validation.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/adn_current_vs_calibrated_weights_validation.csv",
+    "original_sha256": "f5262f062b0df7c6b31dada369cca4e210cdadb7a42d88cc1a0a1689737efa9d",
+    "candidate_sha256": "f5262f062b0df7c6b31dada369cca4e210cdadb7a42d88cc1a0a1689737efa9d",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/best_weights_by_true_sensitivity.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/best_weights_by_true_sensitivity.csv",
+    "original_sha256": "b8e5369d69a9cd4058d22d50fbb28174069cab444236309580d45940d4946171",
+    "candidate_sha256": "b8e5369d69a9cd4058d22d50fbb28174069cab444236309580d45940d4946171",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_5fold_membership.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_5fold_membership.csv",
+    "original_sha256": "4f09713694cc3b71151d00df2f882ce36bd42eb01dca9b3497aba1dd065e9254",
+    "candidate_sha256": "4f09713694cc3b71151d00df2f882ce36bd42eb01dca9b3497aba1dd065e9254",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_5fold_stability.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_5fold_stability.csv",
+    "original_sha256": "e3202ad230488c230d8be877a36a926d9f7514438a36a7b3c8d5d17da7cc2e83",
+    "candidate_sha256": "e3202ad230488c230d8be877a36a926d9f7514438a36a7b3c8d5d17da7cc2e83",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_calibration_console_summary.txt",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_calibration_console_summary.txt",
+    "original_sha256": "b39739ef1179ddd1ef4eaa5495c7ebb9b75710b4e4f46062f83a9a7610d6541f",
+    "candidate_sha256": "76bc8e73948f33d1751f3fd82dba1d0e07f402176551050f839e047f7c92adc7",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_calibration_summary.json",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_calibration_summary.json",
+    "original_sha256": "d7bf9fb08b2e52f28ed4b1c245065fce781a67340a72fee990b40099f9133a59",
+    "candidate_sha256": "4267d6280de32cc2146349d16bbd8c4ba906ca0cbccb280bf04fc3d9687d79c6",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_epsilon_sweep_validation.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_epsilon_sweep_validation.csv",
+    "original_sha256": "bbd0d4968ae3ce01ecd3ac7f1e193f2c9ce9806634f00a3f46836ed4ab428864",
+    "candidate_sha256": "bbd0d4968ae3ce01ecd3ac7f1e193f2c9ce9806634f00a3f46836ed4ab428864",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weight_stability_summary.json",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weight_stability_summary.json",
+    "original_sha256": "4cd1a8855cbab2f533900400915664cdf9908fbf83134be3bdfc7c4e7171f4ba",
+    "candidate_sha256": "4cd1a8855cbab2f533900400915664cdf9908fbf83134be3bdfc7c4e7171f4ba",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_accuracy_heatmap.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_accuracy_heatmap.jpg",
+    "original_sha256": "0570813e1165781b63c955348ec70859c5e357d9ed5317be624c63112e023161",
+    "candidate_sha256": "0570813e1165781b63c955348ec70859c5e357d9ed5317be624c63112e023161",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_corrections_regressions.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_corrections_regressions.jpg",
+    "original_sha256": "9856f2ea59b7fce381fd28e5de2760579880eaad7b45f58b465f16b86b0387e3",
+    "candidate_sha256": "9856f2ea59b7fce381fd28e5de2760579880eaad7b45f58b465f16b86b0387e3",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_epsilon_profile.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_epsilon_profile.jpg",
+    "original_sha256": "254a43d827c3be920aff27f43efbad9e08bf691eb7a2b21bdf842ab095dde054",
+    "candidate_sha256": "254a43d827c3be920aff27f43efbad9e08bf691eb7a2b21bdf842ab095dde054",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_fake_recall_heatmap.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_fake_recall_heatmap.jpg",
+    "original_sha256": "80aab01fefe92a156ba649f6beb729a4f93f1c1af0d12cba051f1930f11458ee",
+    "candidate_sha256": "80aab01fefe92a156ba649f6beb729a4f93f1c1af0d12cba051f1930f11458ee",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_macro_f1_heatmap.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_macro_f1_heatmap.jpg",
+    "original_sha256": "3c982eba83abb4cef7cc020d73fbaf46ad4ee2a866b90468347b68b930769af3",
+    "candidate_sha256": "3c982eba83abb4cef7cc020d73fbaf46ad4ee2a866b90468347b68b930769af3",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/fusion_weights_tradeoff.jpg",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/fusion_weights_tradeoff.jpg",
+    "original_sha256": "c0e574054eade027ce85331df7fd394f39adc4012951b858acaf69c8a9c24e8b",
+    "candidate_sha256": "c0e574054eade027ce85331df7fd394f39adc4012951b858acaf69c8a9c24e8b",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/formula_wigth_test_output/top_fusion_weight_configurations.csv",
+    "destination": "experiments/fusion_calibration/results/joint_weight_grid/top_fusion_weight_configurations.csv",
+    "original_sha256": "21d663d572c8a792cf294b7df103e2e0123522d277cc026e4e6a1c3545356a61",
+    "candidate_sha256": "21d663d572c8a792cf294b7df103e2e0123522d277cc026e4e6a1c3545356a61",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_5fold_stability.csv",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_5fold_stability.csv",
+    "original_sha256": "d5f775dca66ad0a4ba7efbf6af711717ffdb6e8ead7f797d25ba1e1c987ce2bc",
+    "candidate_sha256": "d5f775dca66ad0a4ba7efbf6af711717ffdb6e8ead7f797d25ba1e1c987ce2bc",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_accuracy_tradeoff.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_accuracy_tradeoff.jpg",
+    "original_sha256": "3d2bd01adf142afde26e863a25127b5c2e7973ce0a6802870aeac3d1dff46842",
+    "candidate_sha256": "3d2bd01adf142afde26e863a25127b5c2e7973ce0a6802870aeac3d1dff46842",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_breakpoints_validation.csv",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_breakpoints_validation.csv",
+    "original_sha256": "bf0f04775d2ebefad16b422ef311b994fefeffdcfd0591309580b9dcefdf3327",
+    "candidate_sha256": "bf0f04775d2ebefad16b422ef311b994fefeffdcfd0591309580b9dcefdf3327",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_by_sensitivity.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_by_sensitivity.jpg",
+    "original_sha256": "e6f125979b02b34fc8e8181b1c647216a68a365266ed1b40a2d6add7fef7dffa",
+    "candidate_sha256": "e6f125979b02b34fc8e8181b1c647216a68a365266ed1b40a2d6add7fef7dffa",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_by_true_sensitivity.csv",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_by_true_sensitivity.csv",
+    "original_sha256": "cd2cafce194570166c10aa962f16cb80848036baf6ae4ae1741ba42ca8a085f6",
+    "candidate_sha256": "cd2cafce194570166c10aa962f16cb80848036baf6ae4ae1741ba42ca8a085f6",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_changed_samples.csv",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_changed_samples.csv",
+    "original_sha256": "3afe25d59d3370df7bf657b08578fe35ec83f1efc2f49383534d568fd3680887",
+    "candidate_sha256": "3afe25d59d3370df7bf657b08578fe35ec83f1efc2f49383534d568fd3680887",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_console_summary.txt",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_console_summary.txt",
+    "original_sha256": "8cb48b0c5fa7d6c67acaa9f88b1b6b66552a50dcc9d5ebb98146948558fc96e9",
+    "candidate_sha256": "5561249f14eec3ed7f77282148c38e99e55a4ed7977331a2fc79cc77afe21a53",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_decision_changes.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_decision_changes.jpg",
+    "original_sha256": "9b4f1c884605b8509469f24fcda01e34901b550251bbdbab091d9c17b5242156",
+    "candidate_sha256": "9b4f1c884605b8509469f24fcda01e34901b550251bbdbab091d9c17b5242156",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_fnr.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_fnr.jpg",
+    "original_sha256": "89056d5f6909b8246d64fcc0bc2644bbe125c9c6d9ccb5cf1f247c13c555c8c3",
+    "candidate_sha256": "89056d5f6909b8246d64fcc0bc2644bbe125c9c6d9ccb5cf1f247c13c555c8c3",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_metrics.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_metrics.jpg",
+    "original_sha256": "c75d7ad5b153e40519103f0fdb56f54476ba0ca29f09666284244cbc7494ef8c",
+    "candidate_sha256": "c75d7ad5b153e40519103f0fdb56f54476ba0ca29f09666284244cbc7494ef8c",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_stability_summary.json",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_stability_summary.json",
+    "original_sha256": "5195096c6652e3ac375c535391b70fa06cffab3d53ab62be58c328afb464fc29",
+    "candidate_sha256": "5195096c6652e3ac375c535391b70fa06cffab3d53ab62be58c328afb464fc29",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_summary.json",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_summary.json",
+    "original_sha256": "bcbfe0e2919b6444fc6cfbac85d3d2d512ff3a713aa4b1e830bf6562d6be5887",
+    "candidate_sha256": "8e76cca26a65708926567175448a46fadab1c10c44488ad759470ecc9890c20e",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/tools_no/epsilon_final/final_epsilon_weighted_recall.jpg",
+    "destination": "experiments/fusion_calibration/results/exact_breakpoints/final_epsilon_weighted_recall.jpg",
+    "original_sha256": "7460169ad47152513681aa63e1215eaea726152498951293a6c6608c53a604e1",
+    "candidate_sha256": "7460169ad47152513681aa63e1215eaea726152498951293a6c6608c53a604e1",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v3-validation/validation_predictions.csv",
+    "destination": "experiments/fusion_calibration/inputs/validation_seed20.csv",
+    "original_sha256": "955dcef2e3553f29db5802997034423632f1ee43fbd55624bdfa22a9783b4aaf",
+    "candidate_sha256": "c7fed90088ab33d6c230b4d933d7717ac8426d271de746c04323d46554601137",
+    "transformation": "explicit path-only sanitization; numeric values/identities unchanged"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output/fusion_predictions.csv",
+    "destination": "results/detectors/legacy_test/fusion_predictions.csv",
+    "original_sha256": "ebf6c7efc481ed0e9da6c20853da67f74e3274b09b427769012d94adcd64d555",
+    "candidate_sha256": "ebf6c7efc481ed0e9da6c20853da67f74e3274b09b427769012d94adcd64d555",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output/adn_test_metrics.json",
+    "destination": "results/detectors/legacy_test/adn_test_metrics.json",
+    "original_sha256": "cfd32c67f9563e1546603a82e8368c1137762f00a210332058d2c3ed8147b176",
+    "candidate_sha256": "cfd32c67f9563e1546603a82e8368c1137762f00a210332058d2c3ed8147b176",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output/csn_test_metrics.json",
+    "destination": "results/detectors/legacy_test/csn_test_metrics.json",
+    "original_sha256": "01194c31ab2880b73e739e9d9532c39c491122d9d94cddb09cd99eebd7dd08e1",
+    "candidate_sha256": "01194c31ab2880b73e739e9d9532c39c491122d9d94cddb09cd99eebd7dd08e1",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output/fusion_test_metrics.json",
+    "destination": "results/detectors/legacy_test/fusion_test_metrics.json",
+    "original_sha256": "0ee7fa3334d34b8fe56b0c0dc16f713665c0039a81eca8956833871204055791",
+    "candidate_sha256": "0ee7fa3334d34b8fe56b0c0dc16f713665c0039a81eca8956833871204055791",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v2/fusion_predictions.csv",
+    "destination": "results/detectors/seed35_test/fusion_predictions.csv",
+    "original_sha256": "89e5561e215d4240271986edb3593c8254dc5a709d1bfcb7a9443b80ac7c94bc",
+    "candidate_sha256": "89e5561e215d4240271986edb3593c8254dc5a709d1bfcb7a9443b80ac7c94bc",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v2/adn_test_metrics.json",
+    "destination": "results/detectors/seed35_test/adn_test_metrics.json",
+    "original_sha256": "b1fb1ab0f3accc8b26002060b13d05163e0efa5f6f76230e275062012c182fb4",
+    "candidate_sha256": "b1fb1ab0f3accc8b26002060b13d05163e0efa5f6f76230e275062012c182fb4",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v2/csn_test_metrics.json",
+    "destination": "results/detectors/seed35_test/csn_test_metrics.json",
+    "original_sha256": "9a0132f4a4afd8d259c6199549ade6069dc6d8e17c3601f8d6145e025d2a71a7",
+    "candidate_sha256": "9a0132f4a4afd8d259c6199549ade6069dc6d8e17c3601f8d6145e025d2a71a7",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v2/fusion_test_metrics.json",
+    "destination": "results/detectors/seed35_test/fusion_test_metrics.json",
+    "original_sha256": "4921df451add59623a44bfc88852cbf988763fc3ec4c16a5f574cb40b47a7eb0",
+    "candidate_sha256": "4921df451add59623a44bfc88852cbf988763fc3ec4c16a5f574cb40b47a7eb0",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "ComputerVisionProject/SensiFakeProject-output-v2/training_config.json",
+    "destination": "results/detectors/seed35_test/training_config.json",
+    "original_sha256": "759db7f287c8a6969309bec7e4ca1c6325210f5e73408179bda8f0302fd5289e",
+    "candidate_sha256": "759db7f287c8a6969309bec7e4ca1c6325210f5e73408179bda8f0302fd5289e",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/output/metrics/configuration.json",
+    "destination": "results/ordinal_v3/configuration.json",
+    "original_sha256": "192b7c7f9c304725bb47038ed6b21a5ccfd65f5efe93264ce32d7c66844505d2",
+    "candidate_sha256": "192b7c7f9c304725bb47038ed6b21a5ccfd65f5efe93264ce32d7c66844505d2",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/output/metrics/test_metrics.json",
+    "destination": "results/ordinal_v3/test_metrics.json",
+    "original_sha256": "82f06fda93efa6dd84196dd644508245a4f131146cea051fc71e2987ee65dc1d",
+    "candidate_sha256": "82f06fda93efa6dd84196dd644508245a4f131146cea051fc71e2987ee65dc1d",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/output/metrics/final_model_selection.json",
+    "destination": "results/ordinal_v3/final_model_selection.json",
+    "original_sha256": "92395ca20839689b4db7b1ec34f84fcda777633611f859589f89511fd9288f5b",
+    "candidate_sha256": "92395ca20839689b4db7b1ec34f84fcda777633611f859589f89511fd9288f5b",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/output/metrics/comparison_v1_v2_v3.json",
+    "destination": "results/ordinal_v3/comparison_v1_v2_v3.json",
+    "original_sha256": "6b81437fdb1444d0c2b589f3e7b6733e72ece27712a11d23258f279153d05e54",
+    "candidate_sha256": "6b81437fdb1444d0c2b589f3e7b6733e72ece27712a11d23258f279153d05e54",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "SensiFake-Dataset/model_autoannotator/output/predictions/test_predictions.csv",
+    "destination": "results/ordinal_v3/test_predictions.csv",
+    "original_sha256": "ff1366bb246efa5efa1396fd2b051468cbfad5ed71909b868581ac2772ee0c8d",
+    "candidate_sha256": "ff1366bb246efa5efa1396fd2b051468cbfad5ed71909b868581ac2772ee0c8d",
+    "transformation": "byte-identical"
+  },
+  {
+    "source": "remote-main:tests/test_gold_silver_assignment.py",
+    "destination": "historical_tests/test_gold_silver_assignment.py",
+    "original_sha256": "9a69333490bbc0db69a25472f60e331d0f46073d78a10cf63b04dd1f73cdc98e",
+    "candidate_sha256": "9a69333490bbc0db69a25472f60e331d0f46073d78a10cf63b04dd1f73cdc98e",
+    "transformation": "byte-identical archival relocation; needs local images/withheld operational fixtures"
+  },
+  {
+    "source": "remote-main:tests/test_repository_paths.py",
+    "destination": "historical_tests/test_repository_paths.py",
+    "original_sha256": "f7d0699d3b5afa3df7e24e90f74e8c878874a791d54d2cb5c9f8fd9c662c5c97",
+    "candidate_sha256": "f7d0699d3b5afa3df7e24e90f74e8c878874a791d54d2cb5c9f8fd9c662c5c97",
+    "transformation": "byte-identical archival relocation; needs local images/withheld operational fixtures"
+  }
+]

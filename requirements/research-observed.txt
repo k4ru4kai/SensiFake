@@ -1,0 +1,13 @@
+# Observed working environment; not a solved portable lock.
+numpy==2.5.2
+pandas==3.0.5
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pillow==12.3.0
+pytest==9.1.1
+torch==2.11.0+cu128
+torchvision==0.26.0+cu128
+datasets==5.0.1
+pyarrow==25.0.1
+streamlit==1.62.0
+tqdm==4.70.0

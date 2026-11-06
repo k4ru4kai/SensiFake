@@ -1,0 +1,11 @@
+# PROPOSAL ONLY: do not rename to CITATION.cff until authors approve it.
+cff-version: 1.2.0
+message: "Citation metadata is pending contributor approval; do not treat this draft as a publication."
+title: "SensiFake: Sensitivity-Aware Authenticity Detection"
+type: software
+repository-code: "https://github.com/k4ru4kai/SensiFake"
+url: "https://huggingface.co/datasets/K4ru4k4i/SensiFake/tree/0804959a6daab0e8041e5120e366580543726905"
+# authors: names/order/affiliations/ORCIDs require confirmation.
+# version, release date and identifier are intentionally unset.
+# No new license declaration is proposed as an already effective grant.
+# Related dataset source DOI (not a project DOI): 10.5281/zenodo.14963880

@@ -1,0 +1,64 @@
+{
+  "status": "VERIFIED current-source configurations; no final authority or training-source identity implied",
+  "dataset_revision": "0804959a6daab0e8041e5120e366580543726905",
+  "notebooks": [
+    {
+      "path": "ComputerVisionProject/ProjectSensiFake.ipynb",
+      "whole_file_sha256": "ac518470c279d54a6963853ff314439df688630c9f781f4f06459ce09e7069a9",
+      "code_sha256": "2689f5a9283423f058855fb1d62ab8100668cb636b3b6474c5096682e7e5cfcf",
+      "parameters": {
+        "RANDOM_SEED": 35,
+        "NUM_EPOCHS": 8,
+        "W_H": 1,
+        "W_M": 0.66,
+        "W_L": 0.33,
+        "EPSILON": 0.036
+      }
+    },
+    {
+      "path": "ComputerVisionProject/SensiFakeProject-v3.ipynb",
+      "whole_file_sha256": "812c8257809f0430c3296d85c716b959348fa67136cce34bd596d37a31d63bf5",
+      "code_sha256": "f6de912ff399f67948a8dedb6b3a2d85821f8735adc8085fe47b15a63964055e",
+      "parameters": {
+        "RANDOM_SEED": 35,
+        "NUM_EPOCHS": 8,
+        "W_H": 1,
+        "W_M": 0.66,
+        "W_L": 0.33,
+        "EPSILON": 0.1
+      }
+    },
+    {
+      "path": "ComputerVisionProject/SensiFakeProject-v3-validation.ipynb",
+      "whole_file_sha256": "8994922eb76f24ca8142206c48d4209576e4c33285e074bffc59f1fe596f6eca",
+      "code_sha256": "6c3f1d7fff6d3477ffc3acd79dc4e739d4bf20752bfdf287d4f357cd8dc34791",
+      "parameters": {
+        "RANDOM_SEED": 20,
+        "NUM_EPOCHS": 6,
+        "W_H": 0.93,
+        "W_M": 0.5,
+        "W_L": 0.3,
+        "EPSILON": 0.4
+      }
+    },
+    {
+      "path": "SensiFake-Dataset/model_autoannotator/script/sensitivity_ordinal_v3.ipynb",
+      "whole_file_sha256": "e47224542a14aa87cec121fbd6ad43aa65d194297abba6359c6a6073e6786db8",
+      "code_sha256": "8d7433066498e5d19b64da8005347e8f7eba6bf5c60a1816233129e14fdaac08",
+      "parameters": {
+        "SEED": 42,
+        "MAX_EPOCHS": 12
+      }
+    },
+    {
+      "path": "SensiFake/autoannotator-final version/sensitivity_ordinal_v3.ipynb",
+      "whole_file_sha256": "d951f39f2890b9cd37e5faf0ea16cc0b0232f8d4063881e247fa187873911f5d",
+      "code_sha256": "72ee117936ec85808022fb6f1060e4678ade29fa6336d9e38ded4162fc66b3db",
+      "parameters": {
+        "SEED": 42,
+        "MAX_EPOCHS": 12
+      }
+    }
+  ],
+  "source_distribution": "Newly imported training notebooks withheld in v0.1 pending publication permission; identities/configurations below are historical evidence."
+}

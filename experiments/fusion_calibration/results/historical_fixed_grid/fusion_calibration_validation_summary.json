@@ -1,0 +1,89 @@
+{
+  "phase": "validation_calibration",
+  "validation_source": {
+    "path": "legacy/ComputerVisionProject/SensiFakeProject-output-v3-validation/validation_predictions.csv",
+    "sha256": "955dcef2e3553f29db5802997034423632f1ee43fbd55624bdfa22a9783b4aaf"
+  },
+  "project_notebook": {
+    "path": "legacy/ComputerVisionProject/SensiFakeProject-v3.ipynb",
+    "sha256": "7da80ce63eb1dd812e565de226dc97aad4a2e4366131a070d1f2dc9496491a10"
+  },
+  "samples": 450,
+  "weights": {
+    "W_H": 0.93,
+    "W_M": 0.5,
+    "W_L": 0.3
+  },
+  "label_semantics": {
+    "adn_indices": {
+      "0": "real",
+      "1": "fake"
+    },
+    "csn_indices": {
+      "0": "low",
+      "1": "medium",
+      "2": "high"
+    }
+  },
+  "grid": {
+    "min": 0.0,
+    "max": 0.5,
+    "step": 0.005
+  },
+  "accuracy_loss_allowance": 0.03,
+  "selection_order": [
+    "maximum Fake Recall",
+    "maximum Macro F1",
+    "minimum regressions",
+    "minimum EPSILON"
+  ],
+  "selection_formulation": "A",
+  "best_epsilon": 0.05,
+  "adn_baseline": {
+    "accuracy": 0.7933333333333333,
+    "macro_f1": 0.7927920345000025,
+    "fake_precision": 0.7661290322580645,
+    "fake_recall": 0.8444444444444444,
+    "fake_f1": 0.8033826638477801,
+    "fake_fnr": 0.15555555555555556
+  },
+  "selected_fusion": {
+    "epsilon": 0.05,
+    "accuracy": 0.7711111111111111,
+    "macro_f1": 0.7691951458776312,
+    "fake_precision": 0.7293233082706767,
+    "fake_recall": 0.8622222222222222,
+    "fake_f1": 0.790224032586558,
+    "fake_fnr": 0.13777777777777778,
+    "changed_predictions": 18,
+    "corrections": 4,
+    "regressions": 14,
+    "real_to_fake": 18,
+    "fake_to_real": 0,
+    "delta_accuracy": -0.022222222222222254,
+    "delta_macro_f1": -0.023596888622371304,
+    "delta_fake_precision": -0.036805723987387795,
+    "delta_fake_recall": 0.01777777777777778,
+    "delta_fake_f1": -0.013158631261222076,
+    "delta_fake_fnr": -0.01777777777777778,
+    "mean_prudence_score": 0.4808825116419817,
+    "mean_real_threshold": 0.5240441255820991,
+    "min_real_threshold": 0.5150146488527498,
+    "max_real_threshold": 0.5463796812040964,
+    "mean_fake_threshold": 0.47595587441790094,
+    "min_fake_threshold": 0.4536203187959036,
+    "max_fake_threshold": 0.48498535114725017,
+    "formulation_disagreements": 0,
+    "formulation_disagreement_percent": 0.0,
+    "passes_accuracy_constraint": true,
+    "passes_recall_constraint": true,
+    "is_feasible": true
+  },
+  "max_binary_probability_sum_error": 8.195638656616211e-08,
+  "probability_sum_atol": 0.001,
+  "binary_probability_sum_within_tolerance": true,
+  "formulation_disagreement_sample_epsilon_pairs": 0,
+  "formulation_disagreement_percent_over_all_sample_epsilon_pairs": 0.0,
+  "formulation_equivalence": "For binary softmax with p_fake = 1 \u2212 p_real the forms are mathematically equivalent, including ties. They are empirically equivalent on all saved validation samples for every tested EPSILON.",
+  "test_used_for_calibration": false
+}

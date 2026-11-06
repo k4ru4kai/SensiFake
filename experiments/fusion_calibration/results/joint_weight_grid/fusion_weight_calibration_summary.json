@@ -1,0 +1,361 @@
+{
+  "validation_input_path": "legacy/ComputerVisionProject/SensiFakeProject-output-v3-validation/validation_predictions.csv",
+  "validation_input_sha256": "955dcef2e3553f29db5802997034423632f1ee43fbd55624bdfa22a9783b4aaf",
+  "sample_count": 450,
+  "input_checks": {
+    "max_adn_probability_sum_error": 8.195638656616211e-08,
+    "max_csn_probability_sum_error": 1.3748649541067692e-07
+  },
+  "project_conventions_source": "legacy/ComputerVisionProject/SensiFakeProject-v3-validation.ipynb",
+  "label_semantics": {
+    "adn_indices": {
+      "0": "real",
+      "1": "fake"
+    },
+    "csn_indices": {
+      "0": "low",
+      "1": "medium",
+      "2": "high"
+    }
+  },
+  "adn_baseline_metrics": {
+    "accuracy": 0.7933333333333333,
+    "macro_f1": 0.7927920345000025,
+    "fake_precision": 0.7661290322580645,
+    "fake_recall": 0.8444444444444444,
+    "fake_f1": 0.8033826638477801,
+    "fake_fnr": 0.15555555555555556
+  },
+  "search_ranges": {
+    "w_low": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6
+    ],
+    "w_medium": [
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95,
+      1.0
+    ],
+    "w_high_fixed": 1.0,
+    "epsilon": [
+      0.0,
+      0.005,
+      0.01,
+      0.015,
+      0.02,
+      0.025,
+      0.03,
+      0.035,
+      0.04,
+      0.045,
+      0.05,
+      0.055,
+      0.06,
+      0.065,
+      0.07,
+      0.075,
+      0.08,
+      0.085,
+      0.09,
+      0.095,
+      0.1,
+      0.105,
+      0.11,
+      0.115,
+      0.12,
+      0.125,
+      0.13,
+      0.135,
+      0.14,
+      0.145,
+      0.15
+    ]
+  },
+  "tested_configurations": 5735,
+  "feasible_configurations": 2895,
+  "selection_constraints": {
+    "maximum_absolute_accuracy_loss": 0.03,
+    "accuracy_lower_bound": 0.7633333333333333,
+    "minimum_fake_recall": 0.8444444444444444
+  },
+  "selection_priority": [
+    "maximum Fake Recall",
+    "maximum Macro F1",
+    "minimum regressions",
+    "maximum Fake F1",
+    "minimum EPSILON",
+    "minimum squared distance to (W_L=1/3, W_M=2/3, W_H=1)",
+    "minimum W_L + W_M",
+    "minimum W_L",
+    "minimum W_M"
+  ],
+  "current_normalized_configuration": {
+    "w_low": 0.3225806451612903,
+    "w_medium": 0.5376344086021505,
+    "w_high": 1.0,
+    "epsilon": 0.04650000000000001
+  },
+  "current_configuration_metrics": {
+    "w_low": 0.3225806451612903,
+    "w_medium": 0.5376344086021505,
+    "w_high": 1.0,
+    "epsilon": 0.04650000000000001,
+    "accuracy": 0.7711111111111111,
+    "macro_f1": 0.7691951458776312,
+    "fake_precision": 0.7293233082706767,
+    "fake_recall": 0.8622222222222222,
+    "fake_f1": 0.790224032586558,
+    "fake_fnr": 0.13777777777777778,
+    "delta_accuracy": -0.022222222222222254,
+    "delta_macro_f1": -0.023596888622371304,
+    "delta_fake_precision": -0.036805723987387795,
+    "delta_fake_recall": 0.01777777777777778,
+    "delta_fake_f1": -0.013158631261222076,
+    "delta_fake_fnr": -0.01777777777777778,
+    "changed_predictions": 18,
+    "real_to_fake": 18,
+    "fake_to_real": 0,
+    "corrections": 4,
+    "regressions": 14,
+    "mean_prudence_score": 0.5170779695075073,
+    "std_prudence_score": 0.13596026258230023,
+    "min_prudence_score": 0.3228956742526842,
+    "max_prudence_score": 0.9974124990128258,
+    "mean_fake_threshold": 0.47595587441790094,
+    "std_fake_threshold": 0.006322152210076962,
+    "min_fake_threshold": 0.4536203187959036,
+    "max_fake_threshold": 0.48498535114725017,
+    "thresholds_below_zero": 0,
+    "thresholds_above_one": 0
+  },
+  "current_original_epsilon_reference": {
+    "w_low": 0.3225806451612903,
+    "w_medium": 0.5376344086021505,
+    "w_high": 1.0,
+    "epsilon": 0.37200000000000005,
+    "accuracy": 0.68,
+    "macro_f1": 0.6498735654541918,
+    "fake_precision": 0.6134453781512605,
+    "fake_recall": 0.9733333333333334,
+    "fake_f1": 0.7525773195876289,
+    "fake_fnr": 0.02666666666666667,
+    "delta_accuracy": -0.11333333333333329,
+    "delta_macro_f1": -0.14291846904581063,
+    "delta_fake_precision": -0.15268365410680396,
+    "delta_fake_recall": 0.12888888888888894,
+    "delta_fake_f1": -0.050805344260151264,
+    "delta_fake_fnr": -0.1288888888888889,
+    "changed_predictions": 109,
+    "real_to_fake": 109,
+    "fake_to_real": 0,
+    "corrections": 29,
+    "regressions": 80,
+    "mean_prudence_score": 0.5170779695075073,
+    "std_prudence_score": 0.13596026258230023,
+    "min_prudence_score": 0.3228956742526842,
+    "max_prudence_score": 0.9974124990128258,
+    "mean_fake_threshold": 0.3076469953432072,
+    "std_fake_threshold": 0.05057721768061569,
+    "min_fake_threshold": 0.12896255036722876,
+    "max_fake_threshold": 0.3798828091780015,
+    "thresholds_below_zero": 0,
+    "thresholds_above_one": 0
+  },
+  "normalization_checks": {
+    "current_original": {
+      "original_representation": {
+        "w_low": 0.3,
+        "w_medium": 0.5,
+        "w_high": 0.93,
+        "epsilon": 0.4
+      },
+      "normalized_representation": {
+        "w_low": 0.3225806451612903,
+        "w_medium": 0.5376344086021505,
+        "w_high": 1.0,
+        "epsilon": 0.37200000000000005
+      },
+      "max_threshold_normalization_error": 1.1102230246251565e-16,
+      "normalization_prediction_disagreements": 0,
+      "saved_p_real_vs_preferred_p_fake_disagreements": 0
+    },
+    "current_calibrated": {
+      "original_representation": {
+        "w_low": 0.3,
+        "w_medium": 0.5,
+        "w_high": 0.93,
+        "epsilon": 0.05
+      },
+      "normalized_representation": {
+        "w_low": 0.3225806451612903,
+        "w_medium": 0.5376344086021505,
+        "w_high": 1.0,
+        "epsilon": 0.04650000000000001
+      },
+      "max_threshold_normalization_error": 5.551115123125783e-17,
+      "normalization_prediction_disagreements": 0,
+      "saved_p_real_vs_preferred_p_fake_disagreements": 0
+    }
+  },
+  "BEST_W_L": 0.45,
+  "BEST_W_M": 0.5,
+  "BEST_W_H": 1.0,
+  "BEST_EPSILON": 0.065,
+  "selected_fusion_metrics": {
+    "w_low": 0.45,
+    "w_medium": 0.5,
+    "w_high": 1.0,
+    "epsilon": 0.065,
+    "accuracy": 0.7666666666666667,
+    "macro_f1": 0.7643097643097643,
+    "fake_precision": 0.7222222222222222,
+    "fake_recall": 0.8666666666666667,
+    "fake_f1": 0.7878787878787878,
+    "fake_fnr": 0.13333333333333333,
+    "delta_accuracy": -0.026666666666666616,
+    "delta_macro_f1": -0.02848227019023819,
+    "delta_fake_precision": -0.04390681003584229,
+    "delta_fake_recall": 0.022222222222222254,
+    "delta_fake_f1": -0.015503875968992276,
+    "delta_fake_fnr": -0.022222222222222227,
+    "changed_predictions": 22,
+    "real_to_fake": 22,
+    "fake_to_real": 0,
+    "corrections": 5,
+    "regressions": 17,
+    "mean_prudence_score": 0.5251184600035543,
+    "std_prudence_score": 0.11027405233729834,
+    "min_prudence_score": 0.45010817979782586,
+    "max_prudence_score": 0.9972341716696971,
+    "mean_fake_threshold": 0.46586730009976896,
+    "std_fake_threshold": 0.007167813401924392,
+    "min_fake_threshold": 0.4351797788414697,
+    "max_fake_threshold": 0.47074296831314133,
+    "thresholds_below_zero": 0,
+    "thresholds_above_one": 0
+  },
+  "metric_deltas_vs_adn": {
+    "accuracy": -0.026666666666666616,
+    "macro_f1": -0.02848227019023819,
+    "fake_precision": -0.04390681003584229,
+    "fake_recall": 0.022222222222222254,
+    "fake_f1": -0.015503875968992276,
+    "fake_fnr": -0.022222222222222227
+  },
+  "corrections": 5,
+  "regressions": 17,
+  "changed_decisions": 22,
+  "thresholds_outside_unit_interval_configurations": 0,
+  "threshold_handling": "Use the formula without clipping. Below 0 predicts all valid probabilities Fake; above 1 predicts all Real.",
+  "prudence_and_threshold_std_ddof": 0,
+  "interpretability": {
+    "semantic_order_preserved": true,
+    "medium_minus_low": 0.04999999999999999,
+    "high_minus_medium": 0.5,
+    "feasible_immediate_neighbors": 17,
+    "identical_metric_neighbors": 1,
+    "nearly_identical_metric_neighbors": 12,
+    "near_metric_tolerances": {
+      "accuracy": 0.0022222222222222222,
+      "macro_f1": 0.0022222222222222222,
+      "fake_recall": 0.0044444444444444444
+    },
+    "message": "Several neighboring configurations yield nearly identical validation metrics: the solution lies in a stable-performing local parameter region on the full validation grid, rather than supporting uniquely optimal exact decimals. Interpret weight gaps alongside the 5-fold parameter variability; small decimal differences are not scientific evidence."
+  },
+  "stability": {
+    "folds": 5,
+    "seed": 20,
+    "strategy": "StratifiedKFold by true Real/Fake",
+    "diagnostic_only": true,
+    "final_parameters_selected_on_full_validation": true,
+    "heldout_metric_std_ddof": 1,
+    "heldout_metric_summary": {
+      "accuracy": {
+        "mean": 0.731111111111111,
+        "std": 0.06822258414670558
+      },
+      "macro_f1": {
+        "mean": 0.7232457295788642,
+        "std": 0.07287960138910092
+      },
+      "fake_recall": {
+        "mean": 0.8711111111111111,
+        "std": 0.08944271909999157
+      },
+      "fake_fnr": {
+        "mean": 0.1288888888888889,
+        "std": 0.08944271909999157
+      }
+    },
+    "heldout_adn_metric_summary": {
+      "accuracy": {
+        "mean": 0.7933333333333333,
+        "std": 0.04881307252553066
+      },
+      "macro_f1": {
+        "mean": 0.7919691357738499,
+        "std": 0.04890312196748618
+      },
+      "fake_recall": {
+        "mean": 0.8444444444444444,
+        "std": 0.0785674201318386
+      },
+      "fake_fnr": {
+        "mean": 0.15555555555555559,
+        "std": 0.07856742013183861
+      }
+    },
+    "selected_parameter_frequencies": {
+      "w_low": {
+        "0.1": 2,
+        "0.45": 2,
+        "0.6": 1
+      },
+      "w_medium": {
+        "0.5": 2,
+        "0.75": 1,
+        "0.95": 2
+      },
+      "epsilon": {
+        "0.055": 2,
+        "0.065": 2,
+        "0.14": 1
+      }
+    },
+    "test_used_for_calibration": false,
+    "interpretation": "Fold scores are robustness diagnostics on saved validation outputs, not independent final test estimates.",
+    "mean_heldout_delta_accuracy_vs_adn": -0.06222222222222222,
+    "mean_heldout_delta_fake_recall_vs_adn": 0.026666666666666682,
+    "unique_selected_configurations": 3,
+    "parameter_stability_interpretation": "3 distinct configurations were selected across 5 folds. Local plateaus in full-validation metrics do not establish stable exact weight estimates. The 0.03 Accuracy allowance is enforced on calibration subsets, not on held-out diagnostic folds."
+  },
+  "final_selection_uses_full_validation_only": true,
+  "true_sensitivity_analysis_used_for_selection": false,
+  "stability_used_for_final_selection": false,
+  "test_used_for_calibration": false
+}

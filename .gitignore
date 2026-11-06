@@ -291,3 +291,18 @@ token*.json
 # Local agent state
 /.agents/
 /.codex/
+
+# Reviewed metadata-only artifact catalog; model binaries remain excluded.
+!/artifacts/
+/artifacts/*
+!/artifacts/README.md
+!/artifacts/checkpoints.json
+
+# Reviewed public task derivatives only; raw task names/operational files stay excluded.
+!/annotations/tasks/
+/annotations/tasks/*
+!/annotations/tasks/human-train-v0/
+/annotations/tasks/human-train-v0/*
+!/annotations/tasks/human-train-v0/reviewer-001.csv
+!/annotations/tasks/human-train-v0/reviewer-002.csv
+!/annotations/tasks/human-train-v0/reviewer-003.csv

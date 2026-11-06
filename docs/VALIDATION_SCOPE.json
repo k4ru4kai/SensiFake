@@ -1,0 +1,31 @@
+{
+  "status": "v0.1 Research Project; limited supported scope",
+  "base_commit": "4c0f2749e839c84397b73f0ef4bb848471842af5",
+  "supported_tests": "164 passed, 1 local-only fixture skip (v0.1 lightweight suite)",
+  "focused_tests": "selected-policy arithmetic verified for three recorded policies",
+  "historical_fixture_tests": "two unchanged files archived; initial inherited-suite check had 18 fixture failures",
+  "distinct_calibration_output_trees": 3,
+  "VLM_source_markdown_duplicates_consolidated": 6,
+  "live_hf_sources_tested": 3,
+  "persistent_dataset_images": false,
+  "model_weights_distributed": false,
+  "training_inference_or_search_reruns": false,
+  "benchmark_files_preserved_byte_identically": 32,
+  "new_licenses_applied": false,
+  "history_privacy_clearance": "TARGETED REVIEW COMPLETE: 3 LOW,7 REVIEW,0 HIGH; candidate minimized, not anonymous; attribution/free-text consent unresolved",
+  "clean_environment_solve": "NOT PERFORMED",
+  "privacy_patch_tests": "6 passed",
+  "privacy_patch": {
+    "scope": "candidate only",
+    "LOW_files_restored_exactly": 3,
+    "REVIEW_derivatives": 7,
+    "originals_and_history_preserved": true,
+    "contributor_credits_preserved": true,
+    "identity_mapping_published": false,
+    "anonymous": false,
+    "manifest": "privacy_patch_manifest.json"
+  },
+  "historical_calibration_source": "4 consolidated scripts withheld pending contributor publication permission",
+  "newly_imported_source_files_withheld": 19,
+  "targeted_worktree_scan": "No detected secret patterns, private home paths or prohibited image/weight/database/cache/archive payloads"
+}

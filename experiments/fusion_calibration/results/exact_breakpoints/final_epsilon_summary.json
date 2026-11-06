@@ -1,0 +1,275 @@
+{
+  "validation_input_path": "legacy/ComputerVisionProject/SensiFakeProject-output-v3-validation/validation_predictions.csv",
+  "validation_input_sha256": "955dcef2e3553f29db5802997034423632f1ee43fbd55624bdfa22a9783b4aaf",
+  "sample_count": 450,
+  "input_checks": {
+    "maximum_adn_probability_sum_error": 8.195638656616211e-08,
+    "maximum_csn_probability_sum_error": 1.3748649507761002e-07
+  },
+  "fixed_sensitivity_weights": {
+    "low": "1/3",
+    "medium": "2/3",
+    "high": "1"
+  },
+  "severity_source": "TRUE sensitivity labels of TRUE Fake samples; predicted CSN probabilities are used only in prudence",
+  "label_semantics": {
+    "authenticity": {
+      "0": "real",
+      "1": "fake"
+    },
+    "sensitivity": {
+      "0": "low",
+      "1": "medium",
+      "2": "high"
+    }
+  },
+  "adn_baseline_metrics": {
+    "accuracy": 0.7933333333333333,
+    "macro_f1": 0.7927920345000025,
+    "fake_precision": 0.7661290322580645,
+    "fake_recall": 0.8444444444444444,
+    "fake_f1": 0.8033826638477801,
+    "fake_fnr": 0.15555555555555556,
+    "weighted_fake_recall": 0.8613861386138614,
+    "weighted_fake_fnr": 0.13861386138613863
+  },
+  "adn_sensitivity_weighted_metrics": {
+    "weighted_fake_recall": 0.8613861386138614,
+    "weighted_fake_fnr": 0.13861386138613863
+  },
+  "number_of_exact_breakpoints": 202,
+  "number_of_epsilon_candidates_including_zero": 203,
+  "number_of_unique_decision_policies": 203,
+  "number_of_feasible_policies": 22,
+  "selection_constraints": {
+    "maximum_absolute_accuracy_loss": 0.03,
+    "accuracy_lower_bound": 0.7633333333333333,
+    "minimum_fake_recall": 0.8444444444444444,
+    "minimum_weighted_fake_recall": 0.8613861386138614
+  },
+  "selection_priority": [
+    "maximum Sensitivity-Weighted Fake Recall",
+    "maximum ordinary Fake Recall",
+    "maximum Macro F1",
+    "minimum regressions",
+    "maximum Fake F1",
+    "minimum changed predictions",
+    "minimum exact EPSILON"
+  ],
+  "BEST_EPSILON": 0.03576980050930068,
+  "BEST_EPSILON_INTERVAL_LOWER": 0.03576980050930068,
+  "BEST_EPSILON_INTERVAL_UPPER": 0.03908675174646102,
+  "interval_lower_inclusive": true,
+  "interval_upper_inclusive": false,
+  "interval_upper_unbounded": false,
+  "BEST_EPSILON_numerator": "12475616",
+  "BEST_EPSILON_denominator": "348775107",
+  "BEST_EPSILON_INTERVAL_UPPER_numerator": "110919168",
+  "BEST_EPSILON_INTERVAL_UPPER_denominator": "2837768887",
+  "optimal_policy_interpretation": "The validation data support an optimal decision interval rather than a uniquely identifiable EPSILON decimal.",
+  "selected_fusion_metrics": {
+    "accuracy": 0.7711111111111111,
+    "macro_f1": 0.769195145877631,
+    "fake_precision": 0.7293233082706767,
+    "fake_recall": 0.8622222222222222,
+    "fake_f1": 0.790224032586558,
+    "fake_fnr": 0.13777777777777778,
+    "weighted_fake_recall": 0.8762376237623762,
+    "weighted_fake_fnr": 0.12376237623762376
+  },
+  "all_deltas_vs_adn": {
+    "accuracy": -0.022222222222222254,
+    "macro_f1": -0.023596888622371415,
+    "fake_precision": -0.036805723987387795,
+    "fake_recall": 0.01777777777777778,
+    "fake_f1": -0.013158631261222076,
+    "fake_fnr": -0.01777777777777778,
+    "weighted_fake_recall": 0.014851485148514865,
+    "weighted_fake_fnr": -0.014851485148514865
+  },
+  "changed_predictions": 18,
+  "corrections": 4,
+  "regressions": 14,
+  "corrections_regressions_by_true_sensitivity": {
+    "low": {
+      "corrections": 2,
+      "regressions": 7
+    },
+    "medium": {
+      "corrections": 2,
+      "regressions": 7
+    },
+    "high": {
+      "corrections": 0,
+      "regressions": 0
+    }
+  },
+  "samples_changing_exactly_at_best_epsilon": [
+    {
+      "image_id": "341cbb369afb44c8cc8786689b7845ad2d124417b6025370089bab3b0bf336de",
+      "image_path": "autoannotated/images/341cbb369afb44c8cc8786689b7845ad2d124417b6025370089bab3b0bf336de.png",
+      "true_real_fake": 1,
+      "true_sensitivity": 1
+    }
+  ],
+  "true_sensitivity_diagnostics": [
+    {
+      "sensitivity": "Low",
+      "samples": 127,
+      "true_fake_samples": 63,
+      "accuracy": 0.6614173228346457,
+      "fake_recall": 0.7936507936507936,
+      "fake_fnr": 0.20634920634920634,
+      "changed_predictions": 9,
+      "corrections": 2,
+      "regressions": 7
+    },
+    {
+      "sensitivity": "Medium",
+      "samples": 301,
+      "true_fake_samples": 145,
+      "accuracy": 0.8073089700996677,
+      "fake_recall": 0.8827586206896552,
+      "fake_fnr": 0.11724137931034483,
+      "changed_predictions": 9,
+      "corrections": 2,
+      "regressions": 7
+    },
+    {
+      "sensitivity": "High",
+      "samples": 22,
+      "true_fake_samples": 17,
+      "accuracy": 0.9090909090909091,
+      "fake_recall": 0.9411764705882353,
+      "fake_fnr": 0.058823529411764705,
+      "changed_predictions": 0,
+      "corrections": 0,
+      "regressions": 0
+    }
+  ],
+  "numerical_policy": {
+    "probability_reader": "binary64 round-trip parsing",
+    "breakpoint_and_decision_arithmetic": "exact rational arithmetic; numerator/denominator fields are authoritative",
+    "decimal_epsilon_fields": "nearest binary64 display approximation, not used to select or evaluate policies",
+    "epsilon_comparison_tolerance": 0,
+    "probability_sum_atol": 1e-06,
+    "literal_float64_boundary_audit_atol": 1.7763568394002505e-15,
+    "literal_float64_boundary_disagreements_at_selected_policy": 0,
+    "literal_float64_disagreement_sample_policy_pairs": 18
+  },
+  "full_validation_selected_before_stability_analysis": true,
+  "stability_used_for_final_selection": false,
+  "parameter_selected_using_validation_only": true,
+  "test_used_for_calibration": false,
+  "stability": {
+    "diagnostic_only": true,
+    "folds": 5,
+    "random_seed": 20,
+    "strategy": "StratifiedKFold by true Real/Fake",
+    "metric_std_ddof": 1,
+    "selected_epsilon_values": [
+      0.03576980050930068,
+      0.03576980050930068,
+      0.03576980050930068,
+      0.025056248848319834,
+      0.03576980050930068
+    ],
+    "selected_exact_epsilon_values": [
+      {
+        "numerator": "12475616",
+        "denominator": "348775107"
+      },
+      {
+        "numerator": "12475616",
+        "denominator": "348775107"
+      },
+      {
+        "numerator": "12475616",
+        "denominator": "348775107"
+      },
+      {
+        "numerator": "97585920",
+        "denominator": "3894673963"
+      },
+      {
+        "numerator": "12475616",
+        "denominator": "348775107"
+      }
+    ],
+    "selected_epsilon_mean": 0.03362709017710451,
+    "selected_epsilon_std": 0.004791245958881792,
+    "selected_epsilon_min": 0.025056248848319834,
+    "selected_epsilon_max": 0.03576980050930068,
+    "heldout_metrics": {
+      "accuracy": {
+        "mean": 0.7711111111111111,
+        "std": 0.062162669914219405
+      },
+      "macro_f1": {
+        "mean": 0.7684763525975178,
+        "std": 0.0632716154411281
+      },
+      "fake_precision": {
+        "mean": 0.7343918846130828,
+        "std": 0.06389359079855586
+      },
+      "fake_recall": {
+        "mean": 0.8577777777777778,
+        "std": 0.07793634629666744
+      },
+      "fake_f1": {
+        "mean": 0.7894926641101307,
+        "std": 0.0546524146839061
+      },
+      "fake_fnr": {
+        "mean": 0.1422222222222222,
+        "std": 0.07793634629666747
+      },
+      "weighted_fake_recall": {
+        "mean": 0.8700841810749796,
+        "std": 0.06697963594373492
+      },
+      "weighted_fake_fnr": {
+        "mean": 0.1299158189250203,
+        "std": 0.06697963594373492
+      }
+    },
+    "heldout_adn_metrics": {
+      "accuracy": {
+        "mean": 0.7933333333333333,
+        "std": 0.04881307252553066
+      },
+      "macro_f1": {
+        "mean": 0.7919691357738499,
+        "std": 0.04890312196748618
+      },
+      "fake_precision": {
+        "mean": 0.7703272535992783,
+        "std": 0.061286242991676544
+      },
+      "fake_recall": {
+        "mean": 0.8444444444444444,
+        "std": 0.0785674201318386
+      },
+      "fake_f1": {
+        "mean": 0.8032036653299478,
+        "std": 0.04517986163635909
+      },
+      "fake_fnr": {
+        "mean": 0.15555555555555559,
+        "std": 0.07856742013183861
+      },
+      "weighted_fake_recall": {
+        "mean": 0.86038612960986,
+        "std": 0.06781786857750094
+      },
+      "weighted_fake_fnr": {
+        "mean": 0.13961387039014,
+        "std": 0.06781786857750094
+      }
+    },
+    "full_validation_selection_unchanged_by_diagnostic": true,
+    "test_used_for_calibration": false,
+    "interpretation": "Resampling diagnoses sensitivity to validation membership. Calibration constraints do not guarantee held-out fold constraints."
+  }
+}
